@@ -8,11 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/obavjestenje")
-public class ObavjestenjaRepository {
+public class ObavjestenjaController {
 
     private ObavjestenjaService obavjestenjaService;
 
-    public ObavjestenjaRepository(ObavjestenjaService obavjestenjaService) { this.obavjestenjaService=obavjestenjaService;}
+    public ObavjestenjaController(ObavjestenjaService obavjestenjaService) { this.obavjestenjaService=obavjestenjaService;}
 
     @GetMapping()
     public List<Obavjestenja> getAllObavjestenja(){

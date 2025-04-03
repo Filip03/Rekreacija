@@ -35,7 +35,7 @@ public class OcjenaController {
         return result;
     }
 
-    @PutMapping("/{id}")
+    @DeleteMapping("/{id}")
     public int deleteOcjena(@PathVariable("id") int id){
         int result = this.ocjenaService.deleteOcjena(id);
         return result;
