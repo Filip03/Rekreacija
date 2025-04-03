@@ -1,7 +1,7 @@
 package com.rekreacija.pac.repositories;
 
 import com.rekreacija.pac.DBUtil;
-import com.rekreacija.pac.models.Ekipa;
+import com.rekreacija.pac.models.Pozajmica;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -11,35 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class EkipaRepository {
+public class PozajmicaRepository {
 
-
-    public List<Ekipa> getAllEkipa(){
-
+    public List<Pozajmica> getAllPozajmica(){
         Connection conn = null;
-        ArrayList<Ekipa> resut = null;
         PreparedStatement ps = null;
+        ArrayList<Pozajmica> result = null;
+
         try{
             conn = DBUtil.openConnection();
-            resut = new ArrayList<Ekipa>();
-            String commandText = "SELECT * FROM ekipa";
+            result = new ArrayList<>();
+            String commandText = "SELECT * FROM pozajmica";
             ps = conn.prepareStatement(commandText);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Ekipa e = new Ekipa(
+                Pozajmica p = new Pozajmica(
                         rs.getInt("id"),
                         rs.getBigDecimal("rating"),
-                        rs.getString("name")
+                        rs.getInt("user_id"),
+                        rs.getInt("reservation_id")
                 );
-                resut.add(e);
+                result.add(p);
             }
-
             ps.close();
             conn.close();
 
         }
         catch(Exception e){
-            resut = null;
+            result = null;
             e.printStackTrace();
         }
         finally{
@@ -51,33 +50,29 @@ public class EkipaRepository {
                 e.printStackTrace();
             }
         }
-        return resut;
+        return result;
     }
 
-    public Ekipa getEkipaByID(int id){
-
+    public Pozajmica getPozajmicaById(int id){
         Connection conn = null;
-        Ekipa result = null;
         PreparedStatement ps = null;
+        Pozajmica result = null;
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "SELECT * FROM ekipa WHERE id = ?";
+            String commandText = "SELECT * FROM pozajmica WHERE id = ?";
             ps = conn.prepareStatement(commandText);
             ps.setInt(1, id);
-
             ResultSet rs = ps.executeQuery();
-
             if(!rs.next()){
-                throw new Exception("Ekipa with id " + id + " not found");
+                throw new Exception("Pozajmica sa identifikacionim brojem " + id + " ne postoji!");
             }
-
-            result = new Ekipa(
+            result = new Pozajmica(
                     rs.getInt("id"),
                     rs.getBigDecimal("rating"),
-                    rs.getString("name")
+                    rs.getInt("user_id"),
+                    rs.getInt("reservation_id")
             );
-
             ps.close();
             conn.close();
         }
@@ -87,77 +82,7 @@ public class EkipaRepository {
         }
         finally{
             try{
-                if(ps!=null) ps.close();
-                if(conn!=null) conn.close();
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-        return result;
-    }
-
-    public int insertEkipa(Ekipa e) {
-        Connection conn = null;
-        int result = -1;
-        PreparedStatement ps = null;
-
-        try {
-            conn = DBUtil.openConnection();
-            String commandText = "INSERT INTO ekipa(name, rating) VALUES (?, ?)";
-            ps = conn.prepareStatement(commandText);
-            ps.setString(1, e.name);
-            ps.setBigDecimal(2, e.rating);
-
-            int affectedRows = ps.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new Exception("Greška prilikom kreiranja ekipe!");
-            }
-            result = 1;
-            ps.close();
-            conn.close();
-        } catch (Exception ex) {
-            result = -1;
-            ex.printStackTrace();
-        } finally {
-            try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return result;
-    }
-
-    public int updateEkipa(Ekipa ekipa, int ekipa_id){
-        Connection conn = null;
-        int result = -1;
-        PreparedStatement ps = null;
-
-        try{
-            conn = DBUtil.openConnection();
-            String commandText = "UPDATE ekipa SET name = ?, rating = ? WHERE id = ?";
-            ps = conn.prepareStatement(commandText);
-            ps.setString(1, ekipa.name);
-            ps.setBigDecimal(2, ekipa.rating);
-            ps.setInt(3, ekipa_id);
-
-            int affectedRows = ps.executeUpdate();
-            if (affectedRows == 0) {throw new Exception("Greška prilikom ažuriranja ekipe: "+ekipa.name+"!");}
-
-            result = 1;
-            ps.close();
-            conn.close();
-        }
-        catch(Exception e){
-            result = -1;
-            e.printStackTrace();
-        }
-        finally{
-            try{
-                if(ps!=null) ps.close();
+                if(ps != null) ps.close();
                 if(conn != null) conn.close();
             }
             catch(Exception e){
@@ -167,34 +92,111 @@ public class EkipaRepository {
         return result;
     }
 
-    public int deleteEkipa(int id){
+    public int insertPozajmica(Pozajmica p){
         Connection conn = null;
-        int result = -1;
         PreparedStatement ps = null;
+        int result = -1;
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "DELETE FROM ekipa WHERE id = ?";
+            String commandText = "INSERT INTO pozajmica (id, rating, user_id, reservation_id) VALUES (?, ?, ?, ?)";
             ps = conn.prepareStatement(commandText);
-            ps.setInt(1, id);
+            ps.setInt(1, p.id);
+            ps.setBigDecimal(2, p.rating);
+            ps.setInt(3, p.user_id);
+            ps.setInt(4, p.reservation_id);
 
             int affectedRows = ps.executeUpdate();
-            if (affectedRows==0){throw new Exception("Greška prilikom brisanja ekipe!");}
-
-            result = 1;
+            if(affectedRows==0){
+                throw new Exception("Greska prilikom kreiranja pozajmie!");
+            }
+            result = affectedRows;
             ps.close();
             conn.close();
-        }
-        catch(Exception e){
+
+        } catch (Exception e) {
             result = -1;
             e.printStackTrace();
         }
-        finally{
+        finally {
             try{
                 if(ps!=null) ps.close();
                 if(conn != null) conn.close();
             }
-            catch(Exception e){
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public int updatePozajmica(Pozajmica p, int p_id){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int result = -1;
+
+        try{
+            conn = DBUtil.openConnection();
+            String commandText = "UPDATE pozajmica SET rating = ?, user_id= ?, reservation_id = ? WHERE id = ?";
+            ps = conn.prepareStatement(commandText);
+            ps.setBigDecimal(1, p.rating);
+            ps.setInt(2, p.user_id);
+            ps.setInt(3, p.reservation_id);
+            ps.setInt(4, p_id);
+
+            int affectedRows = ps.executeUpdate();
+            if(affectedRows==0){
+                throw new Exception("Greska prilikom azuriranja pozajmice!");
+            }
+            result = affectedRows;
+            ps.close();
+            conn.close();
+
+        } catch (Exception e) {
+            result = -1;
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(ps!=null) ps.close();
+                if(conn != null) conn.close();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public int deletePozajmica(int p_id){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int result = -1;
+
+        try{
+            conn = DBUtil.openConnection();
+            String commandText = "DELETE FROM pozajmica WHERE id = ?";
+            ps = conn.prepareStatement(commandText);
+            ps.setInt(1, p_id);
+
+            int affectedRows = ps.executeUpdate();
+            if(affectedRows==0){
+                throw new Exception("Greska prilikom brisanja pozajmice!");
+            }
+            result = affectedRows;
+            ps.close();
+            conn.close();
+
+        } catch (Exception e) {
+            result=-1;
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(ps!=null) ps.close();
+                if(conn != null) conn.close();
+            }
+            catch (Exception e){
                 e.printStackTrace();
             }
         }
