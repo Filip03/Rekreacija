@@ -27,6 +27,7 @@ public class RegistrationService {
                 .anyMatch(k -> k.username.equalsIgnoreCase(request.username()));
 
         if (postoji) return false;
+        validatePassword(request.password());
 
         Integer teamId = request.team_id() != null ? request.team_id() : null;
         Integer typeId = request.type_id() != null ? request.type_id() : null;
@@ -47,5 +48,16 @@ public class RegistrationService {
 
         int rezultat = korisnikRepository.insertKorisnik(korisnik);
         return rezultat > 0;
+    }
+
+    private void validatePassword(String password) {
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Lozinka mora imati najmanje 8 karaktera.");
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Lozinka mora sadržavati barem jednu cifru.");
+        }
+
     }
 }
