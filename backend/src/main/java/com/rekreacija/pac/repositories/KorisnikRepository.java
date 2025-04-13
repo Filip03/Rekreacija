@@ -105,14 +105,14 @@ public class KorisnikRepository {
         return result;
     }
 
-    public int insertKorinsik(Korisnik k){
+    public int insertKorisnik(Korisnik k){
         Connection conn = null;
         int result = -1;
         PreparedStatement ps = null;
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "INSERT INTO korinsik(name, surname, email, password, username, phone_number, date_of_registration, team_id, type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String commandText = "INSERT INTO korisnik(name, surname, email, password, username, phone_number, date_of_registration, team_id, type_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(commandText);
             ps.setString(1, k.name);
             ps.setString(2, k.surname);
@@ -121,7 +121,8 @@ public class KorisnikRepository {
             ps.setString(5, k.username);
             ps.setString(6, k.phone_number);
             ps.setDate(7, k.date_of_registration);
-            ps.setInt(8, k.team_id);
+            if(k.team_id!=null) ps.setInt(8, k.team_id);
+            else ps.setNull(8, java.sql.Types.INTEGER);
             ps.setInt(9, k.type_id);
 
             int affectedRows = ps.executeUpdate();

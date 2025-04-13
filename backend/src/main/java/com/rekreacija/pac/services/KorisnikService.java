@@ -25,7 +25,7 @@ public class KorisnikService {
     }
 
     public int insertKorisnik(Korisnik korisnik){
-        int result = this.korisnikRepository.insertKorinsik(korisnik);
+        int result = this.korisnikRepository.insertKorisnik(korisnik);
         return result;
     }
 
