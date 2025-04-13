@@ -24,7 +24,7 @@ public class TipRepository {
             ps = conn.prepareStatement(commandText);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                Tip t = new Tip(rs.getInt("id"), rs.getString("name"));
+                Tip t = new Tip(rs.getInt("id"), rs.getString("type"));
                 result.add(t);
             }
             ps.close();
@@ -60,7 +60,7 @@ public class TipRepository {
             if(!rs.next()){
                 throw new Exception("Tip korisnika ne postoji!");
             }
-            result = new Tip(rs.getInt("id"), rs.getString("name"));
+            result = new Tip(rs.getInt("id"), rs.getString("type"));
             ps.close();
             conn.close();
         }

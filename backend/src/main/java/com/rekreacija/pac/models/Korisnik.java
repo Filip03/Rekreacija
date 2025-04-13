@@ -12,10 +12,10 @@ public class Korisnik {
     public String username;
     public String phone_number;
     public Date date_of_registration;
-    public int team_id;
-    public int type_id;
+    public Integer team_id;
+    public Integer type_id;
 
-    public Korisnik(int id, int type_id, int team_id, Date date_of_registration, String phone_number, String password, String email, String username,  String surname, String name) {
+    public Korisnik(int id, Integer type_id, Integer team_id, Date date_of_registration, String phone_number, String password, String email, String username,  String surname, String name) {
         this.id = id;
         this.type_id = type_id;
         this.team_id = team_id;
