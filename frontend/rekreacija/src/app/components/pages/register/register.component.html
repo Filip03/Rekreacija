@@ -1,1 +1,57 @@
-<p>register works!</p>
+<div>
+    <form (ngSubmit)="register()">
+        <div class="form-floating">
+            <input type="text" id="nameInput" [(ngModel)]="user.name" name="name">
+            <label for="nameInput">Ime</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" id="surnameInput" [(ngModel)]="user.surname" name="surname">
+            <label for="surnameInput">Prezime</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="email" id="emailInput" [(ngModel)]="user.email" name="email">
+            <label for="emailInput">E-mail adresa</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" id="usernameInput" [(ngModel)]="user.username" name="username">
+            <label for="usernameInput">Korisnicko Ime</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="password" id = "floatingPassword" [(ngModel)]="user.password" name="password">
+            <label for="floatingPassword">Lozinka</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="number" id="phoneInput" [(ngModel)]="user.phone_number" name="phone_number">
+            <label for="phoneInput">Broj telefona</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="userTypeID" id="igrac" [(ngModel)]="user.type_id" [value]="'igrac'">
+            <label class="form-check-label" for="igrac">
+              Igrac
+            </label>
+        </div>
+        
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="userTypeID" id="vlasnik" [(ngModel)]="user.type_id" [value]="'vlasnik'">
+            <label class="form-check-label" for="vlasnik">
+              Vlasnik
+            </label>
+        </div>
+        <button class="btn btn-primary" type="submit">Prijavi se</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
