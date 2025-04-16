@@ -30,7 +30,6 @@ public class RegistrationService {
         validatePassword(request.password());
 
         Integer teamId = request.team_id() != null ? request.team_id() : null;
-        Integer typeId = request.type_id() != null ? request.type_id() : null;
 
         // Popunjavanje novog korisnika
         Korisnik korisnik = new Korisnik(
