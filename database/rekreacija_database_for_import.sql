@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `rekreacija` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `rekreacija`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rekreacija
@@ -27,7 +29,7 @@ CREATE TABLE `ekipa` (
   `name` varchar(20) DEFAULT NULL,
   `rating` decimal(2,1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +38,7 @@ CREATE TABLE `ekipa` (
 
 LOCK TABLES `ekipa` WRITE;
 /*!40000 ALTER TABLE `ekipa` DISABLE KEYS */;
+INSERT INTO `ekipa` VALUES (2,'Gardisti',NULL),(3,'Pro Conto',NULL);
 /*!40000 ALTER TABLE `ekipa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +54,7 @@ CREATE TABLE `korisnik` (
   `name` varchar(50) DEFAULT NULL,
   `surname` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `password` varchar(64) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `phone_number` varchar(9) DEFAULT NULL,
   `date_of_registration` date DEFAULT NULL,
@@ -63,7 +66,7 @@ CREATE TABLE `korisnik` (
   KEY `tip_korisnika` (`type_id`),
   CONSTRAINT `korisnik_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `ekipa` (`id`),
   CONSTRAINT `tip_korisnika` FOREIGN KEY (`type_id`) REFERENCES `tip` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +75,7 @@ CREATE TABLE `korisnik` (
 
 LOCK TABLES `korisnik` WRITE;
 /*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
+INSERT INTO `korisnik` VALUES (5,'Marko','Marković','marko@example.com','{bcrypt}$2a$10$CnzUSy283OYNLdUfu702quXtJOi.kZahYR9pIeY8g5N2ZD.r/kd8m','marko1','061234567','2025-04-05',2,1),(6,'Filip','Marković','filip@example.com','{bcrypt}$2a$10$jvD5Ewf8qhYs1bIAnjmIXezlxwKYXkSybH9RFY1KD.EEFkBqtg7Sa','filip','061234567','2025-04-05',NULL,1),(9,'Filip','Filipovic','filip2@example.com','{bcrypt}$2a$10$cmH/G0/ZglUoL0N4W4a6lOEi.0nLAkf060vEZNQRUT9VPBGChpWbO','filip1','067123123','2025-04-14',NULL,1);
 /*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,4 +273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-02 21:05:45
+-- Dump completed on 2025-04-16 23:00:26
