@@ -10,8 +10,6 @@
         <li><a href="#" class="nav-link px-2 link-body-emphasis text-white">Tereni</a></li>
         <li><a href="#" class="nav-link px-2 link-body-emphasis text-white">Ekipa</a></li>
         <li><a href="#" class="nav-link px-2 link-body-emphasis text-white">Obavještenja</a></li>
-        <li><a href="http://localhost:4200/login" class="nav-link px-2 link-body-emphasis text-white">Login</a></li>
-        <li><a href="http://localhost:4200/register" class="nav-link px-2 link-body-emphasis text-white">Register</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -20,10 +18,11 @@
 
       <div class="dropdown text-end">
         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="favicon.ico" alt="mdo" width="32" height="32" class="rounded-circle">
+          <img src="assets/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
+          <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+          <li><a class="dropdown-item" routerLink="/register" >Register</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><hr class="dropdown-divider"></li>
