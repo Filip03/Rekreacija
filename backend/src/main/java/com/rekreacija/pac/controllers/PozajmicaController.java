@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pozajmica")
+@CrossOrigin("*")
 public class PozajmicaController {
 
     private PozajmicaService pozajmicaService;

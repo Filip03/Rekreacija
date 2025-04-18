@@ -2,15 +2,13 @@ package com.rekreacija.pac.controllers;
 
 import com.rekreacija.pac.models.Tip;
 import com.rekreacija.pac.services.TipService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/tip")
+@CrossOrigin("*")
 public class TipController {
 
     private TipService tipService;

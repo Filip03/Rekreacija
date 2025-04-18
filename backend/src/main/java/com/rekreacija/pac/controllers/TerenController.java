@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/teren")
+@CrossOrigin("*")
 public class TerenController {
 
     private TerenService terenService;
