@@ -92,10 +92,14 @@
       font-weight: 400;
       font-style: normal;
     }
-    .btn-primary{
+    .btn-success{
       font-family: "Special Gothic Expanded One", sans-serif;
       font-weight: 400;
       font-style: normal;
+    }
+    #registration-link{
+      font-size: 1.25rem;
+      font-weight: bold;
     }
   </style>
 <body class="d-flex align-items-center py-4">
@@ -108,7 +112,7 @@
       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="user.username" name="username">
       <label for="floatingInput">E-mejl adresa</label>
     </div>
-    
+
     <div class="form-floating">
       <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="user.password" name="password">
       <label for="floatingPassword">Lozinka</label>
@@ -120,7 +124,10 @@
         Zapamti me
       </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" type="submit">Prijavi se</button>
+    <button class="btn btn-success w-100 py-2" type="submit">Prijavi se</button>
+    <hr>
+    <p class="text-center text-primary-emphasis">Nemate nalog?</p>
+    <a id="registration-link" class="d-block text-center mx-auto text-success" routerLink="/register">Registrujte se!</a>
     <p class="mt-5 mb-3 text-body-secondary">©2025</p>
   </form>
 </main>
