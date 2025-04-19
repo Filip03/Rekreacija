@@ -5,6 +5,7 @@ import com.rekreacija.pac.repositories.KorisnikRepository;
 import com.rekreacija.pac.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -51,6 +52,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
+    @Primary
     public UserDetailsService userDetailsService(KorisnikRepository korisnikRepository) {
         return new CustomUserDetailsService(korisnikRepository);
     }

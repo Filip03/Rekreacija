@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LoginService} from "../../../services/login.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-login',
@@ -9,8 +10,27 @@ import {LoginService} from "../../../services/login.service";
 })
 export class LoginComponent {
   user:any={}
-  constructor(private loginService: LoginService) { }
+  errorMssg = '';
+  constructor(private loginService: LoginService, private router: Router) { }
   login(){
-    this.loginService.userLogin(this.user).subscribe(data => alert("Prijava je uspjesna"));
+    this.errorMssg='';
+    this.loginService.userLogin(this.user).subscribe({
+      next: (token: string) => {
+        if (this.user.rememberMe) {
+          localStorage.setItem('token', token);  // Zapamti me → dugoročno
+        } else {
+          sessionStorage.setItem('token', token); // Ne pamti → do zatvaranja taba
+        }
+        this.router.navigateByUrl('/');
+      },
+      error: err => {
+        // ovde menjaš poruku u zavisnosti od greške
+        if (err.status === 401) {
+          this.errorMssg = 'Email ili lozinka nisu ispravni.';
+        } else {
+          this.errorMssg = 'Došlo je do greške. Pokušajte ponovo.';
+        }
+      }
+    });
   }
 }

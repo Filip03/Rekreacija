@@ -10,7 +10,8 @@ import { RegisterComponent } from './components/pages/register/register.componen
 import {NgOptimizedImage} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from "@angular/common/http";
+import {authInterceptor} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -28,5 +29,9 @@ import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http"
             FormsModule,
             BrowserAnimationsModule
             ],
-  providers: [provideHttpClient(withInterceptorsFromDi())] })
+  providers: [provideHttpClient(withInterceptors([
+              authInterceptor
+              ])
+      )]
+})
 export class AppModule { }

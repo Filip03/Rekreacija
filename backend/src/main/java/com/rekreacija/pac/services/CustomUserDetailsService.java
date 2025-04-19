@@ -24,10 +24,18 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .findFirst()
                 .map(k -> User.builder()
                         .username(k.username)
-                        .password(k.password) // već treba biti hashed u bazi!
-                        .roles("USER")        // ako želiš više rola, možeš dinamički iz baze
+                        .password(k.password)
+                        .roles(getRoleFromTypeId(k.type_id))
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException("Korisnik nije pronađen: " + username));
+    }
+    private String getRoleFromTypeId(Integer typeId) {
+        return switch (typeId) {
+            case 1 -> "REGULAR";
+            case 2 -> "OWNER";
+            case 3 -> "ADMIN";
+            default -> "REGULAR";
+        };
     }
 }
 

@@ -29,7 +29,11 @@ public class LoginController {
 
             Authentication authResponse = authenticationManager.authenticate(authRequest);
 
-            String jwt = jwtService.generateToken(loginRequest.username());
+            long expiration = loginRequest.rememberMe()
+                    ? JwtService.REMEMBER_ME_EXPIRATION_TIME
+                    : JwtService.DEFAULT_EXPIRATION_TIME;
+
+            String jwt = jwtService.generateToken(loginRequest.username(), expiration);
 
             return ResponseEntity.ok(jwt);
 
@@ -38,6 +42,6 @@ public class LoginController {
         }
     }
 
-    public record LoginRequest(String username, String password) {
+    public record LoginRequest(String username, String password, boolean rememberMe) {
     }
 }
