@@ -16,6 +16,7 @@ export class RegisterComponent {
   register(){
     this.registerService.userRegister(this.user).subscribe(data => {
       this.user = data;
+      alert("Registracija uspjesna.");
     })
   }
 

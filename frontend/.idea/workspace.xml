@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efcd0b97-c417-47f7-9991-55fa49c12f77" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/rekreacija/pac/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/rekreacija/pac/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/com/rekreacija/pac/jwt/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/com/rekreacija/pac/jwt/JwtService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekreacija/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/rekreacija/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekreacija/src/app/components/pages/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/rekreacija/src/app/components/pages/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rekreacija/src/app/components/pages/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/rekreacija/src/app/components/pages/login/login.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +94,8 @@
       <workItem from="1744905982949" duration="3289000" />
       <workItem from="1744975432717" duration="8227000" />
       <workItem from="1744995577913" duration="3147000" />
-      <workItem from="1745050990159" duration="2973000" />
+      <workItem from="1745050990159" duration="3350000" />
+      <workItem from="1745241345559" duration="207000" />
     </task>
     <servers />
   </component>
