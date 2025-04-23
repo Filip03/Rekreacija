@@ -20,14 +20,16 @@ public class RegistrationService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public boolean register(RegisterRequest request) {
-        // Provjera postoji li već korisnik sa tim username-om
+    public int register(RegisterRequest request) {
         List<Korisnik> svi = korisnikRepository.getAllKorisnik();
         boolean postoji = svi.stream()
                 .anyMatch(k -> k.username.equalsIgnoreCase(request.username()));
 
-        if (postoji) return false;
-        validatePassword(request.password());
+        if (postoji) return 1;
+        if(!validatePassword(request.password())) return 2;
+        if (!isValidEmail(request.email())) {
+            return 3; // nevalidan email
+        }
 
         Integer teamId = request.team_id() != null ? request.team_id() : null;
 
@@ -46,17 +48,19 @@ public class RegistrationService {
         );
 
         int rezultat = korisnikRepository.insertKorisnik(korisnik);
-        return rezultat > 0;
+        return 0;
     }
 
-    private void validatePassword(String password) {
-        if (password.length() < 8) {
-            throw new IllegalArgumentException("Lozinka mora imati najmanje 8 karaktera.");
+    private boolean validatePassword(String password) {
+        if (password.length() < 8 || !password.matches(".*\\d.*")) {
+            return false;
+        }else {
+            return true;
         }
-
-        if (!password.matches(".*\\d.*")) {
-            throw new IllegalArgumentException("Lozinka mora sadržavati barem jednu cifru.");
-        }
-
     }
+    private boolean isValidEmail(String email) {
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        return email.matches(regex);
+    }
+
 }

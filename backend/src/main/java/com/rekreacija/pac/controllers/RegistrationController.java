@@ -23,11 +23,16 @@ public class RegistrationController {
 
     @PostMapping()
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        boolean ok = registrationService.register(request);
-        if (ok) {
-            return ResponseEntity.ok("Uspješna registracija!");
-        } else {
+        int ok = registrationService.register(request);
+        if (ok==2) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Lozinka mora imati najmanje 8 karaktera i 1 cifru!");
+        } else if(ok==1){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Korisnik sa ovim username-om već postoji.");
+        }else if(ok==3){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Email nije validan!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.OK).body("Uspjesna registracija!");
         }
     }
 }
