@@ -101,9 +101,15 @@
       font-size: 1.25rem;
       font-weight: bold;
     }
+
+    main{
+      max-width: 400px;
+      width: 90%;
+      margin: 0 auto;
+    }
   </style>
 <body class="d-flex align-items-center py-4">
-<main class="form-signin w-25 mx-auto border rounded shadow p-4 bg-white">
+<main class="form-signin mx-auto border rounded shadow p-4 bg-white">
   <form (ngSubmit)="login()">
     <img class="mb-4" src="assets/logo-transparent.png" alt="" width="150" height="70">
     <h1 class="h3 mb-3 fw-normal">Prijava</h1>
