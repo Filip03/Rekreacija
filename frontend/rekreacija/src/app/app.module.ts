@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from "@angular/common/http";
 import {authInterceptor} from "./interceptors/auth.interceptor";
+import { ObavjestenjaComponent } from './components/pages/obavjestenja/obavjestenja.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {authInterceptor} from "./interceptors/auth.interceptor";
         HeaderComponent,
         FooterComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ObavjestenjaComponent
     ],
 
   bootstrap: [AppComponent],

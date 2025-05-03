@@ -8,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+    showNotifications: boolean = false;
+
+    toggleNotifications(){
+        this.showNotifications = !this.showNotifications;
+        console.log(this.showNotifications);
+    }
+
 }
