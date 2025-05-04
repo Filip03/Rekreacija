@@ -1,47 +1,24 @@
-.obavjestenja {
-    position: absolute; /* Ili fixed, zavisno od željenog ponašanja */
-    top: 100%; /* Postavlja panel odmah ispod header-a */
-    right: 2rem; /* Postavlja panel sa desne strane */
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 1rem;
-    width: 300px; /* Podesi željenu širinu */
-    z-index: 1000; /* Osigurava da je iznad ostalih elemenata */
-    transform: translateY(-310%);
-    opacity: 1;
-    visibility: visible;
-    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.obavjestenja.open {
-    transform: translateY(0); /* Krajnje stanje: vidljiv */
-    opacity: 1;
-    visibility: visible;
+li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
 }
 
-.obavjestenja h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
+li:last-child {
+  border-bottom: none;
 }
 
-.obavjestenja ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;  
+p {
+  margin: 0;
+  color: #777;
 }
 
-.obavjestenja li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
-}
-
-.obavjestenja li:last-child {
-    border-bottom: none;    
-}
-
-.obavjestenja p {
-    margin: 0;
-    color: #777;
+h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
