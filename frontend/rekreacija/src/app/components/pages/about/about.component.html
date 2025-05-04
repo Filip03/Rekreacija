@@ -1,62 +1,87 @@
-<!DOCTYPE html>
-<html lang="sr">
 <head>
-  <meta charset="UTF-8">
+  <title>Prijava</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>O nama - Sportska Rezervacija</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- O Nama sekcija sa pozadinskom slikom -->
+  <section class="about-section" style="background-image: url('assets/background.jpg'); background-size: cover; background-position: center; color: white; padding: 6rem 2rem; position: relative; font-family: sans-serif;">
+    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+      <!-- Gornji desni box -->
+      <div style="position: absolute; top: -80px; right: -300px; background-color: #308c26; color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); max-width: 500px;">
+        <h3 id = 'h3-box' style="margin: 0 0 0.5rem 0; font-size: 20px">Skupili ste ekipu? Ne gubite vrijeme</h3>
+        <a routerLink="/login" style="color: greenyellow; font-weight: bolder; text-decoration: none; font-size: 20px">Zakažite svoj termin odmah</a>
+      </div>
 
-<!-- Header Section -->
-<header class="header">
-  <h1>O nama</h1>
-</header>
+      <!-- Kratak opis -->
+      <div class="blurred-box">
+        <h2 id="h2-box2" style="font-size: 2.5rem; margin-bottom: 1rem;">O Nama</h2>
+        <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
+          Naš sajt Vam omogućava lako i brzo rezervisanje termina na lokalnim terenima, povezivanje sa drugim rekreativcima i praćenje sportskih aktivnosti.
+        </p>
+      </div>
 
-<!-- Intro Section -->
-<section class="intro">
-  <h2>Misija i Vizija</h2>
-  <p>
-    Naša platforma omogućava jednostavnu i efikasnu rezervaciju sportskih terena. Želimo povezati sportiste i rekreativce sa najboljim sportskim objektima u njihovoj okolini, pružajući im vrhunski korisnički iskustvo i jednostavnost u rezervaciji.
-  </p>
-</section>
-
-<!-- Team Section -->
-<section class="team-section">
-  <h2>Naš Tim</h2>
-  <div class="team-cards">
-    <div class="team-card">
-      <img src="filip.jpg" alt="Filip">
-      <h3>Filip</h3>
-      <p>Osnivač i CEO</p>
-      <p>Filip je strastveni sportista i vizionar koji je pokrenuo ovu platformu da bi olakšao organizaciju sportskih aktivnosti za sve.</p>
+      <!-- Box pola na slici, pola ispod -->
+      <div style="position: absolute; left: 0; bottom: -17rem; transform: translateX(-50%); background-color: white; color: #308c26; padding: 2rem; border-radius: 12px; width: 90%; max-width: 800px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center;">
+        <h3 id="h3-box2" style="margin-bottom: 1rem; ">Čime se bavimo?</h3>
+        <p style="color: #444; font-size: 20px; font-weight: bolder">Podižemo sportsku rekreaciju na viši nivo!</p>
+      </div>
     </div>
-    <div class="team-card">
-      <img src="luka.jpg" alt="Luka">
-      <h3>Luka</h3>
-      <p>Tehnički direktor</p>
-      <p>Luka se brine o razvoju naše platforme i osigurava da funkcioniše besprekorno na svim uređajima.</p>
+  </section>
+
+  <section class="slider-section">
+    <div class="slider-container">
+      <button class="slider-arrow left" (click)="changeSlide(-1); resetAutoSlide()">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <div *ngFor="let slide of slides; let i = index" class="slider-slide" [class.active]="i === currentSlide">
+        <div class="slide-content">  <img [src]="slide.src" [alt]="slide.alt" />
+          <div class="slide-text">
+            <h3>{{ slide.title }}</h3>
+            <p>{{ slide.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="slider-arrow right" (click)="changeSlide(1); resetAutoSlide()">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
-    <div class="team-card">
-      <img src="aleks.jpg" alt="Aleksa">
-      <h3>Aleksa</h3>
-      <p>Marketing i operacije</p>
-      <p>Aleksa je zadužen za promociju platforme i strateški pristup rastu korisničke baze.</p>
+  </section>
+
+  <!-- Kontakt forma i informacije -->
+  <section style="background-color: #f4f4f4; padding: 4rem 2rem;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2rem;">
+      <!-- Forma -->
+      <div style="flex: 1 1 500px;">
+        <h2 style="color: #308c26; font-size: 2rem; margin-bottom: 1rem;">Kontaktirajte nas</h2>
+        <form style="display: grid; gap: 1rem;">
+          <input type="text" placeholder="Vaše ime" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="email" placeholder="Vaš email" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;">
+          <textarea rows="5" placeholder="Poruka" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+          <button type="submit" style="background-color: #007bff; color: white; padding: 0.75rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            Pošalji
+          </button>
+        </form>
+      </div>
+
+      <!-- Informacije -->
+      <div style="flex: 1 1 300px; background-color: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <h3 style="color: #308c26; margin-bottom: 1rem;">Kontakt informacije</h3>
+        <p style="margin: 0.5rem 0;"><strong>Email:</strong> info&#64;sportrekracija.com</p>
+        <p style="margin: 0.5rem 0;"><strong>Telefon:</strong> +381 60 123 456</p>
+        <p style="margin: 0.5rem 0;"><strong>Adresa:</strong> Bulevar Sporta 10, Beograd</p>
+        <p style="margin-top: 2rem; color: #007bff; font-weight: bold;">Pratite nas na društvenim mrežama</p>
+        <div style="display: flex; gap: 1rem;">
+          <img src="assets/facebook.png" alt="Facebook" width="24">
+          <img src="assets/instagram.png" alt="Instagram" width="24">
+          <img src="assets/twitter.png" alt="Twitter" width="24">
+        </div>
+      </div>
     </div>
-  </div>
-</section>
-
-<!-- Values Section -->
-<section class="values-section">
-  <h2>Naše vrednosti</h2>
-  <p>
-    U srcu naše platforme leže vrednosti: pristupačnost, pouzdanost i zajedništvo. Želimo da sport bude dostupan svakome, bez obzira na nivo veštine ili opremu.
-  </p>
-</section>
-
-<!-- Footer Section -->
-<footer class="footer">
-  <p>&copy; 2025 Sportska Rezervacija - Svi prava zadržana.</p>
-</footer>
-
+  </section>
 </body>
-</html>
+

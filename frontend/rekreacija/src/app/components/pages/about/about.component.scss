@@ -1,102 +1,121 @@
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #e3ecec;
+#h3-box{
+  font-family: "Special Gothic Expanded One", sans-serif;
 }
 
-.header {
-  background-color: #308c26;
-  color: white;
-  padding: 50px 0;
+#h3-box2{
+  font-family: "Special Gothic Expanded One", sans-serif;
+  font-size: 30px;
+}
+
+#h2-box2{
+  font-family: "Special Gothic Expanded One", sans-serif;
+  color: #308c26;
+}
+
+.blurred-box{
+  background-color: rgba(0, 0, 0, 0.2); // tamna providna pozadina
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(10px);
   text-align: center;
+  margin: auto;
+  margin-bottom: 6rem;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 600px;
 }
 
-.header h1 {
-  font-size: 3rem;
-}
-
-.intro {
-  background-color: #e3ecec;
-  padding: 50px;
-  text-align: center;
-}
-
-.intro h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.intro p {
-  font-size: 1.2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.team-section {
-  background-color: #e3ecec;
-  padding: 50px 0;
-  text-align: center;
-}
-
-.team-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-
-.team-cards {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.team-card {
+.slider-section {
+  margin-top: 6rem;
   background-color: white;
-  padding: 20px;
-  width: 250px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  padding: 4rem 2rem;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
-.team-card img {
+.slider-container {
+  position: relative;
+  max-width: 700px;
   width: 100%;
-  height: auto;
+  overflow: hidden;
+}
+
+.slider-slide {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* Centriraj sadržaj */
+  animation: fade 0.6s ease-in-out;
+}
+
+.slider-slide img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.slider-slide.active {
+  display: flex;
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: rgba(48, 140, 38, 0.8);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
   border-radius: 50%;
+  z-index: 10;
 }
 
-.team-card h3 {
+.slider-arrow.left {
+  left: 10px;
+}
+
+.slider-arrow.right {
+  right: 10px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-content {
+  position: relative; /* Važno za pozicioniranje teksta */
+  width: 100%;
+  height: 100%;
+}
+
+.slide-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centriraj tekst */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.30); /* Poluprozirna pozadina za čitljivost */
+  padding: 1rem;
+  border-radius: 10px;
+  z-index: 1; /* Osiguraj da je iznad slike */
+  width: 80%;
+}
+
+.slide-text h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+.slide-text p {
   font-size: 1.5rem;
-  margin: 15px 0;
-}
-
-.team-card p {
-  font-size: 1rem;
-  color: #6c757d;
-}
-
-.values-section {
-  background-color: #343a40;
-  color: white;
-  padding: 50px 0;
-  text-align: center;
-}
-
-.values-section h2 {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-}
-
-.values-section p {
-  font-size: 1.2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.footer {
-  background-color: #212529;
-  color: white;
-  padding: 20px;
-  text-align: center;
 }
