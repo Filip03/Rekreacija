@@ -8,28 +8,33 @@
 <body>
   <!-- O Nama sekcija sa pozadinskom slikom -->
   <section class="about-section" style="background-image: url('assets/background.jpg'); background-size: cover; background-position: center; color: white; padding: 6rem 2rem; position: relative; font-family: sans-serif;">
-    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
-      <!-- Gornji desni box -->
-      <div style="position: absolute; top: -80px; right: -300px; background-color: #308c26; color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); max-width: 500px;">
-        <h3 id = 'h3-box' style="margin: 0 0 0.5rem 0; font-size: 20px">Skupili ste ekipu? Ne gubite vrijeme</h3>
-        <a routerLink="/login" style="color: greenyellow; font-weight: bolder; text-decoration: none; font-size: 20px">Zakažite svoj termin odmah</a>
-      </div>
 
-      <!-- Kratak opis -->
-      <div class="blurred-box">
+    <!-- Gornji desni box -->
+    <div style="position: absolute; top: 2rem; right: 2rem; background-color: #308c26; color: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); max-width: 500px; z-index: 10;">
+      <h3 id="h3-box" style="margin: 0 0 0.5rem 0; font-size: 20px;">Skupili ste ekipu? Ne gubite vrijeme</h3>
+      <a routerLink="/login" style="color: greenyellow; font-weight: bolder; text-decoration: none; font-size: 20px;">Zakažite svoj termin odmah</a>
+    </div>
+
+    <!-- Centralni sadržaj -->
+    <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+
+      <!-- Zamagljeni box "O nama" -->
+      <div class="blurred-box" style="backdrop-filter: blur(10px); background-color: rgba(0,0,0,0.4); padding: 2rem; border-radius: 12px; margin-bottom: 3rem; text-align: center;">
         <h2 id="h2-box2" style="font-size: 2.5rem; margin-bottom: 1rem;">O Nama</h2>
         <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
           Naš sajt Vam omogućava lako i brzo rezervisanje termina na lokalnim terenima, povezivanje sa drugim rekreativcima i praćenje sportskih aktivnosti.
         </p>
       </div>
-
-      <!-- Box pola na slici, pola ispod -->
-      <div style="position: absolute; left: 0; bottom: -17rem; transform: translateX(-50%); background-color: white; color: #308c26; padding: 2rem; border-radius: 12px; width: 90%; max-width: 800px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center;">
-        <h3 id="h3-box2" style="margin-bottom: 1rem; ">Čime se bavimo?</h3>
-        <p style="color: #444; font-size: 20px; font-weight: bolder">Podižemo sportsku rekreaciju na viši nivo!</p>
-      </div>
     </div>
+
+    <!-- Donji box "Čime se bavimo?" -->
+    <div style="margin-top: 5rem; background-color: white; color: #308c26; padding: 2rem; border-radius: 12px; width: 100%; max-width: 500px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-align: center; margin-left: 0;">
+      <h3 id="h3-box2" style="margin-bottom: 1rem;">Čime se bavimo?</h3>
+      <p style="color: #444; font-size: 20px; font-weight: bolder;">Podižemo sportsku rekreaciju na viši nivo!</p>
+    </div>
+
   </section>
+
 
   <section class="slider-section">
     <div class="slider-container">
