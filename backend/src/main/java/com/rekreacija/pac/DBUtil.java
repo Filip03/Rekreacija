@@ -9,7 +9,7 @@ public class DBUtil {
     public static Connection openConnection() {
         String url = "jdbc:mysql://localhost:3306/rekreacija";
         String user = "root";
-        String password = "FilipiPhone1";
+        String password = "Aleksa12.";
         try {
             return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
