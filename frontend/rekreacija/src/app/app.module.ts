@@ -12,6 +12,7 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from "@angular/common/http";
 import { authInterceptor} from "./interceptors/auth.interceptor";
 import { ObavjestenjaComponent } from './components/pages/obavjestenja/obavjestenja.component';
+import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
 
 @NgModule({
   declarations: [
@@ -24,13 +25,13 @@ import { ObavjestenjaComponent } from './components/pages/obavjestenja/obavjeste
     ],
 
   bootstrap: [AppComponent],
-  imports: [BrowserModule,
-            AppRoutingModule,
-            NgOptimizedImage,
-            FormsModule,
-            BrowserAnimationsModule,
-            CommonModule
-            ],
+    imports: [BrowserModule,
+        AppRoutingModule,
+        NgOptimizedImage,
+        FormsModule,
+        BrowserAnimationsModule,
+        CommonModule, AuthModalComponent
+    ],
   providers: [provideHttpClient(withInterceptors([
               authInterceptor
               ])
