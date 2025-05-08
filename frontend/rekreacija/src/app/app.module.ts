@@ -25,13 +25,13 @@ import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
     ],
 
   bootstrap: [AppComponent],
-    imports: [BrowserModule,
-        AppRoutingModule,
-        NgOptimizedImage,
-        FormsModule,
-        BrowserAnimationsModule,
-        CommonModule, AuthModalComponent
-    ],
+  imports: [BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    FormsModule,
+    BrowserAnimationsModule,
+    CommonModule, AuthModalComponent
+  ],
   providers: [provideHttpClient(withInterceptors([
               authInterceptor
               ])

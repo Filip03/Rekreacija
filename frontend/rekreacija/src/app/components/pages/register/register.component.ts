@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RegisterService } from 'src/app/services/register.service';
 import {Router} from "@angular/router";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {WarnableComponent} from "../../../guards/warn.guard";
 
 
 @Component({
@@ -10,11 +10,15 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
     styleUrls: ['./register.component.scss'],
     standalone: false
 })
-export class RegisterComponent {
+export class RegisterComponent implements WarnableComponent {
+
   user : any = {};
   errorMssg="";
+  originalUser: any = {};
 
-  constructor(private registerService : RegisterService, private router : Router) { }
+  constructor(private registerService : RegisterService, private router : Router) {
+    this.originalUser = { ...this.user };
+  }
 
   register() {
     this.errorMssg = "";
@@ -32,5 +36,9 @@ export class RegisterComponent {
         }
       }
     });
+  }
+
+  hasUnsavedChanges(): boolean {
+    return JSON.stringify(this.originalUser) !== JSON.stringify(this.user);
   }
 }

@@ -1,19 +1,21 @@
 import { CanActivateFn, Router } from '@angular/router';
 import {inject} from "@angular/core";
+import {AuthService} from "../services/auth.service";
 
 export const authGuard: CanActivateFn = async (route, state) => {
-  const router = inject(Router)
-  const token = localStorage.getItem('token');
-  if(token){
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if(authService.isLoggedIn()) {
     return true;
-  }else{
-    return new Promise<boolean>((resolve) => {
-      const confirm = window.confirm('Morate biti ulogovani kako biste pristupili stranici');
-      if(confirm){
-        router.navigate(['/login']);
-      }else{
-        router.navigate(['/']);
-      }
-    })
   }
+
+  const result = await authService.triggerModalIfNeeded();
+  if(result) {
+    await router.navigate(['/login']);
+  }else{
+    await router.navigate(['/']);
+  }
+
+  return false;
 };
