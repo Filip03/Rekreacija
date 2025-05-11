@@ -8,5 +8,15 @@
 
   <app-footer></app-footer>
 
+  <button #chatbotButton class="chatbot-button" (click)="toggleChatbot()">
+    <img src="/assets/logo-transparent.png" alt="ChatBot">
+  </button>
+  <iframe
+    *ngIf="isChatbotVisible"
+    #chatbotIframe
+    class="chatbot"
+    src="https://www.chatbase.co/chatbot-iframe/kpRo_9x1rkbnS6cF1XqSz"
+    frameborder="0"
+  ></iframe>
 
 </div>
