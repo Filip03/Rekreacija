@@ -26,7 +26,7 @@ export class LoginComponent {
       error: err => {
         // ovde menjaš poruku u zavisnosti od greške
         if (err.status === 401) {
-          this.errorMssg = 'Email ili lozinka nisu ispravni.';
+          this.errorMssg = 'Korisničko ime ili lozinka nisu ispravni.';
         } else {
           this.errorMssg = 'Došlo je do greške. Pokušajte ponovo.';
         }
