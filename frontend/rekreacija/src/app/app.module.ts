@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptor
 import { authInterceptor} from "./interceptors/auth.interceptor";
 import { ObavjestenjaComponent } from './components/pages/obavjestenja/obavjestenja.component';
 import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
+import { TerenComponent } from './components/pages/teren/teren.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
         FooterComponent,
         LoginComponent,
         RegisterComponent,
-        ObavjestenjaComponent
+        ObavjestenjaComponent,
+        TerenComponent
     ],
 
   bootstrap: [AppComponent],
