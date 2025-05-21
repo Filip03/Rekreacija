@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { TerenService } from 'src/app/services/teren.service';
-import 'leaflet/dist/leaflet.css';
+//import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
 
 const customIcon = L.icon({
