@@ -13,6 +13,15 @@ const customIcon = L.icon({
   // shadowAnchor: [12, 41]
 });
 
+interface Balon {
+  name: string;
+  coordinatesX: number;
+  coordinatesY: number;
+  imageUrl: string;
+  linkUrl2: string;
+  linkText2: string;
+}
+
 @Component({
   selector: 'app-teren',
   templateUrl: './teren.component.html',
@@ -22,8 +31,69 @@ const customIcon = L.icon({
 export class TerenComponent implements OnInit, AfterViewInit {
   private map: L.Map | undefined;
   private centroid: L.LatLngExpression = [42.4304, 19.2594]; // Koordinate Podgorice (primer)
+  public selectedBalon: Balon | null = null;
+  public openInfo: Boolean = false;
 
   constructor() { }
+
+  private baloni: Balon[] = [
+    {
+      name: 'Balon Gimnazije',
+      coordinatesX: 42.447688,
+      coordinatesY: 19.264295,
+      imageUrl: 'assets/gimnazija.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Stampar Sports Centre',
+      coordinatesX: 42.446253,
+      coordinatesY: 19.242308,
+      imageUrl: 'assets/stampar.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Balon za mali fudbal Bernabeu',
+      coordinatesX: 42.425285,
+      coordinatesY: 19.232699,
+      imageUrl: 'assets/bernabeu.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Balon Tolosi',
+      coordinatesX: 42.453766,
+      coordinatesY: 19.215700,
+      imageUrl: 'assets/tolosi.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Sportski Centar Dadex',
+      coordinatesX: 42.443522,
+      coordinatesY: 19.281300,
+      imageUrl: 'assets/dadex.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Arena Sportski Centar',
+      coordinatesX: 42.431683,
+      coordinatesY: 19.257928,
+      imageUrl: 'assets/arena.jpeg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    },
+    {
+      name: 'Balon za mali fudbal Sutjeska',
+      coordinatesX: 42.447610,
+      coordinatesY: 19.256017,
+      imageUrl: 'assets/sutjeska.jpg',
+      linkUrl2: "http://localhost:4200",
+      linkText2: 'Zakazi termin'
+    }
+  ]
 
   ngOnInit(): void {
   }
@@ -45,93 +115,38 @@ export class TerenComponent implements OnInit, AfterViewInit {
     });
     tiles.addTo(this.map);
 
-    // const sutjeska = L.marker([42.447610, 19.256017]).addTo(this.map);
+    
 
-    const baloni = [
-      {
-        name: 'Balon Gimnazije',
-        coordinatesX: 42.447688,
-        coordinatesY: 19.264295,
-        imageUrl: 'assets/gimnazija.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Stampar Sports Centre',
-        coordinatesX: 42.446253,
-        coordinatesY: 19.242308,
-        imageUrl: 'assets/stampar.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Balon za mali fudbal Bernabeu',
-        coordinatesX: 42.425285,
-        coordinatesY: 19.232699,
-        imageUrl: 'assets/bernabeu.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Balon Tolosi',
-        coordinatesX: 42.453766,
-        coordinatesY: 19.215700,
-        imageUrl: 'assets/tolosi.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Sportski Centar Dadex',
-        coordinatesX: 42.443522,
-        coordinatesY: 19.281300,
-        imageUrl: 'assets/dadex.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Arena Sportski Centar',
-        coordinatesX: 42.431683,
-        coordinatesY: 19.257928,
-        imageUrl: 'assets/arena.jpeg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      },
-      {
-        name: 'Balon za mali fudbal Sutjeska',
-        coordinatesX: 42.447610,
-        coordinatesY: 19.256017,
-        imageUrl: 'assets/sutjeska.jpg',
-        linkUrl1: 'http://localhost:4200',
-        linkText1: 'Vise o balonu',
-        linkUrl2: 'http://localhost:4200',
-        linkText2: 'Zakazi termin'
-      }
-    ]
-
-    baloni.forEach(place => {
+    this.baloni.forEach(place => {
       const popupContent = `
         <b>${place.name}</b><br>
         <img src="${place.imageUrl}" alt="${place.name}" style="width:200px;max-width:200px;"><br>
-        <a href="${place.linkUrl1}" target="_blank">${place.linkText1}</a>
+        <a href="/teren" class="info-link">Vise o balonu</a>
         <span style="float: right;"><a href="${place.linkUrl2}" target="_blank">${place.linkText2}</a></span>
       `;
-      L.marker([place.coordinatesX,place.coordinatesY])
+      const marker = L.marker([place.coordinatesX,place.coordinatesY])
         .bindPopup(popupContent)
         .addTo(this.map!);
+      
+        marker.on('popupopen', () => {
+          const link: HTMLElement | null = document.querySelector('.info-link');
+          if (link) {
+            link.addEventListener('click', (e) => {
+              e.preventDefault();
+              this.openInfo = !this.openInfo
+              this.showSidebar(place);
+            });
+          }
+        });
     })
   }
 
+  public showSidebar(balon: Balon) {
+    this.selectedBalon = balon;
+  }
+
+  public closeSidebar() {
+    this.selectedBalon = null;
+  }
 
 }

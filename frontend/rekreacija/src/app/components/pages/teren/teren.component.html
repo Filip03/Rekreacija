@@ -1,1 +1,9 @@
 <div id="map" style="width: 100%; height: 500px;"></div>
+
+<div class="info-sidebar" [class.open]="selectedBalon" *ngIf="openInfo">
+    <button class="close-btn" (click)="closeSidebar()">×</button>
+    <h2>{{ selectedBalon?.name }}</h2>
+    <img [src]="selectedBalon?.imageUrl" alt="{{ selectedBalon?.name }}" />
+    <p>Ovo su dodatne informacije o balonu…</p>
+    <a [href]="selectedBalon?.linkUrl2" target="_blank">{{ selectedBalon?.linkText2 }}</a>
+  </div>

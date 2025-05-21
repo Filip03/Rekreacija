@@ -26,6 +26,8 @@ export class RegisterComponent implements WarnableComponent {
     this.registerService.userRegister(this.user).subscribe({
       next: data => {
         alert("Registracija je uspješna!");
+        this.user = {};
+        this.originalUser = {};
         this.router.navigateByUrl('/login');
       },
       error: err => {

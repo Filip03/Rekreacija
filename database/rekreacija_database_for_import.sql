@@ -1,5 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `rekreacija` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `rekreacija`;
+
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rekreacija
@@ -33,16 +32,6 @@ CREATE TABLE `ekipa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ekipa`
---
-
-LOCK TABLES `ekipa` WRITE;
-/*!40000 ALTER TABLE `ekipa` DISABLE KEYS */;
-INSERT INTO `ekipa` VALUES (1,'Stari Aerodrom',4.7),(2,'Zabjelo',4.3),(3,'City Kvart',NULL);
-/*!40000 ALTER TABLE `ekipa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `korisnik`
 --
 
@@ -66,18 +55,8 @@ CREATE TABLE `korisnik` (
   KEY `tip_korisnika` (`type_id`),
   CONSTRAINT `korisnik_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `ekipa` (`id`),
   CONSTRAINT `tip_korisnika` FOREIGN KEY (`type_id`) REFERENCES `tip` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `korisnik`
---
-
-LOCK TABLES `korisnik` WRITE;
-/*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
-INSERT INTO `korisnik` VALUES (1,'Marko','Jocovic','marko@gmail.com','{bcrypt}$2a$10$DUcc/j4Rst5kP92J6Jhc3O3jYTMVBtnDNppVO6iTW9aSASBMoFcRO','Kesa','068051223','2025-05-06',NULL,1);
-/*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `obavjestenja`
@@ -103,16 +82,6 @@ CREATE TABLE `obavjestenja` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `obavjestenja`
---
-
-LOCK TABLES `obavjestenja` WRITE;
-/*!40000 ALTER TABLE `obavjestenja` DISABLE KEYS */;
-INSERT INTO `obavjestenja` VALUES (1,1,1,'Tražimo jednog igrača za futsal','Fali nam jedan igrač za večerašnji meč u 18h, javite se!','2025-05-06',0),(2,1,2,'Košarka 2 na 2!','Ekipa iz City Kvarta traži protivnike za friendly 2v2.','2025-05-07',1);
-/*!40000 ALTER TABLE `obavjestenja` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `ocjena`
 --
 
@@ -135,16 +104,63 @@ CREATE TABLE `ocjena` (
   CONSTRAINT `ocjena_chk_4` CHECK (((`quality` >= 0) and (`quality` <= 5)))
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ocjena`
---
-
-LOCK TABLES `ocjena` WRITE;
-/*!40000 ALTER TABLE `ocjena` DISABLE KEYS */;
-INSERT INTO `ocjena` VALUES (1,4.7,4,5,5,1),(2,4.3,5,4,4,2);
-/*!40000 ALTER TABLE `ocjena` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_calculate_overall` BEFORE INSERT ON `ocjena` FOR EACH ROW BEGIN
+    SET NEW.overall = (NEW.fair_play + NEW.quality + NEW.intensity) / 3.0;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_rating_after_insert` AFTER INSERT ON `ocjena` FOR EACH ROW BEGIN
+    UPDATE ekipa
+    SET rating = NEW.overall
+    WHERE id = NEW.team_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_rating_after_update` AFTER UPDATE ON `ocjena` FOR EACH ROW BEGIN
+    IF OLD.overall <> NEW.overall THEN
+        UPDATE ekipa
+        SET rating = NEW.overall
+        WHERE id = NEW.team_id;
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `ocjena_pozajmica`
@@ -169,16 +185,63 @@ CREATE TABLE `ocjena_pozajmica` (
   CONSTRAINT `ocjena_chk_loan_4` CHECK (((`quality` >= 0) and (`quality` <= 5)))
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ocjena_pozajmica`
---
-
-LOCK TABLES `ocjena_pozajmica` WRITE;
-/*!40000 ALTER TABLE `ocjena_pozajmica` DISABLE KEYS */;
-INSERT INTO `ocjena_pozajmica` VALUES (1,5.0,5,5,5,1),(2,4.0,4,4,4,2);
-/*!40000 ALTER TABLE `ocjena_pozajmica` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_calculate_overall_loan` BEFORE INSERT ON `ocjena_pozajmica` FOR EACH ROW BEGIN
+    SET NEW.overall = (NEW.fair_play + NEW.intensity + NEW.quality) / 3.0;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_rating_after_insert_loan` AFTER INSERT ON `ocjena_pozajmica` FOR EACH ROW BEGIN
+	UPDATE pozajmica
+    SET rating = NEW.overall
+    WHERE id = NEW.loan_id;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `trg_update_rating_after_update_loan` AFTER UPDATE ON `ocjena_pozajmica` FOR EACH ROW BEGIN
+	IF OLD.overall <> NEW.overall THEN
+		UPDATE pozajmica
+		SET rating = NEW.overall
+		WHERE id = NEW.loan_id;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `pozajmica`
@@ -201,16 +264,6 @@ CREATE TABLE `pozajmica` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pozajmica`
---
-
-LOCK TABLES `pozajmica` WRITE;
-/*!40000 ALTER TABLE `pozajmica` DISABLE KEYS */;
-INSERT INTO `pozajmica` VALUES (1,1,1,5.0),(2,1,2,4.0);
-/*!40000 ALTER TABLE `pozajmica` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `rezervacija`
 --
 
@@ -231,16 +284,6 @@ CREATE TABLE `rezervacija` (
   CONSTRAINT `rezervacija_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `korisnik` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rezervacija`
---
-
-LOCK TABLES `rezervacija` WRITE;
-/*!40000 ALTER TABLE `rezervacija` DISABLE KEYS */;
-INSERT INTO `rezervacija` VALUES (1,'zauzeto','2025-05-10 18:00:00','2025-05-10 19:00:00',1,1),(2,'zauzeto','2025-05-11 20:00:00','2025-05-11 21:00:00',2,1),(3,'slobodno','2025-05-12 17:00:00','2025-05-12 18:00:00',3,NULL);
-/*!40000 ALTER TABLE `rezervacija` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `teren`
@@ -267,16 +310,6 @@ CREATE TABLE `teren` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `teren`
---
-
-LOCK TABLES `teren` WRITE;
-/*!40000 ALTER TABLE `teren` DISABLE KEYS */;
-INSERT INTO `teren` VALUES (1,'Morača - Futsal teren','Bulevar Revolucije bb','067123456',1,'Futsal teren sa veštačkom travom, osvetljenjem i svlačionicama.',4.5,1),(2,'Tološi - Košarkaški teren','Ulica V Proleterske','067987654',2,'Otvoreni košarkaški teren sa reflektorima.',4.2,1),(3,'Teniski tereni Ljubović','Ljubović bb','068222333',3,'Dva teniska terena sa tartan podlogom.',4.7,1);
-/*!40000 ALTER TABLE `teren` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tip`
 --
 
@@ -291,14 +324,12 @@ CREATE TABLE `tip` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tip`
+-- Dumping events for database 'rekreacija'
 --
 
-LOCK TABLES `tip` WRITE;
-/*!40000 ALTER TABLE `tip` DISABLE KEYS */;
-INSERT INTO `tip` VALUES (1,'regular'),(2,'owner'),(3,'admin');
-/*!40000 ALTER TABLE `tip` ENABLE KEYS */;
-UNLOCK TABLES;
+--
+-- Dumping routines for database 'rekreacija'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -309,4 +340,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-06 13:31:26
+-- Dump completed on 2025-05-19 11:39:44
