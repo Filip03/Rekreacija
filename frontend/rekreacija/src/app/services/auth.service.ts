@@ -9,7 +9,7 @@ export class AuthService {
   modalCallback: ((resolve: (result: boolean) => void) => void) | null = null;
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('token') || !!sessionStorage.getItem('token');
   }
 
   triggerModalIfNeeded(): Promise<boolean>{

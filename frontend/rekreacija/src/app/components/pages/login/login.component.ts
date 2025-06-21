@@ -24,7 +24,6 @@ export class LoginComponent {
         this.router.navigateByUrl('/');
       },
       error: err => {
-        // ovde menjaš poruku u zavisnosti od greške
         if (err.status === 401) {
           this.errorMssg = 'Korisničko ime ili lozinka nisu ispravni.';
         } else {
