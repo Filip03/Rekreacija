@@ -1,4 +1,5 @@
-
+CREATE DATABASE  IF NOT EXISTS `rekreacija` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `rekreacija`;
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: localhost    Database: rekreacija
@@ -32,6 +33,16 @@ CREATE TABLE `ekipa` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `ekipa`
+--
+
+LOCK TABLES `ekipa` WRITE;
+/*!40000 ALTER TABLE `ekipa` DISABLE KEYS */;
+INSERT INTO `ekipa` VALUES (1,'Stari Aerodrom',4.7),(2,'Zabjelo',4.3),(3,'City Kvart',NULL);
+/*!40000 ALTER TABLE `ekipa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `korisnik`
 --
 
@@ -59,6 +70,16 @@ CREATE TABLE `korisnik` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `korisnik`
+--
+
+LOCK TABLES `korisnik` WRITE;
+/*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
+INSERT INTO `korisnik` VALUES (1,'Marko','Jocovic','marko@gmail.com','{bcrypt}$2a$10$DUcc/j4Rst5kP92J6Jhc3O3jYTMVBtnDNppVO6iTW9aSASBMoFcRO','Kesa','068051223','2025-05-06',NULL,1),(2,'Filip','Zejak','filipzejak2@gmail.com','{bcrypt}$2a$10$AZCcuU5Z8Y94YAo19mQzwO3PhSovamAQRsPLjJ/MMsJjKIEOoHO0W','CofiZ','068162526','2025-05-18',NULL,1),(3,'test','test','test@gmail.com','{bcrypt}$2a$10$rVQxxkevjl42fPrhzlpbwuh0uNxAEasFLCOT4YaiR8UBJ.PfJvwuG','test','069123123','2025-05-18',NULL,1);
+/*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `obavjestenja`
 --
 
@@ -80,6 +101,16 @@ CREATE TABLE `obavjestenja` (
   CONSTRAINT `obavjestenja_ibfk_2` FOREIGN KEY (`pitch_id`) REFERENCES `teren` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `obavjestenja`
+--
+
+LOCK TABLES `obavjestenja` WRITE;
+/*!40000 ALTER TABLE `obavjestenja` DISABLE KEYS */;
+INSERT INTO `obavjestenja` VALUES (1,1,1,'Tražimo jednog igrača za futsal','Fali nam jedan igrač za večerašnji meč u 18h, javite se!','2025-05-06',0),(2,1,2,'Košarka 2 na 2!','Ekipa iz City Kvarta traži protivnike za friendly 2v2.','2025-05-07',1);
+/*!40000 ALTER TABLE `obavjestenja` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `ocjena`
@@ -104,6 +135,16 @@ CREATE TABLE `ocjena` (
   CONSTRAINT `ocjena_chk_4` CHECK (((`quality` >= 0) and (`quality` <= 5)))
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ocjena`
+--
+
+LOCK TABLES `ocjena` WRITE;
+/*!40000 ALTER TABLE `ocjena` DISABLE KEYS */;
+INSERT INTO `ocjena` VALUES (1,4.7,4,5,5,1),(2,4.3,5,4,4,2);
+/*!40000 ALTER TABLE `ocjena` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -185,6 +226,16 @@ CREATE TABLE `ocjena_pozajmica` (
   CONSTRAINT `ocjena_chk_loan_4` CHECK (((`quality` >= 0) and (`quality` <= 5)))
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ocjena_pozajmica`
+--
+
+LOCK TABLES `ocjena_pozajmica` WRITE;
+/*!40000 ALTER TABLE `ocjena_pozajmica` DISABLE KEYS */;
+INSERT INTO `ocjena_pozajmica` VALUES (1,5.0,5,5,5,1),(2,4.0,4,4,4,2);
+/*!40000 ALTER TABLE `ocjena_pozajmica` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -264,6 +315,16 @@ CREATE TABLE `pozajmica` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `pozajmica`
+--
+
+LOCK TABLES `pozajmica` WRITE;
+/*!40000 ALTER TABLE `pozajmica` DISABLE KEYS */;
+INSERT INTO `pozajmica` VALUES (1,1,1,5.0),(2,1,2,4.0);
+/*!40000 ALTER TABLE `pozajmica` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rezervacija`
 --
 
@@ -284,6 +345,16 @@ CREATE TABLE `rezervacija` (
   CONSTRAINT `rezervacija_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `korisnik` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rezervacija`
+--
+
+LOCK TABLES `rezervacija` WRITE;
+/*!40000 ALTER TABLE `rezervacija` DISABLE KEYS */;
+INSERT INTO `rezervacija` VALUES (1,'zauzeto','2025-05-10 18:00:00','2025-05-10 19:00:00',1,1),(2,'zauzeto','2025-05-11 20:00:00','2025-05-11 21:00:00',2,1),(3,'slobodno','2025-05-12 17:00:00','2025-05-12 18:00:00',3,NULL);
+/*!40000 ALTER TABLE `rezervacija` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `teren`
@@ -310,6 +381,16 @@ CREATE TABLE `teren` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `teren`
+--
+
+LOCK TABLES `teren` WRITE;
+/*!40000 ALTER TABLE `teren` DISABLE KEYS */;
+INSERT INTO `teren` VALUES (1,'Morača - Futsal teren','Bulevar Revolucije bb','067123456',1,'Futsal teren sa veštačkom travom, osvetljenjem i svlačionicama.',4.5,1),(2,'Tološi - Košarkaški teren','Ulica V Proleterske','067987654',2,'Otvoreni košarkaški teren sa reflektorima.',4.2,1),(3,'Teniski tereni Ljubović','Ljubović bb','068222333',3,'Dva teniska terena sa tartan podlogom.',4.7,1);
+/*!40000 ALTER TABLE `teren` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tip`
 --
 
@@ -322,6 +403,16 @@ CREATE TABLE `tip` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tip`
+--
+
+LOCK TABLES `tip` WRITE;
+/*!40000 ALTER TABLE `tip` DISABLE KEYS */;
+INSERT INTO `tip` VALUES (1,'regular'),(2,'owner'),(3,'admin');
+/*!40000 ALTER TABLE `tip` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping events for database 'rekreacija'
@@ -340,4 +431,4 @@ CREATE TABLE `tip` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-19 11:39:44
+-- Dump completed on 2025-06-21 17:31:04
