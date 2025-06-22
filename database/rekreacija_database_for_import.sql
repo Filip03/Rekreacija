@@ -28,7 +28,9 @@ CREATE TABLE `ekipa` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) DEFAULT NULL,
   `rating` decimal(2,1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `creator_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `creator_id_UNIQUE` (`creator_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +40,6 @@ CREATE TABLE `ekipa` (
 
 LOCK TABLES `ekipa` WRITE;
 /*!40000 ALTER TABLE `ekipa` DISABLE KEYS */;
-INSERT INTO `ekipa` VALUES (1,'Stari Aerodrom',4.7),(2,'Zabjelo',4.3),(3,'City Kvart',NULL);
 /*!40000 ALTER TABLE `ekipa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `korisnik` (
   KEY `tip_korisnika` (`type_id`),
   CONSTRAINT `korisnik_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `ekipa` (`id`),
   CONSTRAINT `tip_korisnika` FOREIGN KEY (`type_id`) REFERENCES `tip` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +76,7 @@ CREATE TABLE `korisnik` (
 
 LOCK TABLES `korisnik` WRITE;
 /*!40000 ALTER TABLE `korisnik` DISABLE KEYS */;
-INSERT INTO `korisnik` VALUES (1,'Marko','Jocovic','marko@gmail.com','{bcrypt}$2a$10$DUcc/j4Rst5kP92J6Jhc3O3jYTMVBtnDNppVO6iTW9aSASBMoFcRO','Kesa','068051223','2025-05-06',NULL,1),(2,'Filip','Zejak','filipzejak2@gmail.com','{bcrypt}$2a$10$AZCcuU5Z8Y94YAo19mQzwO3PhSovamAQRsPLjJ/MMsJjKIEOoHO0W','CofiZ','068162526','2025-05-18',NULL,1),(3,'test','test','test@gmail.com','{bcrypt}$2a$10$rVQxxkevjl42fPrhzlpbwuh0uNxAEasFLCOT4YaiR8UBJ.PfJvwuG','test','069123123','2025-05-18',NULL,1);
+INSERT INTO `korisnik` VALUES (2,'Filip','Zejak','filipzejak2@gmail.com','{bcrypt}$2a$10$AZCcuU5Z8Y94YAo19mQzwO3PhSovamAQRsPLjJ/MMsJjKIEOoHO0W','CofiZ','068162526','2025-05-18',NULL,3),(4,'Arsenije','Obradović','arsenije@gmail.com','{bcrypt}$2a$10$9lBEFrXL9fWTeJj01PsD1u518H/fsBCXDpA.flz5W/IUrqtH4Hpii','Arsenije','068723425','2025-06-22',NULL,2),(5,'Nemanja','Urosevic','nemanja@gmail.com','{bcrypt}$2a$10$mJHsPQJvLdXTq66WEgzOUOM2hLOpQIXnXf5wEj0oWYqo1oOtjGYpC','Nemanja','067722101','2025-06-22',NULL,2),(6,'Milos','Duborija','milos@gmail.com','{bcrypt}$2a$10$Iu2unzpnmcPaA.DGEWJBUOo/mWc385Vdh3/6X0VeHeJWggyxJSF4a','Milos','068900125','2025-06-22',NULL,2),(7,'Ranko','Nikolic','ranko@gmail.com','{bcrypt}$2a$10$obr0bG/XjqYCc/JE1kB.V.zOoO3f.9f.urYzblZA03SZwHVs6uCdq','Ranko','066515404','2025-06-22',NULL,2),(8,'Aleksa','Tovjanin','aleksatovjanin@gmail.com','{bcrypt}$2a$10$ko6wo.1/XqurpDcKLA6e3...TZMwnt6J8j6vB.6U3TKOTXh.q5mye','Tovi','067432474','2025-06-22',NULL,3),(9,'Luka','Sekulic','lukasekulic@gmail.com','{bcrypt}$2a$10$NYRvXoc8koh8uFH71OUjWOg7Gs4dt1N.DC7bsKuXqz94GjZz6DNv2','Sekula','067202237','2025-06-22',NULL,3);
 /*!40000 ALTER TABLE `korisnik` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +100,7 @@ CREATE TABLE `obavjestenja` (
   KEY `pitch_id` (`pitch_id`),
   CONSTRAINT `obavjestenja_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `korisnik` (`id`),
   CONSTRAINT `obavjestenja_ibfk_2` FOREIGN KEY (`pitch_id`) REFERENCES `teren` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +109,7 @@ CREATE TABLE `obavjestenja` (
 
 LOCK TABLES `obavjestenja` WRITE;
 /*!40000 ALTER TABLE `obavjestenja` DISABLE KEYS */;
-INSERT INTO `obavjestenja` VALUES (1,1,1,'Tražimo jednog igrača za futsal','Fali nam jedan igrač za večerašnji meč u 18h, javite se!','2025-05-06',0),(2,1,2,'Košarka 2 na 2!','Ekipa iz City Kvarta traži protivnike za friendly 2v2.','2025-05-07',1);
+INSERT INTO `obavjestenja` VALUES (3,2,NULL,'Početak rada','Sa zadovoljstvom Vas možemo obavijesiti da je aplikacija Rekreacija++ 22. juna 2025. godine spremna i dostupna za korišćenje. Isprobajte još danas i rezervišite svoj termin! ','2025-06-22',3),(4,5,16,'Obnova terena','Obavještavamo sve igrače da će teren broj 3 u periodu od 15.7.2025 do 18.7.2025 biti nedostupan za zakazivanje zbog obnove podloge.','2025-07-12',2);
 /*!40000 ALTER TABLE `obavjestenja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +143,6 @@ CREATE TABLE `ocjena` (
 
 LOCK TABLES `ocjena` WRITE;
 /*!40000 ALTER TABLE `ocjena` DISABLE KEYS */;
-INSERT INTO `ocjena` VALUES (1,4.7,4,5,5,1),(2,4.3,5,4,4,2);
 /*!40000 ALTER TABLE `ocjena` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -233,7 +233,6 @@ CREATE TABLE `ocjena_pozajmica` (
 
 LOCK TABLES `ocjena_pozajmica` WRITE;
 /*!40000 ALTER TABLE `ocjena_pozajmica` DISABLE KEYS */;
-INSERT INTO `ocjena_pozajmica` VALUES (1,5.0,5,5,5,1),(2,4.0,4,4,4,2);
 /*!40000 ALTER TABLE `ocjena_pozajmica` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -320,7 +319,6 @@ CREATE TABLE `pozajmica` (
 
 LOCK TABLES `pozajmica` WRITE;
 /*!40000 ALTER TABLE `pozajmica` DISABLE KEYS */;
-INSERT INTO `pozajmica` VALUES (1,1,1,5.0),(2,1,2,4.0);
 /*!40000 ALTER TABLE `pozajmica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +350,6 @@ CREATE TABLE `rezervacija` (
 
 LOCK TABLES `rezervacija` WRITE;
 /*!40000 ALTER TABLE `rezervacija` DISABLE KEYS */;
-INSERT INTO `rezervacija` VALUES (1,'zauzeto','2025-05-10 18:00:00','2025-05-10 19:00:00',1,1),(2,'zauzeto','2025-05-11 20:00:00','2025-05-11 21:00:00',2,1),(3,'slobodno','2025-05-12 17:00:00','2025-05-12 18:00:00',3,NULL);
 /*!40000 ALTER TABLE `rezervacija` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,12 +369,16 @@ CREATE TABLE `teren` (
   `description` text,
   `rating` decimal(2,1) DEFAULT NULL,
   `owner_id` int DEFAULT NULL,
+  `image_url` varchar(150) DEFAULT NULL,
+  `cordinates_x` varchar(100) DEFAULT NULL,
+  `cordinates_y` varchar(100) DEFAULT NULL,
+  `area` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `owner_of_pitch` (`owner_id`),
   CONSTRAINT `owner_of_pitch` FOREIGN KEY (`owner_id`) REFERENCES `korisnik` (`id`),
   CONSTRAINT `chk_rating` CHECK (((`rating` >= 0.0) and (`rating` <= 5.0)))
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +387,7 @@ CREATE TABLE `teren` (
 
 LOCK TABLES `teren` WRITE;
 /*!40000 ALTER TABLE `teren` DISABLE KEYS */;
-INSERT INTO `teren` VALUES (1,'Morača - Futsal teren','Bulevar Revolucije bb','067123456',1,'Futsal teren sa veštačkom travom, osvetljenjem i svlačionicama.',4.5,1),(2,'Tološi - Košarkaški teren','Ulica V Proleterske','067987654',2,'Otvoreni košarkaški teren sa reflektorima.',4.2,1),(3,'Teniski tereni Ljubović','Ljubović bb','068222333',3,'Dva teniska terena sa tartan podlogom.',4.7,1);
+INSERT INTO `teren` VALUES (1,'Morača - Futsal teren','Bulevar Revolucije bb','067123456',1,'Futsal teren sa vještačkom travom, osvjetljenjem i svlačionicama.',4.5,4,'assets/moraca','42.43926322093669','19.253906786564002','Preko Morace'),(2,'Tološi - Košarkaški teren','Ulica V Proleterske','067987654',2,'Otvoreni košarkaški teren sa reflektorima.',4.2,5,'assets/tolosi.jpg','42.44664660122677','19.236470210106642','Tolosi'),(3,'Teniski teren NEC','22 Vasa Raickovica','068222333',3,'Dva teniska terena sa šljakom.',4.7,6,'assets/nec.jpg','42.44395607894279','19.253744711651198','Novi Grad'),(6,'Balon Gimnazija','Vaka Djurovica','067111451',1,'Futsal teren sa vjestackom travom, osvjetljenjem, Derby loptama',4.8,7,'assets/gimnazija.jpg','42.447688','19.264295','Centar'),(7,'Stampar Sportski centar - Futsal','bb Vijenac Kosovskih Junaka','068886886',1,'Futsal teren sa vjestackom travom, semaforom, osvjetljenjem i loptama najveceg kvaliteta',4.3,4,'assets/stampar.jpg','42.446253','19.242308','Blok 5'),(8,'Sportski Centar Dadex','Masline','066666222',1,'Futsal teren opremljen najnovijom opremom, nova podloga, teren na kojem se igraju mecevi Biznis lige Crne Gore',4.9,5,'assets/dadex.jpg','42.443522','19.281300','Masline'),(9,'Arena Sportski Centar','Kralja Nikole','069888721',1,'Futsal teren pravljen po evropskom standardu, najkvalitetnija vjestacka podloga sa tribinama oko terena',4.4,6,'assets/arena.jpg','42.431683','42.431683','Zabjelo'),(10,'Balon Sutjeska','Nikca od Rovina','068555444',1,'Futsal balon i teren na otvorenom za sve prilike, standardne dimenzije i najbolji kvalitet vjestacke trave sa osvjetljenjem',4.6,7,'assets/sutjeska.jpg','42.447610','19.256017','Momisici'),(15,'Teniski centar Knezevic - Knez','uz Moracu, Podgorica','069593099',3,'Dva teniska terena sa šljakom, teniski reketi svih brendova, osvježenje pored terena',4.9,4,'assets/knezevic.webp','42.412938643161915','19.22232675766976','Zabjelo'),(16,'Teniski klub Eminent','Velje Brdo','067274394',3,'Teniski teren sa modernom opremom, reketima na iznajmljivanje i stručnjacima za unapređenje vaših teniskih vještina',4.1,5,'assets/eminent.jpg','42.48995201780377','19.232496661358066','Velje Brdo'),(17,'Bemax Arena','Ulica Svetlane Kane Radevic','069755666',2,'Moderni kosarkaski tereni namijenjeni za 5 na 5 ili 3 na 3 igru sa modernizovanom podlogom',4.5,6,'assets/bemax.jpg','42.437531341637055','19.254924480740982','Preko Morace'),(18,'Pavle Rovinski Kosarkaski Teren','Stari Aerodrom','066222311',2,'Kosarkaski teren u sklopu Osnovne skole Pavle Rovinski na Starom Aerodromu',3.8,7,'assets/pavle_rovinski.jpg','42.42811324753237','19.27660528466048','Stari Aerodrom'),(19,'Stampar Sportski centar - Kosarka','Vaka Djurovica','067111451',2,'Kosarkaski balon sa visecim obrucima, Molten loptama',4.3,5,'assets/stampar-kosarka.webp','42.44617133381329','19.24224396571497','Blok 5');
 /*!40000 ALTER TABLE `teren` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-21 17:31:04
+-- Dump completed on 2025-06-22 11:25:59
