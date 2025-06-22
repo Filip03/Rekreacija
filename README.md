@@ -3,6 +3,9 @@
 ## Raspored TASKOVA
 
 - Taskovi su podijeljeni svima, kao po dogovoru, Luka i Aleksa da zavrsite frontend, ja cu chatbota, backend i Admin stranicu.
+- Rok da zavrsimo sve svoje taskove, tj aplikaciju je 5. jul kako bismo imali vremena da je citavu testiramo i finisiramo mobilnu aplikaciju
+- Mobilnu aplikaciju necemo dirati dok sve ne zavrsimo
+- Merge request slati tek kada je stranica citava gotova i funkcionalna
 
 ## Backend
 
