@@ -3,7 +3,7 @@
 ## BACKEND!!!
 
 - Makao sam application.poperties sa git-a zbog nekog security policy jer tamo cuvam API KEY za OpenAI
-- U backend applicatio.properties dodajte rucno liniju koju vam posaljem na vajber jer na git nije dozvoljeno da se postavlja secret keys
+- Kod vas chatbot nece raditi jer nemate API KEY, tkd cu vam pokazat kako chatbot radi nedje kad se sretnemo
 
 ## Raspored TASKOVA
 
