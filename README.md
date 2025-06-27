@@ -1,5 +1,10 @@
 ## Projekat iz Softverskog inzenjerstva - Rekreacija++
 
+## BACKEND!!!
+
+- Makao sam application.poperties sa git-a zbog nekog security policy jer tamo cuvam API KEY za OpenAI
+- Kod vas chatbot nece raditi jer nemate API KEY, tkd cu vam pokazat kako chatbot radi nedje kad se sretnemo
+
 ## Raspored TASKOVA
 
 - Taskovi su podijeljeni svima, kao po dogovoru, Luka i Aleksa da zavrsite frontend, ja cu chatbota, backend i Admin stranicu.
