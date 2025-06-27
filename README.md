@@ -1,5 +1,10 @@
 ## Projekat iz Softverskog inzenjerstva - Rekreacija++
 
+##BACKEND!!!
+
+- Makao sam application.poperties sa git-a zbog nekog security policy jer tamo cuvam API KEY za OpenAI
+- U backend applicatio.properties dodajte rucno liniju koju vam posaljem na vajber jer na git nije dozvoljeno da se postavlja secret keys
+
 ## Raspored TASKOVA
 
 - Taskovi su podijeljeni svima, kao po dogovoru, Luka i Aleksa da zavrsite frontend, ja cu chatbota, backend i Admin stranicu.
