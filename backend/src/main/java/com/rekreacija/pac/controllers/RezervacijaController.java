@@ -4,6 +4,7 @@ import com.rekreacija.pac.models.Rezervacija;
 import com.rekreacija.pac.services.RezervacijaService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,11 @@ public class RezervacijaController {
     @GetMapping("/{id}")
     public Rezervacija getRezervacijaById(@PathVariable("id") int rezervacija_id) {
         return this.rezervacijaService.getRezervacijaById(rezervacija_id);
+    }
+
+    @GetMapping("/user_id/{id}")
+    public List<Rezervacija> getRezervacijaByUserId(@PathVariable("id") int id) {
+        return this.rezervacijaService.getRezervacijaByUserId(id);
     }
 
     @PostMapping()

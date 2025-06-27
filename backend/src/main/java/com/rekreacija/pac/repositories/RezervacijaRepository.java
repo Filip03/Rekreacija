@@ -70,6 +70,7 @@ public class RezervacijaRepository {
             if(!rs.next()){
                 throw new Exception("Rezervacija ne postoji!");
             }
+
             result = new Rezervacija(
                     rs.getInt("id"),
                     Status.valueOf(rs.getString("status").toUpperCase()),
@@ -78,6 +79,50 @@ public class RezervacijaRepository {
                     rs.getInt("user_id"),
                     rs.getInt("pitch_id")
             );
+            ps.close();
+            conn.close();
+        }
+        catch(Exception e){
+            result = null;
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(ps != null) ps.close();
+                if(conn != null) conn.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Rezervacija> getRezervacijaByUserId(int id){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ArrayList<Rezervacija> result =new ArrayList<>();
+
+        try{
+            conn = DBUtil.openConnection();
+            String commandText = "SELECT * FROM Rezervacija WHERE user_id = ?";
+            ps = conn.prepareStatement(commandText);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(!rs.next()){
+                throw new Exception("Rezervacija ne postoji!");
+            }
+            while (rs.next()) {
+               Rezervacija r = new Rezervacija(
+                        rs.getInt("id"),
+                        Status.valueOf(rs.getString("status").toUpperCase()),
+                        rs.getTimestamp("start_date").toLocalDateTime(),
+                        rs.getTimestamp("end_date").toLocalDateTime(),
+                        rs.getInt("user_id"),
+                        rs.getInt("pitch_id")
+                );
+               result.add(r);
+            }
             ps.close();
             conn.close();
         }

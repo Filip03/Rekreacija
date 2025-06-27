@@ -19,6 +19,7 @@ public class RezervacijaService {
     public Rezervacija getRezervacijaById(int id) {
         return this.rezervacijaRepository.getRezervacijaById(id);
     }
+    public List<Rezervacija> getRezervacijaByUserId(int id) { return this.rezervacijaRepository.getRezervacijaByUserId(id); }
     public int insertRezervacija(Rezervacija rez) {
         return this.rezervacijaRepository.insertRezervacija(rez);
     }
