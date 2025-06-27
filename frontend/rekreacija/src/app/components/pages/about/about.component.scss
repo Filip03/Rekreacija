@@ -12,8 +12,22 @@
   color: #308c26;
 }
 
+#link-termin{
+  display: inline-block;
+  color: greenyellow;
+  font-weight: bolder;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+#link-termin:hover{
+  text-decoration: underline;
+  transform: scale(1.05) !important;
+}
+
 .blurred-box{
-  background-color: rgba(0, 0, 0, 0.2); // tamna providna pozadina
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(10px);
   text-align: center;
@@ -119,3 +133,28 @@
 .slide-text p {
   font-size: 1.5rem;
 }
+
+@media screen and (max-width: 768px) {
+  .about-section {
+    padding: 3rem 1rem;
+  }
+
+  .blurred-box {
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+
+  .about-section > div:last-child {
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .about-section > div[style*="position: absolute"] {
+    position: static !important;
+    margin-bottom: 2rem;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+

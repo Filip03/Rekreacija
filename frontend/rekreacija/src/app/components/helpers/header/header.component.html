@@ -6,23 +6,20 @@
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="" class="nav-link px-2 link-body-emphasis text-white"><b>Početna</b></a></li>
-        <li><a href="/teren" class="nav-link px-2 link-body-emphasis text-white"><b>Tereni</b></a></li>
-        <li><a href="#" class="nav-link px-2 link-body-emphasis text-white"><b>Ekipa</b></a></li>
-        <li><a href="/about" class="nav-link px-2 link-body-emphasis text-white"><b>O nama</b></a></li>
+        <li><a href="" class="nav-link px-2 link-body-emphasis text-white left-side"><b>Početna</b></a></li>
+        <li><a href="/teren" class="nav-link px-2 link-body-emphasis text-white left-side"><b>Tereni</b></a></li>
+        <li><a href="#" class="nav-link px-2 link-body-emphasis text-white left-side"><b>Ekipa</b></a></li>
+        <li><a href="/about" class="nav-link px-2 link-body-emphasis text-white left-side"><b>O nama</b></a></li>
       </ul>
-
-      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
 
       <div class = "notification-wrapper" style="position: relative;">
         <button (click)="toggleNotifications()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell" id="bell">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
         </button>
+        <a href="/" class="nav-link px-2 link-body-emphasis text-black"><b>Obavještenja</b></a>
         <div *ngIf="showNotifications" class="obavjestenja open">
           <app-obavjestenja></app-obavjestenja>
         </div>

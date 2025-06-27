@@ -17,7 +17,7 @@
     <div *ngFor="let msg of messages">
     <div>
       <div class="message user" *ngIf="msg.from === 'user'">
-        <b>Vi:</b> {{ msg.text }}
+        <b>{{ username }}:</b> {{ msg.text }}
       </div>
       <div class="message bot" *ngIf="msg.from === 'bot'">
         <b class="bot-prompt">Rekreacija++:</b>

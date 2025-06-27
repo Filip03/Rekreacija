@@ -30,3 +30,20 @@ button{
   opacity: 1;
   visibility: visible;
 }
+
+.notification-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+#bell:hover{
+  transform: scale(1.15);
+}
+
+.left-side:hover{
+  transform: scale(1.10);
+  transition: all 0.2s ease-in-out;
+}

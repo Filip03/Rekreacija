@@ -12,6 +12,7 @@ export class LinkifyPipe implements PipeTransform {
     const regex = /\/reservation\/\d+/g;
 
     // Menjaj pronađene delove sa linkom <a href="...">...</a>
-    return value.replace(regex, (match) => `<a href="${match}" target="_blank">Zakazi termin</a>`);
+    return value.replace(regex, (match) => `<a href="${match}" target="_blank">Zakazite termin</a>`);
+    
   }
 }

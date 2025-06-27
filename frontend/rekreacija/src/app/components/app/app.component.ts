@@ -2,6 +2,14 @@ import {AfterViewInit, Component, ViewChild, HostListener, viewChild, ElementRef
 import {AuthModalComponent} from "../../modals/auth-modal/auth-modal.component";
 import {AuthService} from "../../services/auth.service";
 import { HttpClient } from '@angular/common/http';
+import { jwtDecode } from 'jwt-decode';
+
+
+interface TokenPayload{
+  sub: string;
+  userId: number;
+  typeId: number;
+}
 
 @Component({
     selector: 'app-root',
@@ -9,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
     styleUrls: ['./app.component.scss'],
     standalone: false
 })
+
 export class AppComponent implements AfterViewInit {
   title = 'rekreacija';
 
@@ -16,12 +25,20 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('chatbotButton') chatbotButton!: ElementRef;
   @ViewChild('chatbotBox') chatbotBox!: ElementRef;
 
-
+  
   isChatbotVisible = false;
   userInput: string = '';
   messages: { from: 'user' | 'bot', text: string }[] = [];
+  token = sessionStorage.getItem("token") ? sessionStorage.getItem("token") : localStorage.getItem("token");
+  username: string = 'Vi';
 
-  constructor(private authService: AuthService, private http: HttpClient) {}
+  constructor(private authService: AuthService, private http: HttpClient) {
+
+    if(this.token){
+      const decode: any = jwtDecode<TokenPayload>(this.token);
+      this.username = decode.sub;
+    }
+  }
 
   ngAfterViewInit() {
       this.authService.modalCallback = (resolve: (result:boolean) => void) => {

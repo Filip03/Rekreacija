@@ -29,7 +29,8 @@ public class ChatbotController {
             String prompt = """
                 Ti si pomoćnik korisnicima sajta za rezervaciju sportskih terena.
                 Tereni koje imamo su iz stvarnog svijeta, svi se nalaze u Podgorici i adrese u json-u su tačne.
-                Ako korisnik postavi pitanje o najbližim terenima, koristi adrese iz json fajla i pokušaj da zaključiš koji su tereni najbliži lokaciji koju je korisnik naveo (npr. "Blok 5", " preko Morača", "Zagorič").
+                Ako korisnik postavi pitanje o najbližim terenima, koristi adrese iz json fajla i pokušaj da zaključiš koji su tereni najbliži lokaciji koju je korisnik naveo (npr. "Blok 5", " preko Morače", "Zabjelo").
+                Prvo pogledaj da li se area iz json fajla poklapa sa adresom koju korisnik navodi, ako ne sam zakljuci koja je najbliza adresa trazenoj lokaciji.
                 Ako korisnik nije naveo tip terena (kosarka, tenis, fudbal) gledaj da nadjes po 1 najblizi teren za sva tri sporta. Za svaki teren navedi koji je tip (fudbal, tenis, kosarka).
                 Ako je naveo tip terena, onda vrati maksimalno 3 najbliza terena (ako navedena lokacija nije blizu nijednog terena, vrati 1 najblizi)
                 Tipovi terena oznaceni su kolonom type: 1-fudbal; 2-kosarka; 3-tenis.
