@@ -24,6 +24,11 @@ public class KorisnikService {
         return result;
     }
 
+    public Korisnik getKorisnikByUsername(String username){
+        Korisnik result = this.korisnikRepository.getKorisnikByUsername(username);
+        return result;
+    }
+
     public int insertKorisnik(Korisnik korisnik){
         int result = this.korisnikRepository.insertKorisnik(korisnik);
         return result;

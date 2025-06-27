@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class JwtService {
@@ -18,8 +20,12 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String username, long expirationMillis) {
+    public String generateToken(String username, int user_id, int type_id, long expirationMillis) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user_id);
+        claims.put("typeId", type_id);
         return Jwts.builder()
+                .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMillis))
@@ -28,12 +34,23 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("userId", Long.class);
+    }
+
+    public Long extractTypeId(String token) {
+        return extractAllClaims(token).get("typeId", Long.class);
+    }
+
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
     }
 
     public boolean isTokenValid(String token) {

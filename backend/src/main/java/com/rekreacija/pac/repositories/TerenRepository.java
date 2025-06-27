@@ -32,7 +32,11 @@ public class TerenRepository {
                         rs.getInt("type"),
                         rs.getString("description"),
                         rs.getBigDecimal("rating"),
-                        rs.getInt("owner_id")
+                        rs.getInt("owner_id"),
+                        rs.getString("image_url"),
+                        rs.getFloat("cordinates_x"),
+                        rs.getFloat("cordinates_y"),
+                        rs.getString("area")
                 );
                 result.add(t);
             }
@@ -77,7 +81,11 @@ public class TerenRepository {
                     rs.getInt("type"),
                     rs.getString("description"),
                     rs.getBigDecimal("rating"),
-                    rs.getInt("owner_id")
+                    rs.getInt("owner_id"),
+                    rs.getString("image_url"),
+                    rs.getFloat("cordinates_x"),
+                    rs.getFloat("cordinates_y"),
+                    rs.getString("area")
 
             );
             ps.close();
@@ -106,7 +114,7 @@ public class TerenRepository {
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "INSERT INTO teren (name, adress, contact, type, description, rating, owner_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String commandText = "INSERT INTO teren (name, adress, contact, type, description, rating, owner_id, cordinates_x, cordinates_y, area) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(commandText);
             ps.setString(1, teren.name);
             ps.setString(2, teren.adress);
@@ -115,6 +123,9 @@ public class TerenRepository {
             ps.setString(5, teren.description);
             ps.setBigDecimal(6, teren.rating);
             ps.setInt(7, teren.owner_id);
+            ps.setFloat(8, teren.cordinates_x);
+            ps.setFloat(9, teren.cordinates_y);
+            ps.setString(10, teren.area);
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows == 0){
@@ -146,7 +157,7 @@ public class TerenRepository {
 
         try{
             conn = DBUtil.openConnection();
-            String CommandText = "UPDATE teren SET name = ?, adress = ?, contact = ?, type = ?, description = ?, rating = ?, owner_id = ? WHERE id = ?";
+            String CommandText = "UPDATE teren SET name = ?, adress = ?, contact = ?, type = ?, description = ?, rating = ?, owner_id = ?, cordinates_x = ?, cordinates_y = ?, area = ? WHERE id = ?";
             ps = conn.prepareStatement(CommandText);
             ps.setString(1, teren.name);
             ps.setString(2, teren.adress);
@@ -156,6 +167,9 @@ public class TerenRepository {
             ps.setBigDecimal(6, teren.rating);
             ps.setInt(7, teren.owner_id);
             ps.setInt(8, t_id);
+            ps.setFloat(8, teren.cordinates_x);
+            ps.setFloat(9, teren.cordinates_y);
+            ps.setString(10, teren.area);
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows == 0){

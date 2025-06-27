@@ -106,13 +106,14 @@ public class ObavjestenjaRepository {
 
         try{
             conn=DBUtil.openConnection();
-            String commandText = "INSERT INTO obavjestenja(user_id, pitch_id, title, description, date) VALUES (?, ?, ?, ?, ?)";
+            String commandText = "INSERT INTO obavjestenja(user_id, pitch_id, title, description, date, type) VALUES (?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(commandText);
             ps.setInt(1, o.user_id);
             ps.setInt(2, o.pitch_id);
             ps.setString(3, o.title);
             ps.setString(4, o.description);
             ps.setDate(5, o.date);
+            ps.setInt(6, o.type);
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows==0){

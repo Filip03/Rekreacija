@@ -105,6 +105,52 @@ public class KorisnikRepository {
         return result;
     }
 
+    public static Korisnik getKorisnikByUsername(String username){
+        Connection conn = null;
+        Korisnik result = null;
+        PreparedStatement ps = null;
+
+        try{
+            conn = DBUtil.openConnection();
+            String commandText = "SELECT * FROM korisnik WHERE username LIKE ?";
+            ps = conn.prepareStatement(commandText);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.next()){
+                throw new Exception("Korisnik sa korisnickim imenom: " + username + " nije pronadjen!");
+            }
+            result = new Korisnik(
+                    rs.getInt("id"),
+                    rs.getInt("type_id"),
+                    rs.getInt("team_id"),
+                    rs.getDate("date_of_registration"),
+                    rs.getString("phone_number"),
+                    rs.getString("password"),
+                    rs.getString("email"),
+                    rs.getString("username"),
+                    rs.getString("surname"),
+                    rs.getString("name")
+            );
+            ps.close();
+            conn.close();
+        }
+        catch (Exception e){
+            result = null;
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                if(ps!=null) ps.close();
+                if(conn!=null) conn.close();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
     public int insertKorisnik(Korisnik k){
         Connection conn = null;
         int result = -1;

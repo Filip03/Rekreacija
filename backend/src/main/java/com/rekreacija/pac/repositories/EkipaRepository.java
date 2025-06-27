@@ -29,7 +29,8 @@ public class EkipaRepository {
                 Ekipa e = new Ekipa(
                         rs.getInt("id"),
                         rs.getBigDecimal("rating"),
-                        rs.getString("name")
+                        rs.getString("name"),
+                        rs.getInt("creator_id")
                 );
                 resut.add(e);
             }
@@ -75,7 +76,8 @@ public class EkipaRepository {
             result = new Ekipa(
                     rs.getInt("id"),
                     rs.getBigDecimal("rating"),
-                    rs.getString("name")
+                    rs.getString("name"),
+                    rs.getInt("creator_id")
             );
 
             ps.close();
@@ -104,10 +106,11 @@ public class EkipaRepository {
 
         try {
             conn = DBUtil.openConnection();
-            String commandText = "INSERT INTO ekipa(name, rating) VALUES (?, ?)";
+            String commandText = "INSERT INTO ekipa(name, rating, creator_id) VALUES (?, ?, ?)";
             ps = conn.prepareStatement(commandText);
             ps.setString(1, e.name);
             ps.setBigDecimal(2, e.rating);
+            ps.setInt(3, e.creator_id);
 
             int affectedRows = ps.executeUpdate();
 

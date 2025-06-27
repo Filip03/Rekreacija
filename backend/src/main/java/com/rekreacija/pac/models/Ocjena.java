@@ -10,15 +10,13 @@ public class Ocjena {
     public int intensity;
     public int quality;
     public int team_id;
-    public int loan_id;
 
-    public Ocjena(int id, BigDecimal overall, int fair_play, int intensity, int quality, int team_id, int loan_id) {
+    public Ocjena(int id, BigDecimal overall, int fair_play, int intensity, int quality, int team_id) {
         this.id = id;
         this.overall = overall;
         this.fair_play = fair_play;
         this.intensity = intensity;
         this.quality = quality;
         this.team_id = team_id;
-        this.loan_id = loan_id;
     }
 }

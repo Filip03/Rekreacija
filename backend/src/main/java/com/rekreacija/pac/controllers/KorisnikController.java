@@ -25,6 +25,12 @@ public class KorisnikController {
         return result;
     }
 
+    @GetMapping("/{username}")
+    public Korisnik getKorisnikByUsername(@PathVariable("username") String username){
+        Korisnik  result = this.korisnikService.getKorisnikByUsername(username);
+        return result;
+    }
+
     @PostMapping()
     public int insertKorisnik(@RequestBody Korisnik korisnik){
         int result = this.korisnikService.insertKorisnik(korisnik);

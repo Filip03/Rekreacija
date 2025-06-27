@@ -31,8 +31,7 @@ public class OcjenaRepository {
                         rs.getInt("fair_play"),
                         rs.getInt("intensity"),
                         rs.getInt("quality"),
-                        rs.getInt("team_id"),
-                        rs.getInt("loan_id")
+                        rs.getInt("team_id")
                 );
                 result.add(o);
             }
@@ -75,8 +74,7 @@ public class OcjenaRepository {
                     rs.getInt("fair_play"),
                     rs.getInt("intensity"),
                     rs.getInt("quality"),
-                    rs.getInt("team_id"),
-                    rs.getInt("loan_id")
+                    rs.getInt("team_id")
 
             );
             ps.close();
@@ -105,14 +103,13 @@ public class OcjenaRepository {
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "INSERT INTO ocjena(overall, fair_play, intensity, quality, team_id, loan_id) VALUES(?,?,?,?,?,?)";
+            String commandText = "INSERT INTO ocjena(overall, fair_play, intensity, quality, team_id) VALUES(?,?,?,?,?)";
             ps = conn.prepareStatement(commandText);
             ps.setBigDecimal(1, o.overall);
             ps.setInt(2, o.fair_play);
             ps.setInt(3, o.intensity);
             ps.setInt(4, o.quality);
             ps.setInt(5, o.team_id);
-            ps.setInt(6, o.loan_id);
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows == 0){
