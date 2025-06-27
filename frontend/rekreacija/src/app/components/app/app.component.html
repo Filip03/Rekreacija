@@ -8,15 +8,29 @@
 
   <app-footer></app-footer>
 
-  <button #chatbotButton class="chatbot-button" (click)="toggleChatbot()">
-    <img src="/assets/logo-transparent.png" alt="ChatBot">
-  </button>
-  <iframe
-    *ngIf="isChatbotVisible"
-    #chatbotIframe
-    class="chatbot"
-    src="https://www.chatbase.co/chatbot-iframe/kpRo_9x1rkbnS6cF1XqSz"
-    frameborder="0"
-  ></iframe>
+<button #chatbotButton class="chatbot-button" (click)="toggleChatbot()">
+  <img src="/assets/logo-transparent.png" alt="ChatBot" width="40" height="40" />
+</button>
+
+<div *ngIf="isChatbotVisible" class="chatbot-box" #chatbotBox>
+  <div class="chat-messages">
+    <div *ngFor="let msg of messages">
+    <div>
+      <div class="message user" *ngIf="msg.from === 'user'">
+        <b>Vi:</b> {{ msg.text }}
+      </div>
+      <div class="message bot" *ngIf="msg.from === 'bot'">
+        <b class="bot-prompt">Rekreacija++:</b>
+        <p [innerHTML]="msg.text | linkify"></p>
+      </div>
+      <hr>
+    </div>
+  </div>
+  </div>
+  <div class="chat-input">
+    <input [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Napišite poruku..." />
+    <button (click)="sendMessage()">Pošalji</button>
+  </div>
+</div>
 
 </div>

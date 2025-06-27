@@ -2,29 +2,82 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
+  background: white;
+  border: 1px solid #ccc;
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  font-size: 24px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.15);
   cursor: pointer;
-  z-index: 1001;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.chatbot {
+.chatbot-box {
   position: fixed;
   bottom: 90px;
   right: 20px;
-  width: 350px;
-  height: 500px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 320px;
+  height: 400px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
   z-index: 1000;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+
+  input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    outline: none;
+  }
+
+  button {
+    border: none;
+    background: #308c26;
+    color: white;
+    padding: 0 16px;
+    cursor: pointer;
+  }
+
+  button:hover{
+    background-color: green;
+  }
+}
+
+.message {
+  margin-bottom: 8px;
+}
+
+.message.user {
+  text-align: right;
+  color: #333;
+}
+
+.message.bot {
+  text-align: left;
+  color: #333;
+}
+
+.message.bot .bot-prompt{
+  color: #308c26;
+}
+
 
 img {
   width: 100%;

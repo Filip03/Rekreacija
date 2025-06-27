@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ViewChild, HostListener, viewChild, ElementRef} from '@angular/core';
 import {AuthModalComponent} from "../../modals/auth-modal/auth-modal.component";
 import {AuthService} from "../../services/auth.service";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
@@ -12,12 +13,15 @@ export class AppComponent implements AfterViewInit {
   title = 'rekreacija';
 
   @ViewChild(AuthModalComponent, { static: false}) authModal!: AuthModalComponent;
-  @ViewChild('chatbotIframe') chatbotIframe!: ElementRef;
   @ViewChild('chatbotButton') chatbotButton!: ElementRef;
+  @ViewChild('chatbotBox') chatbotBox!: ElementRef;
+
 
   isChatbotVisible = false;
+  userInput: string = '';
+  messages: { from: 'user' | 'bot', text: string }[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private http: HttpClient) {}
 
   ngAfterViewInit() {
       this.authService.modalCallback = (resolve: (result:boolean) => void) => {
@@ -31,11 +35,30 @@ export class AppComponent implements AfterViewInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    const clickedInsideIframe = this.chatbotIframe?.nativeElement.contains(event.target);
-    const clickedOnButton = this.chatbotButton?.nativeElement.contains(event.target);
+  const clickedOnButton = this.chatbotButton?.nativeElement.contains(event.target);
+  const clickedInsideChatbot = this.chatbotBox?.nativeElement.contains(event.target);
 
-    if(this.isChatbotVisible && !clickedInsideIframe && !clickedOnButton) {
-      this.isChatbotVisible = false;
+  if (this.isChatbotVisible && !clickedOnButton && !clickedInsideChatbot) {
+    this.isChatbotVisible = false;
+  }
+}
+
+  sendMessage() {
+    const message = this.userInput.trim();
+    if (!message) return;
+
+    this.messages.push({ from: 'user', text: message });
+    this.userInput = '';
+    this.http.post<{ response: string }>(
+    'http://localhost:8080/api/chat',
+    { message }
+  ).subscribe({
+    next: (res) => {
+      this.messages.push({ from: 'bot', text: res.response });
+    },
+    error: () => {
+      this.messages.push({ from: 'bot', text: 'Došlo je do greške prilikom komunikacije.' });
     }
+  });
   }
 }

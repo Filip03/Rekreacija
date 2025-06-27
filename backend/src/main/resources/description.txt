@@ -1,0 +1,7 @@
+Ovo je sajt za sportsku rekreaciju koji korisnicima omogućava:
+-rezervaciju termina za tenis, košarku i fudbal na terenima u Podgorici,
+-kreiranje ekipa i pozivanje prijatelja da se pridruže,
+-ocjenjivanje drugih ekipa nakon zajedničkog termina,
+-pregled slobodnih i zakazanih termina po terenima putem jasnog rasporeda,
+-praćenje table obavještenja sa važnim informacijama o terminima, promjenama i obavještenjima.
+Sajt služi za organizaciju i koordinaciju rekreativnog sporta.
