@@ -17,7 +17,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   slides = [
     { src: 'assets/kosarka_termin.jpg', alt: 'Rezervacije', title: 'Rezervacije', description: 'Rezervišite teren za omiljeni sport u samo par klikova.' },
     { src: 'assets/termin.png', alt: 'Timovi', title: 'Kreirajte timove', description: 'Povežite se sa prijateljima i organizujte zajedničke termine.' },
-    { src: 'assets/telefon.png', alt: 'Statistika', title: 'Budite u koraku sa svim novostima', description: 'Dozvolite push notifikacije da Vam ništa ne bi promaklo.' }
+    { src: 'assets/telefon.png', alt: 'Statistika', title: 'Budite u koraku sa svim novostima', description: 'Tabla obavještenja je tu da Vam ništa ne bi promaklo.' }
   ];
   private autoSlideSubscription: Subscription | undefined;
 

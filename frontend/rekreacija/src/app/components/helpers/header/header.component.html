@@ -29,12 +29,11 @@
           <img src="assets/user.png" alt="mdo" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small">
-          <li><a class="dropdown-item" routerLink="/login">Login</a></li>
-          <li><a class="dropdown-item" routerLink="/register" >Register</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Profil</a></li>
+          <li><a class="dropdown-item" routerLink="/login">Prijava</a></li>
+          <li><a class="dropdown-item" routerLink="/register" >Registracija</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" id="sign-out" (click)="logout()">Odjavite se</a></li>
         </ul>
       </div>
     </div>
