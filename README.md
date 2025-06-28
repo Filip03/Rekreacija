@@ -30,6 +30,7 @@
 
 ## Frontend
 
+- Citava aplikacija treba biti na srpskom
 - Drzati se sadasnje teme: dominantne boje: zelena, bijela; sekundarne: plava, zuta
 - Voditi racuna da UI svuda bude isti u smislu:
     - dugmad treba da imaju border od 1px, cija je boja identicna boji dugmeta, tj pozadine
