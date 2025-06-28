@@ -1,5 +1,7 @@
 ## Projekat iz Softverskog inzenjerstva - Rekreacija++
 
+## Rok da zavrsimo sve svoje taskove, tj aplikaciju je 5. jul
+
 ## BACKEND!!!
 
 - Makao sam application.poperties sa git-a zbog nekog security policy jer tamo cuvam API KEY za OpenAI
