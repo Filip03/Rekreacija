@@ -30,8 +30,8 @@ export class AdminComponent {
     description: '',
     rating: 0.0,
     owner_id: null,
-    cordinates_x: 0.0,
-    cordinates_y: 0.0,
+    coordinates_x: '',
+    coordinates_y: '',
     area: '',
   }; 
 
@@ -58,8 +58,14 @@ export class AdminComponent {
       }
     );
     this.adminService.getAllPitches().subscribe({
-      next: (pitches) => {
-        console.log('Pitches:', pitches);
+      next: (pitches: any) => {
+        console.log('Pitches from backend:', pitches);
+        if (pitches && Array.isArray(pitches) && pitches.length > 0) {
+          console.log('First pitch sample:', pitches[0]);
+          console.log('First pitch property names:', Object.keys(pitches[0]));
+          console.log('First pitch type value:', pitches[0].type);
+          console.log('First pitch type typeof:', typeof pitches[0].type);
+        }
         this.pitches = pitches;
       }, error: (error) => {
         console.error('Error fetching pitches:', error);
@@ -94,7 +100,7 @@ export class AdminComponent {
         console.log('User promoted to admin successfully');
         const user = this.users.find((user: any) => user.id === userId);
         if (user) {
-          user.type = 3;
+          user.type_id = 3;
         }
       }, error: (error) => {
         console.error('Error promoting user to admin:', error);
@@ -108,7 +114,7 @@ export class AdminComponent {
         console.log('User promoted to owner successfully');
         const user = this.users.find((user: any) => user.id === userId);
         if (user) {
-          user.type = 2;
+          user.type_id = 2;
         }
       }, error: (error) => {
         console.error('Error promoting user to owner:', error);
@@ -125,11 +131,21 @@ export class AdminComponent {
     }
   }
 
+  getUserTypeString(type_id: number): string {
+    switch(type_id) {
+      case 1: return 'Igrač';
+      case 2: return 'Upravnik';
+      case 3: return 'Admin';
+      default: return 'Nepoznat tip korisnika';
+    }
+  }
+
   editPitch(pitchId: number) {
     this.editingPitchId = pitchId;
     const pitch = this.pitches.find((p: any) => p.id === pitchId);
     if (pitch) {
       this.editPitchData = { ...pitch };
+
     }
   }
 
@@ -140,56 +156,97 @@ export class AdminComponent {
 
   saveEditPitch() {
     if (this.editingPitchId && this.editPitchData) {
+      console.log('Data being sent to backend for update:', this.editPitchData);
+      
       this.adminService.updatePitch(this.editingPitchId, this.editPitchData).subscribe({
-        next: (updatedPitch) => {
-          console.log('Pitch updated successfully');
-          const index = this.pitches.findIndex((p: any) => p.id === this.editingPitchId);
-          if (index !== -1) {
-            this.pitches[index] = updatedPitch;
+        next: (result: any) => {
+          console.log('Response from backend after update:', result);
+          
+          if (result === 1) {
+            // Success: Update the pitch in our array with the edited data
+            const index = this.pitches.findIndex((p: any) => p.id === this.editingPitchId);
+            if (index !== -1) {
+              this.pitches[index] = { ...this.editPitchData };
+              console.log('Updated pitch with our data:', this.pitches[index]);
+            }
+            this.cancelEdit();
+            console.log('Pitch updated successfully');
+          } else {
+            // Failure: Backend returned 0
+            console.error('Backend operation failed - returned 0');
+            alert('Failed to update pitch. Please try again.');
           }
-          this.cancelEdit();
         },
         error: (error) => {
           console.error('Error updating pitch:', error);
+          alert('Error occurred while updating pitch.');
         }
       });
     }
   }
 
   addPitch() {
+    console.log('Data being sent to backend for insert:', this.newPitchData);
+    
     this.adminService.insertPitch(this.newPitchData).subscribe({
-      next: (newPitch) => {
-        console.log('Pitch added successfully');
-        this.pitches.push(newPitch);
-        this.newPitchData = {};
+      next: (result: any) => {
+        console.log('Response from backend after insert:', result);
+        
+        if (result === 1) {
+          // Success: Add the pitch to our array with a generated ID
+          const pitchToAdd = { 
+            ...this.newPitchData, 
+            id: Date.now() // Generate a temporary ID since backend doesn't return the actual ID
+          };
+          this.pitches.push(pitchToAdd);
+          console.log('Added pitch with our data:', pitchToAdd);
+          this.cancelInsert();
+          console.log('Pitch added successfully');
+        } else {
+          // Failure: Backend returned 0
+          console.error('Backend operation failed - returned 0');
+          alert('Failed to add pitch. Please try again.');
+        }
       }, error: (error) => {
         console.error('Error adding pitch:', error);
+        alert('Error occurred while adding pitch.');
       }
     });
   }
 
   cancelInsert(){
     this.newPitchData = {
-    name: '',
-    adress: '',
-    contact: '',
-    type: 1,
-    description: '',
-    rating: 0.0,
-    owner_id: null,
-    cordinates_x: 0.0,
-    cordinates_y: 0.0,
-    area: '',
-  }; 
+      name: '',
+      adress: '',
+      contact: '',
+      type: 1,
+      description: '',
+      rating: 0.0,
+      owner_id: null,
+      coordinates_x: '',
+      coordinates_y: '',
+      area: '',
+    }; 
+    this.showAddPitch = false;
   }
 
   deletePitch(pitchId: number) {
     this.adminService.deletePitch(pitchId).subscribe({
-      next: () => {
-        console.log('Pitch deleted successfully');
-        this.pitches = this.pitches.filter((pitch: any) => pitch.id !== pitchId);
+      next: (result: any) => {
+        console.log('Response from backend after delete:', result);
+        
+        if (result === 1) {
+          // Success: Remove the pitch from our array
+          this.pitches = this.pitches.filter((pitch: any) => pitch.id !== pitchId);
+          console.log('Pitch deleted successfully');
+        } else {
+          // Failure: Backend returned 0
+          console.error('Backend operation failed - returned 0');
+          alert('Failed to delete pitch. Please try again.');
+        }
       }, error: (error) => {
         console.error('Error deleting pitch:', error);
+        alert('Error occurred while deleting pitch.');
       }
     });
   }

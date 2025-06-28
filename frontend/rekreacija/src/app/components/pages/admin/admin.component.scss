@@ -1,0 +1,395 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.admin-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 50%;
+    height: 50%;
+    border-bottom: 3px solid #308c26;
+    border-left: 3px solid #308c26;
+    border-right: 3px solid #308c26;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.admin-info p{
+    font-size: 1.2em;
+}
+
+.admin-info h1, h3, b{
+    color: #308c26;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: bolder;
+}
+.admin-info ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+.admin-info h3{
+    border-top: 1px solid #308c26;
+    width: 70%;
+    text-align: center;
+}
+
+.admin-managment{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    margin-top: 50px;
+}
+
+.users-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+
+}
+
+.pitches-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+/* Pitches container styling */
+.pitches-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Container for pitch list header and add button */
+.pitch-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.pitch-list-header h3 {
+    margin: 0;
+    color: #308c26;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-size: 1.2em;
+}
+
+/* Remove individual styling for add-pitch button alignment */
+.pitches-container > .add-pitch-btn {
+    align-self: flex-end;
+    margin-right: 20px;
+}
+
+.users-btn, .pitch-btn{
+    background-color: #308c26;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid #308c26;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.users-btn:hover, .pitch-btn:hover{
+    background-color: white;
+    color: #308c26;
+    transform: scale(1.05);
+}
+
+.user-card, .pitch-card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+/* Fix alignment issues for h6 and p elements in cards */
+.user-card h6, .pitch-card h6 {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.user-card p, .pitch-card p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+/* Ensure all text elements have consistent spacing */
+.user-card > *, .pitch-card > * {
+    margin-right: 15px;
+}
+
+.user-card > *:last-child, .pitch-card > *:last-child {
+    margin-right: 0;
+}
+
+/* New styles for grouped info and actions */
+.user-info, .pitch-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.user-actions, .pitch-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Add separators between list items */
+.users-container li, .pitch-list li {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.users-container li:last-child, .pitch-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.users-container ul, .pitch-list ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+/* Style for add-pitch button */
+.add-pitch-btn {
+    background-color: #308c26;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid #308c26;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.add-pitch-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Form styling for add and edit forms */
+.edit-form {
+    background-color: #ffffff;
+    border: 2px solid #308c26;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    align-self: center;
+}
+
+.edit-form h4 {
+    color: #308c26;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    border-bottom: 2px solid #308c26;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: #308c26;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #308c26;
+    box-shadow: 0 0 5px rgba(48, 140, 38, 0.3);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+/* Responsive form styling */
+@media (max-width: 768px) {
+    .edit-form {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .form-group {
+        margin-bottom: 12px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-actions button {
+        width: 100%;
+    }
+}
+
+/* Container styling for lists */
+.users-container,
+.pitch-list {
+    width: 100%;
+    max-width: 800px;
+}
+
+.users-container h3 {
+    color: #308c26;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+/* Specific styles for action buttons in cards */
+.user-actions button, .pitch-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Edit button styling (light orange) */
+.pitch-actions button:first-child {
+    background-color: #ff9500;
+    color: white;
+}
+
+.pitch-actions button:first-child:hover {
+    background-color: #e6850e;
+    transform: scale(1.05);
+}
+
+/* Delete button styling (light red) */
+.pitch-actions button:last-child,
+.user-actions button:last-child {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+.pitch-actions button:last-child:hover,
+.user-actions button:last-child:hover {
+    background-color: #ff5252;
+    transform: scale(1.05);
+}
+
+/* User action buttons (promote buttons) */
+.user-actions button:first-child,
+.user-actions button:nth-child(2) {
+    background-color: #4caf50;
+    color: white;
+}
+
+.user-actions button:first-child:hover,
+.user-actions button:nth-child(2):hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Form action buttons styling */
+.form-actions button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.save-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #da190b;
+    transform: scale(1.05);
+}
