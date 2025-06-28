@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {LoginService} from "../../../services/login.service";
 import {Router} from "@angular/router";
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
     selector: 'app-login',
@@ -11,7 +12,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   user:any={}
   errorMssg = '';
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(private loginService: LoginService, private router: Router, private tokenService: TokenService) { }
   login(){
     this.errorMssg='';
     this.loginService.userLogin(this.user).subscribe({
@@ -21,6 +22,7 @@ export class LoginComponent {
         } else {
           sessionStorage.setItem('token', token); // Ne pamti → do zatvaranja taba
         }
+        this.tokenService.updateToken();
         this.router.navigateByUrl('/');
       },
       error: err => {

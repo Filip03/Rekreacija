@@ -35,7 +35,7 @@ import { LinkifyPipe } from './pipes/linkify.pipe';
     BrowserAnimationsModule,
     CommonModule, AuthModalComponent,
     HttpClientModule,
-    LinkifyPipe
+    LinkifyPipe,
   ],
   providers: [provideHttpClient(withInterceptors([
               authInterceptor

@@ -52,3 +52,12 @@ button{
   color: red;
   cursor: pointer;
 }
+
+.admin-panel{
+  margin-right: 20px;
+}
+
+.admin-panel:hover{
+  transform: scale(1.15);
+  cursor: pointer;
+}
