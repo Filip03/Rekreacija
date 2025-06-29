@@ -12,7 +12,9 @@ import {WarnableComponent} from "../../../guards/warn.guard";
 })
 export class RegisterComponent implements WarnableComponent {
 
-  user : any = {};
+  user : any = {
+    type_id : 1
+  };
   errorMssg="";
   originalUser: any = {};
 

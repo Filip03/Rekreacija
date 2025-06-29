@@ -11,7 +11,7 @@
         <div class="card shadow-strong card-registration" style="border-radius: 15px;">
           <div class="card-body p-4 p-md-5">
               <!-- <img class="mb-4" src="assets/logo-transparent.png" alt="" width="150" height="70"> -->
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration</h3>
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registracija</h3>
             <form (ngSubmit)="register()">
 
               <div class="row">
@@ -63,25 +63,6 @@
                   <div data-mdb-input-init class="form-floating">
                     <input type="password" id="password" class="form-control form-control-lg" placeholder="" [(ngModel)]="user.password" name="password">
                     <label class="form-label" for="password">Lozinka</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row justify-content-center">
-                <div class="col-md-6 mb-4 text-center">
-
-                  <h6 class="mb-2 pb-1">Tip korisnika: </h6>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender"
-                      [value]="1" checked [(ngModel)]="user.type_id" name="type_id">
-                    <label class="form-check-label" for="femaleGender">Igrač</label>
-                  </div>
-
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender"
-                      [value]="2" [(ngModel)]="user.type_id" name="type_id">
-                    <label class="form-check-label" for="maleGender">Vlasnik</label>
                   </div>
                 </div>
               </div>

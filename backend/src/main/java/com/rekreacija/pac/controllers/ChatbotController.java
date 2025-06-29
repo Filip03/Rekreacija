@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
-@RestController
+//@RestController
 @RequestMapping("/api/chat")
 @CrossOrigin("*")
 public class ChatbotController {

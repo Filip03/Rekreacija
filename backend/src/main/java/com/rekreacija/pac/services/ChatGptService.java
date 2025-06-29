@@ -10,7 +10,7 @@ import reactor.util.retry.Retry;
 import java.time.Duration;
 import java.util.Map;
 
-@Service
+//@Service
 public class ChatGptService {
 
     private final String apiKey;
