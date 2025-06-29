@@ -300,6 +300,208 @@
     }
 }
 
+/* Mobile responsive design */
+@media (max-width: 768px) {
+    .content {
+        padding: 10px;
+    }
+
+    .admin-info {
+        width: 95%;
+        height: auto;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .admin-info h1 {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    .admin-info p {
+        font-size: 1em;
+        text-align: center;
+    }
+
+    .admin-info ul {
+        width: 100%;
+    }
+
+    .admin-info li {
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+
+    .admin-managment {
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 30px;
+    }
+
+    .users-content, .pitches-content {
+        width: 100%;
+    }
+
+    .users-btn, .pitch-btn {
+        width: 100%;
+        max-width: 300px;
+        padding: 15px 20px;
+        font-size: 1em;
+    }
+
+    .user-card, .pitch-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .user-info, .pitch-info {
+        width: 100%;
+        text-align: left;
+    }
+
+    .user-actions, .pitch-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .user-actions button, .pitch-actions button {
+        flex: 1;
+        min-width: 120px;
+        padding: 10px 8px;
+        font-size: 11px;
+    }
+
+    .pitch-list-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .pitch-list-header h3 {
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .add-pitch-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .users-container, .pitch-list {
+        width: 100%;
+        max-width: none;
+        padding: 0 10px;
+    }
+
+    .edit-form {
+        width: 95%;
+        max-width: none;
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .edit-form h4 {
+        font-size: 1.1em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .admin-info {
+        width: 70%;
+    }
+
+    .admin-managment {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .user-card, .pitch-card {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .user-actions, .pitch-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .edit-form {
+        max-width: 500px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .admin-info {
+        width: 98%;
+        padding: 10px;
+    }
+
+    .admin-info h1 {
+        font-size: 1.3em;
+    }
+
+    .admin-info p {
+        font-size: 0.9em;
+    }
+
+    .admin-info li {
+        font-size: 0.8em;
+    }
+
+    .users-btn, .pitch-btn {
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+
+    .user-card, .pitch-card {
+        padding: 12px;
+    }
+
+    .user-actions button, .pitch-actions button {
+        min-width: 100px;
+        padding: 8px 6px;
+        font-size: 10px;
+    }
+
+    .edit-form {
+        padding: 12px;
+        margin: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+    }
+
+    .form-actions {
+        gap: 8px;
+    }
+
+    .form-actions button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    .users-container li, .pitch-list li {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+}
+
 /* Container styling for lists */
 .users-container,
 .pitch-list {
