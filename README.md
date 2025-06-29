@@ -32,6 +32,7 @@
 
 ## Frontend
 
+- U servisima mora da se koristi environment.ts prilikom upucivanja zahtjeva backendu (obratiti paznju da se importuje environment fajl, a ne environment.development)
 - Citava aplikacija treba biti na srpskom
 - Drzati se sadasnje teme: dominantne boje: zelena, bijela; sekundarne: plava, zuta
 - Voditi racuna da UI svuda bude isti u smislu:
