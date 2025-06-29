@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Rekreacija</string>
-    <string name="title_activity_main">Rekreacija</string>
+    <string name="app_name">rekreacija</string>
+    <string name="title_activity_main">rekreacija</string>
     <string name="package_name">com.rekreacija.app</string>
     <string name="custom_url_scheme">com.rekreacija.app</string>
 </resources>

@@ -4,6 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/services/token.service';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'app-root',
@@ -70,7 +71,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     this.userInput = '';
 
     this.http.post<{ response: string }>(
-      'http://localhost:8080/api/chat',
+      `${environment.API_URL}/api/chat`,
       { message }
     ).subscribe({
       next: (res) => {
