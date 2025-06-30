@@ -1,3 +1,4 @@
+<div class="notifications-wrapper">
 <div class="notifications-header">
     <h1>Tabla Obavještenja</h1>
 </div>
@@ -68,8 +69,9 @@
           <p>{{ notification.description }}</p>
           <small>{{ notification.date | date:'dd.MM.yyyy.' }}</small>
         </div>
-        <button *ngIf="showAddOwnerNotification" (click)="deleteNotification(notification.id)">Obriši</button>
+        <button *ngIf="showAddOwnerNotification && notification.user_id === user_id" (click)="deleteNotification(notification.id)">Obriši</button>
       </li>
     </ul>
   </div>
+</div>
 </div>

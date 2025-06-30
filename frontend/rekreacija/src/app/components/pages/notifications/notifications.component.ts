@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class NotificationsComponent {
 
+  user_id: number = 0;
   showAddOwnerNotification: boolean = false;
   showAddAdminNotification: boolean = false;
   showAdminForm: boolean = false;
@@ -35,10 +36,12 @@ export class NotificationsComponent {
     const token = this.tokenService.checkToken();
     if(token?.typeId === 2) {
       this.showAddOwnerNotification = true;
+      this.user_id = token.userId;
       this.notification.type = 2;
       this.notification.user_id = token.userId;
     } else if(token?.typeId === 3) {
       this.showAddAdminNotification = true;
+      this.user_id = token.userId;
       this.notification.type = 3;
       this.notification.user_id = token.userId;
     }
@@ -85,10 +88,6 @@ export class NotificationsComponent {
       }
       this.notification.title = '';
       this.notification.description = '';
-      this.notification.pitch_id = 0;
-      this.notification.type = 0;
-      this.notification.user_id = 0;
-      this.notification.date = new Date();
     });
   }
 
