@@ -27,12 +27,12 @@ public class ObavjestenjaRepository {
             while(rs.next()){
                 Obavjestenja o = new Obavjestenja(
                         rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getInt("pitch_id"),
                         rs.getString("title"),
                         rs.getString("description"),
-                        rs.getInt("type"),
                         rs.getDate("date"),
-                        rs.getInt("user_id"),
-                        rs.getInt("pitch_id")
+                        rs.getInt("type")
 
                 );
                 result.add(o);
@@ -72,12 +72,12 @@ public class ObavjestenjaRepository {
             }
             Obavjestenja o = new Obavjestenja(
                     rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getInt("pitch_id"),
                     rs.getString("title"),
                     rs.getString("description"),
-                    rs.getInt("type"),
                     rs.getDate("date"),
-                    rs.getInt("user_id"),
-                    rs.getInt("pitch_id")
+                    rs.getInt("type")
             );
             result = o;
             ps.close();
@@ -109,11 +109,16 @@ public class ObavjestenjaRepository {
             String commandText = "INSERT INTO obavjestenja(user_id, pitch_id, title, description, date, type) VALUES (?, ?, ?, ?, ?, ?)";
             ps = conn.prepareStatement(commandText);
             ps.setInt(1, o.user_id);
-            ps.setInt(2, o.pitch_id);
+            if (o.pitch_id == 0) {
+                ps.setNull(2, java.sql.Types.INTEGER);
+            }else {
+                ps.setInt(2, o.pitch_id);
+            }
             ps.setString(3, o.title);
             ps.setString(4, o.description);
             ps.setDate(5, o.date);
             ps.setInt(6, o.type);
+
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows==0){
@@ -146,13 +151,13 @@ public class ObavjestenjaRepository {
 
         try{
             conn = DBUtil.openConnection();
-            String commandText = "UPDATE obavjestenja SET user_id=?, pitch_id=?, title=?, description=?, date=? WHERE id=?";
+            String commandText = "UPDATE obavjestenja SET title=?, description=?, date=?, user_id=?, pitch_id=? WHERE id=?";
             ps = conn.prepareStatement(commandText);
-            ps.setInt(1, o.user_id);
-            ps.setInt(2, o.pitch_id);
-            ps.setString(3, o.title);
-            ps.setString(4, o.description);
-            ps.setDate(5, o.date);
+            ps.setString(1, o.title);
+            ps.setString(2, o.description);
+            ps.setDate(3, o.date);
+            ps.setInt(4, o.user_id);
+            ps.setInt(5, o.pitch_id);
             ps.setInt(6, o_id);
 
             int affectedRows = ps.executeUpdate();
