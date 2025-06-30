@@ -23,7 +23,7 @@
   
 - Baza je popunjena podacima:
       - kreirani su svi korisnici, od vlasnika terena do nasih naloga
-      - svi vlasnici imaju lozinku Upravnik123!
+      - svi vlasnici imaju lozinku Upravnik1!
       - Lukin nalog: username: Sekula; password: Luka123!
       - Aleksin nalog: username: Tovi; password: Aleksa123!
       - dodao sam i sve terene, za fudbal. kosarku i tenis
