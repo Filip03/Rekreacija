@@ -151,3 +151,198 @@
   background: green;
   transform: scale(1.05);
 }
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+  .notifications-wrapper {
+    padding: 10px;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .notifications-header {
+    width: 95%;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .notifications-header h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  .notifications-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .notifications-column {
+    min-width: auto;
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .notifications-column-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .notifications-column-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .add-notification-button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .notifications-column form {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .notifications-column form input,
+  .notifications-column form textarea,
+  .notifications-column form select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 8px 10px;
+  }
+
+  .notifications-column form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    align-self: stretch;
+  }
+
+  .notifications-column li {
+    padding: 0.8rem;
+    background: #fff;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .notifications-column li div {
+    margin-bottom: 8px;
+  }
+
+  .notifications-column li strong {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .notifications-column li p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    line-height: 1.4;
+  }
+
+  .notifications-column li small {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  .notifications-column button {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .notifications-wrapper {
+    padding: 5px;
+  }
+
+  .notifications-header {
+    width: 98%;
+    padding: 10px;
+  }
+
+  .notifications-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .notifications-container {
+    gap: 1rem;
+    padding: 0 5px;
+  }
+
+  .notifications-column {
+    padding: 0.8rem;
+  }
+
+  .notifications-column-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .add-notification-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .notifications-column form {
+    padding: 0.6rem;
+  }
+
+  .notifications-column form input,
+  .notifications-column form textarea,
+  .notifications-column form select {
+    padding: 6px 8px;
+  }
+
+  .notifications-column li {
+    padding: 0.6rem;
+  }
+
+  .notifications-column li strong {
+    font-size: 0.9rem;
+  }
+
+  .notifications-column li p {
+    font-size: 0.8rem;
+  }
+
+  .notifications-column li small {
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .notifications-header {
+    width: 70%;
+  }
+
+  .notifications-container {
+    gap: 1.5rem;
+    padding: 0 20px;
+  }
+
+  .notifications-column {
+    min-width: 250px;
+  }
+
+  .notifications-column-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .add-notification-button {
+    width: 100%;
+  }
+}
