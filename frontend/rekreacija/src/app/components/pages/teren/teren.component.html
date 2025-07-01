@@ -4,7 +4,7 @@
         <h2 style="padding-top: 5%;">{{ selectedTeren?.name }}</h2>
         <img [src]="selectedTeren?.img_url" alt="{{ selectedTeren?.name }}" />
         <p>{{selectedTeren?.description}}</p>
-        <a href="/termin" target="_blank">Zakazi termin</a>
+        <button class="action-btn" (click)="zakaziTermin()">Zakaži termin</button>
     </div>
 </div>
 

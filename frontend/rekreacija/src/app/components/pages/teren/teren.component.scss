@@ -42,5 +42,235 @@
         height: auto;
         margin-bottom: 1rem;
     }
+
+    .action-btn {
+        display: inline-block;
+        background: #308c26;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 1rem;
+        transform: scale(1);
+
+        &:hover {
+            background: #25692b;
+            transform: scale(1.05);
+        }
+    }
+}
+
+/* Custom marker styles for different sports */
+.custom-marker {
+    background: transparent;
+    border: none;
+}
+
+.marker-pin {
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50% 50% 0;
+    position: relative;
+    transform: rotate(-45deg);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.marker-pin::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+}
+
+/* Football marker - Blue */
+.marker-pin.football {
+    background: #2196F3;
+}
+
+/* Basketball marker - Orange */
+.marker-pin.basketball {
+    background: #FF9800;
+}
+
+/* Tennis marker - Green */
+.marker-pin.tennis {
+    background: #4CAF50;
+}
+
+/* Mobile responsive design for sidebar only */
+@media (max-width: 768px) {
+    .info-sidebar {
+        width: 100%;
+        height: 60vh;
+        top: auto;
+        bottom: 0;
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+        padding: 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+
+        &.open {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: #333;
+            background: #f0f0f0;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            padding-top: 0 !important;
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background: #308c26;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-size: 1rem;
+            transform: scale(1);
+
+            &:hover {
+                background: #25692b;
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .info-sidebar {
+        height: 65vh;
+        padding: 1rem;
+
+        .close-btn {
+            width: 35px;
+            height: 35px;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        img {
+            max-height: 150px;
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .action-btn {
+            padding: 10px 16px;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .info-sidebar {
+        width: 35%;
+        padding: 1.2rem;
+
+        .close-btn {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+        }
+
+        img {
+            margin-bottom: 0.8rem;
+        }
+
+        p {
+            font-size: 0.95rem;
+        }
+    }
+}
+
+/* Popup button styles - now global due to ViewEncapsulation.None */
+.popup-btn {
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    transform: scale(1) !important;
+    text-decoration: none !important;
+
+    &:hover {
+        transform: scale(1.05) !important;
+        opacity: 0.9 !important;
+    }
+
+    &.info-btn {
+        background: #308c26 !important;
+        color: white !important;
+    }
+
+    &.schedule-btn {
+        background: #2196F3 !important;
+        color: white !important;
+    }
 }
 
