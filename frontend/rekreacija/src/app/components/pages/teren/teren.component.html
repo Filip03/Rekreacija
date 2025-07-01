@@ -1,9 +1,10 @@
-<div id="map"></div>
-
-<div class="info-sidebar" [class.open]="selectedBalon" *ngIf="openInfo">
-    <button class="close-btn" (click)="closeSidebar()">×</button>
-    <h2>{{ selectedBalon?.name }}</h2>
-    <img [src]="selectedBalon?.imageUrl" alt="{{ selectedBalon?.name }}" />
-    <p>Ovo su dodatne informacije o balonu…</p>
-    <a [href]="selectedBalon?.linkUrl2" target="_blank">{{ selectedBalon?.linkText2 }}</a>
+<div id="map">
+    <div class="info-sidebar" [class.open]="selectedTeren" *ngIf="openInfo">
+        <button class="close-btn" (click)="closeSidebar()">×</button>
+        <h2 style="padding-top: 5%;">{{ selectedTeren?.name }}</h2>
+        <img [src]="selectedTeren?.img_url" alt="{{ selectedTeren?.name }}" />
+        <p>{{selectedTeren?.description}}</p>
+        <a href="/termin" target="_blank">Zakazi termin</a>
+    </div>
 </div>
+
