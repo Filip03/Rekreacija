@@ -23,15 +23,23 @@
   
 - Baza je popunjena podacima:
       - kreirani su svi korisnici, od vlasnika terena do nasih naloga
-      - svi vlasnici imaju lozinku Upravnik123!
+      - svi vlasnici imaju lozinku Upravnik1!
       - Lukin nalog: username: Sekula; password: Luka123!
       - Aleksin nalog: username: Tovi; password: Aleksa123!
       - dodao sam i sve terene, za fudbal. kosarku i tenis
       - dodao sam i 2 obavjestenja da se moze testirati radi li sve kako treba
       - ostale kolone su prazne jer su to podaci koji se trebaju unositi kroz aplikaciju
 
+## Mobilna aplikacija
+
+- prije pokretanja u android studio, mora se uraditi ng build --configuration=dev-mobile kako bi komunikacija sa backendom radila, tj zahtjevi se slali na http://10.0.2.2:8080
+- nakon toga npx cap sync; npx cap run android ili npx cap open android
+- mobilna aplikacija mora da se pokrene preko emulatora, na telefonu preko usb nece raditi backend
+- da bi se "vratilo" na web apk, mora se uraditi ng build --configuration=development, da bi se zahtjevi slali na http://localhost:8080
+
 ## Frontend
 
+- U servisima mora da se koristi environment.ts prilikom upucivanja zahtjeva backendu (obratiti paznju da se importuje environment fajl, a ne environment.development)
 - Citava aplikacija treba biti na srpskom
 - Drzati se sadasnje teme: dominantne boje: zelena, bijela; sekundarne: plava, zuta
 - Voditi racuna da UI svuda bude isti u smislu:

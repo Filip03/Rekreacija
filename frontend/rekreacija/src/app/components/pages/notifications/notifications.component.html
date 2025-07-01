@@ -1,0 +1,77 @@
+<div class="notifications-wrapper">
+<div class="notifications-header">
+    <h1>Tabla Obavještenja</h1>
+</div>
+<div class="notifications-container">
+    <div class="notifications-column">
+    <div class="notifications-column-header">  
+        <h2>Sistemska Obavještenja</h2> 
+        <div *ngIf="showAddAdminNotification">
+            <button (click)="showAdminForm = !showAdminForm" class="add-notification-button">Postavi novo obavještenje</button>
+        </div>
+    </div>
+    <hr>
+
+    <form *ngIf="showAddAdminNotification && showAdminForm" (ngSubmit)="addNotification()" style="margin-bottom: 1rem;">
+      <div>
+        <label>Naslov:</label>
+        <input type="text" [(ngModel)]="notification.title" name="adminTitle" required />
+      </div>
+      <div>
+        <label>Opis:</label>
+        <textarea [(ngModel)]="notification.description" name="adminDescription" required></textarea>
+      </div>
+      <button type="submit">Sačuvaj</button>
+    </form>
+
+    <ul>
+      <li *ngFor="let notification of adminNotifications">
+        <div>
+          <strong>{{ notification.title }}</strong>
+          <p>{{ notification.description }}</p>
+          <small>{{ notification.date | date:'dd.MM.yyyy.' }}</small>
+        </div>
+        <button *ngIf="showAddAdminNotification" (click)="deleteNotification(notification.id)">Obriši</button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="notifications-column">
+    <div class="notifications-column-header">
+        <h2>Obavještenja Upravnika Terena</h2>
+        <div *ngIf="showAddOwnerNotification">
+            <button (click)="showOwnerForm = !showOwnerForm" class="add-notification-button">Postavi novo obavještenje</button>
+        </div>
+    </div>
+    <hr>
+
+    <form *ngIf="showAddOwnerNotification && showOwnerForm" (ngSubmit)="addNotification()" style="margin-bottom: 1rem;">
+      <div>
+        <label>Naslov:</label>
+        <input type="text" [(ngModel)]="notification.title" name="ownerTitle" required />
+      </div>
+      <div>
+        <label>Opis:</label>
+        <textarea [(ngModel)]="notification.description" name="ownerDescription" required></textarea>
+      </div>
+      <div>
+        <label>Teren:</label>
+        <select [(ngModel)]="notification.pitch_id" name="pitchId" required>
+          <option *ngFor="let id of getOwnerPitchIds()" [value]="id">{{ pitchNames[id] }}</option>
+        </select>
+      </div>
+      <button type="submit">Sačuvaj</button>
+    </form>
+    <ul>
+      <li *ngFor="let notification of ownerNotifications">
+        <div>
+          <strong>{{ notification.title }} - {{ pitchNames[notification.pitch_id] }}</strong>
+          <p>{{ notification.description }}</p>
+          <small>{{ notification.date | date:'dd.MM.yyyy.' }}</small>
+        </div>
+        <button *ngIf="showAddOwnerNotification && notification.user_id === user_id" (click)="deleteNotification(notification.id)">Obriši</button>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>

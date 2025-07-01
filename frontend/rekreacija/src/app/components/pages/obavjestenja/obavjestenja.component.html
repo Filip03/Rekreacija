@@ -1,8 +1,0 @@
-<div class="obavjestenja">
-    <ul *ngIf="obavjestenja.length > 0; else noNotifications">
-        <li *ngFor="let obavjestenje of obavjestenja">{{ obavjestenje.message }}</li>
-    </ul>
-    <ng-template #noNotifications>
-        <p>Trenutno nema obaveštenja.</p>
-    </ng-template>
-</div>

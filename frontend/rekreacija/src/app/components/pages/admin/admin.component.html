@@ -1,1 +1,170 @@
-<p>admin works!</p>
+<div class="content">
+    <div class="admin-info">
+        <h1>Admin Panel</h1>
+        <p>Dobrodošao <b>{{ adminData?.username || 'Admin' }}</b>. Ovdje možete upravljati korisnicima i terenima.</p>
+        <h3>Adminovi podaci:</h3>
+        <ul>
+            <li><b>Ime:</b> {{ adminData?.name || 'N/A' }}</li>
+            <li><b>Prezime:</b> {{ adminData?.surname || 'N/A' }}</li>
+            <li><b>Email:</b> {{ adminData?.email || 'N/A' }}</li>
+            <li><b>Kontakt:</b> {{ adminData?.phone_number || 'N/A' }} </li>
+            <li><b>Datum registracije:</b> {{ (adminData?.date_of_registration | date:'dd.MM.yyyy') || 'N/A' }}</li>
+        </ul>
+
+    </div>
+    <div class="admin-managment">
+        <div class="users-content">
+        <div class="users-btn" (click)="showUsers = !showUsers">
+            Upravljajte korisnicima
+        </div>
+        <div class="users-container" *ngIf="showUsers">
+            <h3>Lista korisnika:</h3>
+            <ul>
+                <li *ngFor="let user of users">
+                    <div class="user-card">
+                        <div class="user-info">
+                            <h6>{{ user.username }}</h6>
+                            <p>{{ user.name }} {{ user.surname }}</p>
+                            <p>{{ user.email }}</p>
+                            <p>{{ getUserTypeString(user.type_id) }}</p>
+                        </div>
+                        <div class="user-actions">
+                            <button (click)="promoteUserOwner(user.id)">Postavi upravnika</button>
+                            <button (click)="promoteUserAdmin(user.id)">Postavi admina</button>
+                            <button (click)="deleteUser(user.id)">Obriši korisnika</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pitches-content">
+        <div class="pitch-btn" (click)="showPitches = !showPitches; showAddPitch = false">
+            Upravljajte terenima
+        </div>
+        <div class="pitches-container" *ngIf="showPitches">
+            <div *ngIf="showAddPitch" class="edit-form">
+                <h4>Dodaj teren</h4>
+                <div class="form-group">
+                    <label>Naziv:</label>
+                    <input type="text" [(ngModel)]="newPitchData.name" placeholder="Naziv terena">
+                </div>
+                <div class="form-group">
+                    <label>Adresa:</label>
+                    <input type="text" [(ngModel)]="newPitchData.adress" placeholder="Adresa">
+                </div>
+                <div class="form-group">
+                    <label>Kontakt telefon:</label>
+                    <input type="text" [(ngModel)]="newPitchData.contact" placeholder="06xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label>Tip terena:</label>
+                    <select [(ngModel)]="newPitchData.type">
+                        <option value="1">Fudbalski teren</option>
+                        <option value="2">Košarkaški teren</option>
+                        <option value="3">Teniski teren</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Upravnik:</label>
+                    <select [(ngModel)]="newPitchData.owner_id">
+                        <option *ngFor="let owner of owners" [value]="owner.id">{{ owner.name }} {{ owner.surname}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Opis:</label>
+                    <textarea [(ngModel)]="newPitchData.description" placeholder="Opis terena"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Kordinate X</label>
+                    <input type="text" [(ngModel)]="newPitchData.coordinates_x" placeholder="X koordinata u formatu sa Google Maps">
+                </div>
+                <div class="form-group">
+                    <label>Kordinate Y</label>
+                    <input type="text" [(ngModel)]="newPitchData.coordinates_y" placeholder="Y koordinata u formatu sa Google Maps">
+                </div>
+                <div class="form-group">
+                    <label>Naselje:</label>
+                    <input type="text" [(ngModel)]="newPitchData.area" placeholder="Naselje">
+                </div>
+                <div class="form-actions">
+                    <button (click)="addPitch()" class="save-btn">Sačuvaj</button>
+                    <button (click)="cancelInsert()" class="cancel-btn">Otkaži</button>
+                </div>
+            </div>
+            <div *ngIf="!showAddPitch" class="pitch-list">
+                <div class="pitch-list-header">
+                    <h3>Lista terena:</h3>
+                    <button (click)="showAddPitch = !showAddPitch" class="add-pitch-btn">Dodaj teren</button>
+                </div>
+                <ul>
+                    <li *ngFor="let pitch of pitches">
+                        <div>
+                            <div class="pitch-card">
+                                <div class="pitch-info">
+                                    <h6>{{ pitch.name }} </h6>
+                                    <p>{{ pitch.adress }} </p>
+                                    <p>{{ getPitchTypeString(pitch.type) }} </p>
+                                </div>
+                                <div class="pitch-actions">
+                                    <button (click)="editPitch(pitch.id)">Uredi teren</button>
+                                    <button (click)="deletePitch(pitch.id)">Obriši teren</button>
+                                </div>
+                            </div>
+                            <div *ngIf="editingPitchId === pitch.id" class="edit-form">
+                                <h4>Uredi teren</h4>
+                                <div class="form-group">
+                                    <label>Naziv:</label>
+                                    <input type="text" [(ngModel)]="editPitchData.name" placeholder="Naziv terena">
+                                </div>
+                                <div class="form-group">
+                                    <label>Adresa:</label>
+                                    <input type="text" [(ngModel)]="editPitchData.adress" placeholder="Adresa">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kontakt telefon:</label>
+                                    <input type="text" [(ngModel)]="editPitchData.contact" placeholder="06xxxxxxxx">
+                                </div>
+                                <div class="form-group">
+                                    <label>Tip terena:</label>
+                                    <select [(ngModel)]="editPitchData.type">
+                                        <option [value]="1">Fudbalski teren</option>
+                                        <option [value]="2">Košarkaški teren</option>
+                                        <option [value]="3">Teniski teren</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upravnik:</label>
+                                    <select [(ngModel)]="editPitchData.owner_id">
+                                        <option *ngFor="let owner of owners" [value]="owner.id">{{ owner.name }} {{ owner.surname}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Opis:</label>
+                                    <textarea [(ngModel)]="editPitchData.description" placeholder="Opis terena"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kordinate X</label>
+                                    <input type="text" [(ngModel)]="editPitchData.coordinates_x" placeholder="X koordinata u formatu sa Google Maps">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kordinate Y</label>
+                                    <input type="text" [(ngModel)]="editPitchData.coordinates_y" placeholder="Y koordinata u formatu sa Google Maps">
+                                </div>
+                                <div class="form-group">
+                                    <label>Naselje:</label>
+                                    <input type="text" [(ngModel)]="editPitchData.area" placeholder="Naselje">
+                                </div>
+                                <div class="form-actions">
+                                    <button (click)="saveEditPitch()" class="save-btn">Sačuvaj</button>
+                                    <button (click)="cancelEdit()" class="cancel-btn">Otkaži</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

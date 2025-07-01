@@ -1,0 +1,348 @@
+.notifications-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100dvh;
+}
+
+.notifications-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 20%;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 3px solid #308c26;
+    border-left: 3px solid #308c26;
+    border-right: 3px solid #308c26;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #308c26;
+}
+
+.notifications-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.notifications-column {
+  flex: 1 1 0;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  min-width: 300px;
+}
+
+.notifications-column h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+.notifications-column-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+.notifications-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notifications-column li {
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.notifications-column li strong {
+  color: #308c26;
+}
+
+.notifications-column button {
+  margin-top: 0.5rem;
+  background: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.add-notification-button {
+    background: #308c26 !important;
+    transition: transform 0.2s ease-in-out;
+}
+
+.add-notification-button:hover {
+    background: green !important;
+    transform: scale(1.05);
+}
+
+
+.notifications-column button:hover {
+  background: #b71c1c;
+  transform: scale(1.05);
+}
+
+.notifications-column form {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.notifications-column form label {
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  color: #444;
+}
+
+.notifications-column form input,
+.notifications-column form textarea,
+.notifications-column form select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.1rem;
+}
+
+.notifications-column form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.notifications-column form button[type="submit"] {
+  align-self: flex-end;
+  background: #308c26;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.notifications-column form button[type="submit"]:hover {
+  background: green;
+  transform: scale(1.05);
+}
+
+/* Mobile responsive design */
+@media (max-width: 768px) {
+  .notifications-wrapper {
+    padding: 10px;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .notifications-header {
+    width: 95%;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .notifications-header h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  .notifications-container {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .notifications-column {
+    min-width: auto;
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .notifications-column-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .notifications-column-header h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .add-notification-button {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .notifications-column form {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .notifications-column form input,
+  .notifications-column form textarea,
+  .notifications-column form select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 8px 10px;
+  }
+
+  .notifications-column form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    align-self: stretch;
+  }
+
+  .notifications-column li {
+    padding: 0.8rem;
+    background: #fff;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .notifications-column li div {
+    margin-bottom: 8px;
+  }
+
+  .notifications-column li strong {
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .notifications-column li p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    line-height: 1.4;
+  }
+
+  .notifications-column li small {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  .notifications-column button {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .notifications-wrapper {
+    padding: 5px;
+  }
+
+  .notifications-header {
+    width: 98%;
+    padding: 10px;
+  }
+
+  .notifications-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .notifications-container {
+    gap: 1rem;
+    padding: 0 5px;
+  }
+
+  .notifications-column {
+    padding: 0.8rem;
+  }
+
+  .notifications-column-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .add-notification-button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .notifications-column form {
+    padding: 0.6rem;
+  }
+
+  .notifications-column form input,
+  .notifications-column form textarea,
+  .notifications-column form select {
+    padding: 6px 8px;
+  }
+
+  .notifications-column li {
+    padding: 0.6rem;
+  }
+
+  .notifications-column li strong {
+    font-size: 0.9rem;
+  }
+
+  .notifications-column li p {
+    font-size: 0.8rem;
+  }
+
+  .notifications-column li small {
+    font-size: 0.7rem;
+  }
+}
+
+/* Tablet responsive design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .notifications-header {
+    width: 70%;
+  }
+
+  .notifications-container {
+    gap: 1.5rem;
+    padding: 0 20px;
+  }
+
+  .notifications-column {
+    min-width: 250px;
+  }
+
+  .notifications-column-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .add-notification-button {
+    width: 100%;
+  }
+}

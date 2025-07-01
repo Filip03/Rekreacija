@@ -34,8 +34,8 @@ public class TerenRepository {
                         rs.getBigDecimal("rating"),
                         rs.getInt("owner_id"),
                         rs.getString("image_url"),
-                        rs.getFloat("cordinates_x"),
-                        rs.getFloat("cordinates_y"),
+                        rs.getString("cordinates_x"),
+                        rs.getString("cordinates_y"),
                         rs.getString("area")
                 );
                 result.add(t);
@@ -83,8 +83,8 @@ public class TerenRepository {
                     rs.getBigDecimal("rating"),
                     rs.getInt("owner_id"),
                     rs.getString("image_url"),
-                    rs.getFloat("cordinates_x"),
-                    rs.getFloat("cordinates_y"),
+                    rs.getString("cordinates_x"),
+                    rs.getString("cordinates_y"),
                     rs.getString("area")
 
             );
@@ -123,8 +123,8 @@ public class TerenRepository {
             ps.setString(5, teren.description);
             ps.setBigDecimal(6, teren.rating);
             ps.setInt(7, teren.owner_id);
-            ps.setFloat(8, teren.cordinates_x);
-            ps.setFloat(9, teren.cordinates_y);
+            ps.setString(8, teren.coordinates_x);
+            ps.setString(9, teren.coordinates_y);
             ps.setString(10, teren.area);
 
             int affectedRows = ps.executeUpdate();
@@ -166,10 +166,10 @@ public class TerenRepository {
             ps.setString(5, teren.description);
             ps.setBigDecimal(6, teren.rating);
             ps.setInt(7, teren.owner_id);
-            ps.setInt(8, t_id);
-            ps.setFloat(8, teren.cordinates_x);
-            ps.setFloat(9, teren.cordinates_y);
+            ps.setString(8, teren.coordinates_x);
+            ps.setString(9, teren.coordinates_y);
             ps.setString(10, teren.area);
+            ps.setInt(11, t_id);
 
             int affectedRows = ps.executeUpdate();
             if(affectedRows == 0){

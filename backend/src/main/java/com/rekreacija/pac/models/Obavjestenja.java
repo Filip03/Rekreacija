@@ -12,13 +12,14 @@ public class Obavjestenja {
     public int user_id;
     public int pitch_id;
 
-    public Obavjestenja(int id, String title, String description, int type, Date date, int user_id, int pitch_id) {
+    public Obavjestenja(int id, int user_id, int pitch_id, String title, String description, Date date, int type) {
         this.id = id;
+        this.user_id  = user_id;
+        this.pitch_id = pitch_id;
         this.title = title;
         this.description = description;
-        this.type = type;
         this.date = date;
-        this.user_id = user_id;
-        this.pitch_id = pitch_id;
+        this.type = type;
+
     }
 }

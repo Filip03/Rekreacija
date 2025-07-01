@@ -25,7 +25,7 @@ public class KorisnikController {
         return result;
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/korisnicko-ime/{username}")
     public Korisnik getKorisnikByUsername(@PathVariable("username") String username){
         Korisnik  result = this.korisnikService.getKorisnikByUsername(username);
         return result;

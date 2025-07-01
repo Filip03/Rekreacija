@@ -33,7 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   goToAdminPanel(): void{
-    this.router.navigate(["/admin"]);
+    const id = this.tokenService.checkToken()?.userId;
+    this.router.navigate(["/admin", id]);
   }
 
   ngOnDestroy(): void {

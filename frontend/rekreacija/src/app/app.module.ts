@@ -12,7 +12,6 @@ import { FormsModule} from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi, HttpClientModule, HttpClient} from "@angular/common/http";
 import { authInterceptor} from "./interceptors/auth.interceptor";
-import { ObavjestenjaComponent } from './components/pages/obavjestenja/obavjestenja.component';
 import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
 import { TerenComponent } from './components/pages/teren/teren.component';
 import { LinkifyPipe } from './pipes/linkify.pipe';
@@ -24,7 +23,6 @@ import { LinkifyPipe } from './pipes/linkify.pipe';
         FooterComponent,
         LoginComponent,
         RegisterComponent,
-        ObavjestenjaComponent,
         TerenComponent,
         //TeamComponent
     ],
