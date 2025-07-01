@@ -1,0 +1,84 @@
+<div *ngIf="isLoading">Učitavanje...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<!-- Korisnik ima ekipu -->
+<div *ngIf="!isLoading && currentUser?.team_id && userTeam">
+  <h2>Vaša ekipa: {{ userTeam.name }}</h2>
+  <p>Rating: {{ userTeam.rating || 'N/A' }}</p>
+  
+  <h3>Članovi:</h3>
+  <ul>
+    <li *ngFor="let member of userTeam.members">
+      {{ member.name }} {{ member.surname }}
+      <button *ngIf="currentUser.id === userTeam.creator_id && member.id !== currentUser.id && editingTeam"
+              (click)="toggleUserInEdit(member.id)">Ukloni</button>
+    </li>
+  </ul>
+  
+  <h3>Termini ekipe (odigrani i zakazani):</h3>
+  <ul>
+    <li *ngFor="let termin of userTeam.terms">
+      {{ termin.date }} - {{ termin.description }} ({{ termin.status }})
+    </li>
+  </ul>
+
+  <button (click)="leaveTeam()">Napušti ekipu</button>
+
+  <div *ngIf="currentUser.id === userTeam.creator_id">
+    <button *ngIf="!editingTeam" (click)="startEditing()">Uredi ekipu</button>
+    <div *ngIf="editingTeam">
+      <label>
+        Naziv ekipe:
+        <input type="text" [(ngModel)]="editedTeamName" />
+      </label>
+      
+      <h4>Dodaj članove:</h4>
+      <button (click)="loadAllUsersForAdd()">Prikaži dostupne korisnike</button>
+      <ul>
+        <li *ngFor="let user of allUsers">
+          <input type="checkbox" [checked]="selectedUserIdsForEdit.includes(user.id)"
+                 (change)="toggleUserInEdit(user.id)" />
+          {{ user.name }} {{ user.surname }}
+        </li>
+      </ul>
+
+      <button (click)="saveTeamChanges()">Sačuvaj</button>
+      <button (click)="cancelEditing()">Otkaži</button>
+    </div>
+  </div>
+</div>
+
+<!-- Korisnik nema ekipu -->
+<div *ngIf="!isLoading && !currentUser?.team_id">
+  <h2>Nemate ekipu. Izaberite postojeću ili napravite novu.</h2>
+
+  <h3>Postojeće ekipe:</h3>
+  <ul>
+    <li *ngFor="let team of allTeams">
+      {{ team.name }} - Rating: {{ team.rating || 'N/A' }}
+      <button (click)="joinTeam(team.id)">Pridruži se</button>
+    </li>
+  </ul>
+
+  <button (click)="toggleCreateForm()">
+    {{ showCreateForm ? 'Otkaži kreiranje ekipe' : 'Kreiraj novu ekipu' }}
+  </button>
+
+  <div *ngIf="showCreateForm">
+    <label>
+      Naziv ekipe:
+      <input type="text" [(ngModel)]="newTeamName" />
+    </label>
+
+    <h4>Dodaj članove:</h4>
+    <ul>
+      <li *ngFor="let user of allUsers">
+        <input type="checkbox" [checked]="selectedUserIdsForNewTeam.includes(user.id)"
+               (change)="toggleUserForNewTeam(user.id)" />
+        {{ user.name }} {{ user.surname }}
+      </li>
+    </ul>
+
+    <button (click)="createTeam()">Kreiraj ekipu</button>
+  </div>
+</div>
