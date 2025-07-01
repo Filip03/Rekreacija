@@ -3,6 +3,8 @@
         <button class="close-btn" (click)="closeSidebar()">×</button>
         <h2 style="padding-top: 5%;">{{ selectedTeren?.name }}</h2>
         <img [src]="selectedTeren?.img_url" alt="{{ selectedTeren?.name }}" />
+        <p><strong>Adresa: </strong> {{ selectedTeren?.adress }}</p>
+        <p><strong>Kontakt: </strong> {{ selectedTeren?.contact }} </p>
         <p>{{selectedTeren?.description}}</p>
         <button class="action-btn" (click)="zakaziTermin()">Zakaži termin</button>
     </div>
