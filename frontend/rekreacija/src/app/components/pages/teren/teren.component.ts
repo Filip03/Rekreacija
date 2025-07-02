@@ -59,9 +59,9 @@ export class TerenComponent implements OnInit {
 
   ngOnInit(): void {
     this.terenService.getTereni().subscribe((data) => {
-      console.log('Received terrain data:', data);
+      // console.log('Received terrain data:', data);
       this.tereni = data;
-      console.log('Number of terrains:', this.tereni.length);
+      // console.log('Number of terrains:', this.tereni.length);
       this.initMap();
     });
   }
@@ -69,7 +69,7 @@ export class TerenComponent implements OnInit {
   private initMap(): void {
     this.map = L.map('map', {
       center: this.centroid,
-      zoom: 13
+      zoom: 13,
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -81,7 +81,7 @@ export class TerenComponent implements OnInit {
 
     // Kreiranje markera za svaki teren
     this.tereni.forEach(place => {
-      console.log('Creating marker for:', place.name, 'Type:', place.type, 'Coordinates:', place.coordinates_x, place.coordinates_y);
+      // console.log('Creating marker for:', place.name, 'Type:', place.type, 'Coordinates:', place.coordinates_x, place.coordinates_y);
       
       const popupContent = `
         <b>${place.name}</b><br>
@@ -94,7 +94,7 @@ export class TerenComponent implements OnInit {
       const xCoord = Number(place.coordinates_x);
       const yCoord = Number(place.coordinates_y);
       
-      console.log('Parsed coordinates:', xCoord, yCoord);
+      // console.log('Parsed coordinates:', xCoord, yCoord);
       
       // Check if coordinates are valid
       if (isNaN(xCoord) || isNaN(yCoord)) {
@@ -118,13 +118,13 @@ export class TerenComponent implements OnInit {
           markerIcon = footballIcon; // Default to football
       }
       
-      console.log('Creating marker with icon for type:', place.type);
+      // console.log('Creating marker with icon for type:', place.type);
       
       const marker = L.marker([xCoord, yCoord], { icon: markerIcon })
         .bindPopup(popupContent)
         .addTo(this.map!);
       
-      console.log('Marker created successfully for:', place.name);
+      // console.log('Marker created successfully for:', place.name);
       
         marker.on('popupopen', () => {
           const link: HTMLElement | null = document.querySelector('.info-link');
@@ -135,6 +135,7 @@ export class TerenComponent implements OnInit {
               this.showSidebar(place);
               // Close the popup after opening sidebar
               marker.closePopup();
+              
             });
           }
         });
@@ -143,6 +144,15 @@ export class TerenComponent implements OnInit {
 
   public showSidebar(teren: Teren) {
     this.selectedTeren = teren;
+
+    setTimeout(() => {
+      const sidebar = document.querySelector('.info-sidebar');
+      if (sidebar) {
+        sidebar.addEventListener('wheel', (e) => {
+          e.stopPropagation();
+        });
+      }
+    }, 0);
   }
 
   public closeSidebar() {
