@@ -43,7 +43,7 @@
         <ul class="lista-clanova">
           <li *ngFor="let clan of ekipa.clanovi">
             <div class="clan-info">
-              <span>{{ clan.name }} {{ clan.surname }}</span>
+              <span><strong>{{ clan.username }}</strong> - {{ clan.name }} {{ clan.surname }}</span>
               <span *ngIf="clan.id === ekipa.creator_id" class="creator-tag">(Kreator)</span>
             </div>
             <button *ngIf="jeKreator && clan.id !== ulogovaniKorisnik?.id" 

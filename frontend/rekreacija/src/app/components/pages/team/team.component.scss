@@ -52,6 +52,10 @@ $border-color: #dee2e6;
   }
 }
 
+.btn, .btn-primary, .btn-danger{
+  text-transform: none !important;
+}
+
 /* Dugmad */
 .btn {
   padding: 10px 20px;
