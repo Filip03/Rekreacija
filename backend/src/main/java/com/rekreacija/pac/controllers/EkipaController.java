@@ -1,6 +1,7 @@
 package com.rekreacija.pac.controllers;
 
 import com.rekreacija.pac.models.Ekipa;
+import com.rekreacija.pac.models.KreirajEkipuRequest;
 import com.rekreacija.pac.services.EkipaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,5 +43,10 @@ public class EkipaController {
     public int delteEkipa(@PathVariable("id") int id){
         int result = this.ekipaService.deleteEkipa(id);
         return result;
+    }
+
+    @PostMapping("/sveobuhvatno")
+    public Ekipa kreirajEkipuSveobuhvatno(@RequestBody KreirajEkipuRequest request) throws Exception {
+        return this.ekipaService.kreirajEkipuSveobuhvatno(request);
     }
 }
