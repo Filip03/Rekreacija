@@ -1,13 +1,293 @@
-table{
-    width: 100%;
-    border-collapse: collapse;
+/* Pretpostavljene boje iz teme */
+$primary-green: #28a745;
+$dark-green: #218838;
+$secondary-blue: #007bff;
+$dark-blue: #0069d9;
+$main-yellow: #ffc107;
+$main-white: #ffffff;
+$text-color: #333;
+$shadow-color: rgba(0, 0, 0, 0.15); // Malo blaža senka
+$danger-red: #dc3545;
+$dark-red: #c82333;
+$light-gray: #f8f9fa;
+$border-color: #dee2e6;
+
+/* Osnovni kontejneri i layout */
+.page-container {
+  padding: 2rem 1rem; // Manje paddinga na mobilnom
+  font-family: inherit; // Preuzima font iz styles.scss
+  background-color: $light-gray;
+  min-height: calc(100vh - 80px); // Popunjava visinu ekrana
 }
-th{
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-card {
+  background-color: $main-white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px $shadow-color;
+  padding: 1.5rem 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+}
+
+/* Dugmad */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-green;
+  color: $main-white;
+  border-color: $primary-green;
+
+  &.main-action-btn:hover, &:hover {
+    background-color: $main-white;
+    color: $primary-green;
+  }
+}
+
+.btn-secondary {
+  background-color: $secondary-blue;
+  color: $main-white;
+  border-color: $secondary-blue;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
+}
+
+.btn-danger {
+  background-color: $danger-red;
+  color: $main-white;
+  border-color: $danger-red;
+  
+  &:hover {
+    background-color: $dark-red;
+  }
+}
+
+/* Specifični stilovi za elemente stranice */
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.tim-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin: 0;
+    color: $primary-green;
+    font-weight: 700;
+  }
+}
+
+.edit-name-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.lista-clanova {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid $border-color;
+    transition: background-color 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
+
+  .clan-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .creator-tag {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: $secondary-blue;
+    background-color: rgba($secondary-blue, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+  
+  .btn-remove {
+    background: none;
+    border: none;
+    color: $danger-red;
+    cursor: pointer;
+    font-size: 0.9em;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+    i { margin-right: 5px; }
+  }
+}
+
+.clanovi-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.termini-card {
+  h2, h3 { color: $primary-green; }
+  h3 { margin-top: 1rem; border-bottom: 1px solid $border-color; padding-bottom: 0.5rem; font-size: 1.2rem; }
+  .termini-lista { list-style: none; padding: 0; }
+  .termini-lista li { padding: 0.5rem 0; i { margin-right: 0.5rem; color: $secondary-blue; } }
+  .nema-termina { color: #6c757d; font-style: italic; }
+}
+
+/* Liste za selekciju korisnika */
+.user-selection-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: $light-gray;
+  
+  .user-item {
+    cursor: pointer;
+    padding: 0.25rem;
+  }
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+/* Prikaz za korisnike bez tima */
+.no-team-card {
+  text-align: center;
+  padding: 3rem 2rem;
+  h2 { font-weight: 700; }
+  .main-action-btn {
+    margin-top: 1rem;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+  }
+}
+
+.create-team-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.all-teams-list {
+  .tim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .team-list-item {
+    border: 1px solid $border-color;
+    border-radius: 15px;
+    padding: 1rem;
     text-align: center;
-    background-color: green;
-    color: white;
+    background-color: $light-gray;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    h3 {
+      color: $primary-green;
+      margin-bottom: 0.5rem;
+    }
+    p { margin: 0; color: #6c757d; }
+  }
 }
-th, td{
-    border: 1px solid darkgreen;
-    padding: 5px;
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+  
+  .details-grid {
+    grid-template-columns: 1fr; // Jedan stub na manjim ekranima
+  }
+
+  .tim-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    .btn {
+      width: 100%;
+    }
+  }
 }

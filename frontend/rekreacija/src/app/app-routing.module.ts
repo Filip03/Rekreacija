@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'teren', component: TerenComponent, canActivate:[authGuard]},
   {path: 'admin/:id', component: AdminComponent, canActivate:[authGuard]},
   {path: 'notifications', component: NotificationsComponent},
-  {path: 'ekipa', component: TeamComponent}
+  {path: 'ekipa', component: TeamComponent, canActivate:[authGuard]}
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -202,5 +203,45 @@ public class EkipaRepository {
             }
         }
         return result;
+    }
+
+    public int insertEkipaIVratiId(Ekipa e) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int ekipaId = -1;
+
+        try {
+            conn = DBUtil.openConnection();
+            String commandText = "INSERT INTO ekipa(name, rating, creator_id) VALUES (?, ?, ?)";
+            ps = conn.prepareStatement(commandText, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, e.name);
+            ps.setBigDecimal(2, e.rating); // Pretpostavka da je rating 0
+            ps.setInt(3, e.creator_id);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows == 0) {
+                throw new Exception("Greška prilikom kreiranja ekipe!");
+            }
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    ekipaId = generatedKeys.getInt(1);
+                } else {
+                    throw new Exception("Kreiranje ekipe nije uspelo, ID nije dobijen.");
+                }
+            }
+        } catch (Exception ex) {
+            ekipaId = -1;
+            ex.printStackTrace();
+        } finally {
+            try{
+                if(ps!=null) ps.close();
+                if(conn != null) conn.close();
+            }
+            catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        return ekipaId;
     }
 }

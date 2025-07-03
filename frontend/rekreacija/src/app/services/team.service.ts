@@ -1,42 +1,88 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../environments/environment.development";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin, map, switchMap, of } from 'rxjs';
+import { environment } from '../environments/environment';
+import { Ekipa } from '../models/ekipa';
+import { Korisnik } from '../models/korisnik';
+import { Rezervacija } from '../models/rezervacija';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamService {
+export class EkipaService {
   private ekipaApiUrl = `${environment.API_URL}/api/ekipa`;
   private korisnikApiUrl = `${environment.API_URL}/api/korisnik`;
+  private rezervacijaApiUrl = `${environment.API_URL}/api/rezerviacija`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAllTeams(): Observable<any> {
-    return this.http.get(this.ekipaApiUrl);
+  getSveEkipe(): Observable<Ekipa[]> {
+    return this.http.get<Ekipa[]>(this.ekipaApiUrl);
   }
 
-  getTeamById(team_id: number): Observable<any> {
-    return this.http.get(`${this.ekipaApiUrl}/${team_id}`);
+  getEkipaById(id: number): Observable<Ekipa> {
+    return this.http.get<Ekipa>(`${this.ekipaApiUrl}/${id}`);
   }
 
-  createTeam(teamData: any): Observable<any> {
-    return this.http.post(this.ekipaApiUrl, teamData);
+  kreirajEkipu(ekipaData: { name: string, creator_id: number, rating: number }): Observable<any> {
+    return this.http.post(this.ekipaApiUrl, ekipaData);
   }
 
-  updateTeam(team_id: number, data: any): Observable<any> {
-    return this.http.put(`${this.ekipaApiUrl}/${team_id}`, data);
+  updateEkipa(id: number, ekipaData: Ekipa): Observable<any> {
+    return this.http.put(`${this.ekipaApiUrl}/${id}`, ekipaData);
   }
 
-  getAllUsers(): Observable<any> {
-    return this.http.get(this.korisnikApiUrl);
+  getSveKorisnike(): Observable<Korisnik[]> {
+    return this.http.get<Korisnik[]>(this.korisnikApiUrl);
+  }
+  
+  getKorisnikById(id: number): Observable<Korisnik> {
+    return this.http.get<Korisnik>(`${this.korisnikApiUrl}/${id}`);
   }
 
-  getUserById(user_id: number): Observable<any> {
-    return this.http.get(`${this.korisnikApiUrl}/${user_id}`);
+  updateKorisnik(id: number, korisnikData: Korisnik): Observable<any> {
+    return this.http.put(`${this.korisnikApiUrl}/${id}`, korisnikData);
   }
 
-  updateUser(user_id: number, userData: any): Observable<any> {
-    return this.http.put(`${this.korisnikApiUrl}/${user_id}`, userData);
+  getRezervacijeZaKorisnika(userId: number): Observable<Rezervacija[]> {
+    return this.http.get<Rezervacija[]>(`${this.rezervacijaApiUrl}/user_id/${userId}`);
+  }
+
+  /**
+   * Dobavlja sve potrebne podatke za prikaz stranice jedne ekipe.
+   */
+  getPodaciZaEkipu(ekipaId: number): Observable<{ ekipa: Ekipa, termini: Rezervacija[] }> {
+    return this.getEkipaById(ekipaId).pipe(
+      switchMap(ekipa => {
+        // Kada dobijemo ekipu, paralelno dobavljamo njene članove i termine
+        const clanovi$ = this.getClanoveEkipe(ekipa.id);
+        const termini$ = this.getRezervacijeZaKorisnika(ekipa.creator_id);
+
+        return forkJoin({ clanovi: clanovi$, termini: termini$ }).pipe(
+          map(result => {
+            ekipa.clanovi = result.clanovi; // Dodajemo članove u objekat ekipe
+            return { ekipa: ekipa, termini: result.termini };
+          })
+        );
+      })
+    );
+  }
+
+// Dobavlja sve korisnike i na frontendu filtrira one koji pripadaju određenoj ekipi.
+  getClanoveEkipe(ekipaId: number): Observable<Korisnik[]> {
+    return this.getSveKorisnike().pipe(
+      map(korisnici => korisnici.filter(k => k.team_id === ekipaId))
+    );
+  }
+
+//Dobavlja sve korisnike i na frontendu filtrira one koji NEMAJU tim.
+  getSlobodneKorisnike(): Observable<Korisnik[]> {
+      return this.getSveKorisnike().pipe(
+          map(korisnici => korisnici.filter(k => k.team_id === null || k.team_id === 0))
+      );
+  }
+
+  kreirajEkipuSaClanovima(request: { name: string, creator_id: number, clanoviIds: number[] }): Observable<Ekipa> {
+    return this.http.post<Ekipa>(`${this.ekipaApiUrl}/sveobuhvatno`, request);
   }
 }

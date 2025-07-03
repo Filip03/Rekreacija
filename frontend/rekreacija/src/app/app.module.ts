@@ -5,7 +5,6 @@ import { AppComponent } from './components/app/app.component';
 import { HeaderComponent } from './components/helpers/header/header.component';
 import { FooterComponent } from './components/helpers/footer/footer.component';
 import { LoginComponent } from './components/pages/login/login.component';
-import { TeamComponent } from './components/pages/team/team.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { NgOptimizedImage, CommonModule} from "@angular/common";
 import { FormsModule} from "@angular/forms";
