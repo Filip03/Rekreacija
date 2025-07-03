@@ -22,8 +22,7 @@ import { LinkifyPipe } from './pipes/linkify.pipe';
         FooterComponent,
         LoginComponent,
         RegisterComponent,
-        TerenComponent,
-        //TeamComponent
+        TerenComponent
     ],
 
   bootstrap: [AppComponent],

@@ -1,16 +1,35 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { TerenService } from 'src/app/services/teren.service';
 //import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
+import { Teren } from 'src/app/models/teren.model';
 
-const customIcon = L.icon({
-  iconUrl: 'assets/location-icon.png', // Putanja do tvoje slike ikone
-  iconSize: [25, 30], // Veličina ikone u pikselima
-  iconAnchor: [12, 41], // Tačka ikone koja odgovara lokaciji markera
-  popupAnchor: [1, -34], // Tačka na kojoj će se pojaviti popup u odnosu na ikonu
-  // shadowUrl: 'assets/images/marker-shadow.png', // Putanja do senke ikone (opciono)
-  // shadowSize: [41, 41],
-  // shadowAnchor: [12, 41]
+// Create sport-specific colored icons using default marker style
+const footballIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+const basketballIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+const tennisIcon = L.icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
 });
 
 interface Balon {
@@ -26,86 +45,31 @@ interface Balon {
   selector: 'app-teren',
   templateUrl: './teren.component.html',
   styleUrl: './teren.component.scss',
-  standalone: false
+  standalone: false,
+  encapsulation: ViewEncapsulation.None
 })
-export class TerenComponent implements OnInit, AfterViewInit {
+export class TerenComponent implements OnInit {
   private map: L.Map | undefined;
-  private centroid: L.LatLngExpression = [42.4304, 19.2594]; // Koordinate Podgorice (primer)
-  public selectedBalon: Balon | null = null;
+  private centroid: L.LatLngExpression = [42.4304, 19.2594]; // Koordinate Podgorice
+  public selectedTeren: Teren | null = null;
   public openInfo: Boolean = false;
+  public tereni: Teren[] = [];
 
-  constructor() { }
-
-  private baloni: Balon[] = [
-    {
-      name: 'Balon Gimnazije',
-      coordinatesX: 42.447688,
-      coordinatesY: 19.264295,
-      imageUrl: 'assets/gimnazija.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Stampar Sports Centre',
-      coordinatesX: 42.446253,
-      coordinatesY: 19.242308,
-      imageUrl: 'assets/stampar.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Balon za mali fudbal Bernabeu',
-      coordinatesX: 42.425285,
-      coordinatesY: 19.232699,
-      imageUrl: 'assets/bernabeu.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Balon Tolosi',
-      coordinatesX: 42.453766,
-      coordinatesY: 19.215700,
-      imageUrl: 'assets/tolosi.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Sportski Centar Dadex',
-      coordinatesX: 42.443522,
-      coordinatesY: 19.281300,
-      imageUrl: 'assets/dadex.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Arena Sportski Centar',
-      coordinatesX: 42.431683,
-      coordinatesY: 19.257928,
-      imageUrl: 'assets/arena.jpeg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    },
-    {
-      name: 'Balon za mali fudbal Sutjeska',
-      coordinatesX: 42.447610,
-      coordinatesY: 19.256017,
-      imageUrl: 'assets/sutjeska.jpg',
-      linkUrl2: "http://localhost:4200",
-      linkText2: 'Zakazi termin'
-    }
-  ]
+  constructor(private terenService: TerenService) { }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
+    this.terenService.getTereni().subscribe((data) => {
+      // console.log('Received terrain data:', data);
+      this.tereni = data;
+      // console.log('Number of terrains:', this.tereni.length);
       this.initMap();
+    });
   }
 
   private initMap(): void {
     this.map = L.map('map', {
       center: this.centroid,
-      zoom: 13
+      zoom: 13,
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -115,38 +79,89 @@ export class TerenComponent implements OnInit, AfterViewInit {
     });
     tiles.addTo(this.map);
 
-    
-
-    this.baloni.forEach(place => {
+    // Kreiranje markera za svaki teren
+    this.tereni.forEach(place => {
+      // console.log('Creating marker for:', place.name, 'Type:', place.type, 'Coordinates:', place.coordinates_x, place.coordinates_y);
+      
       const popupContent = `
         <b>${place.name}</b><br>
-        <img src="${place.imageUrl}" alt="${place.name}" style="width:200px;max-width:200px;"><br>
-        <a href="/teren" class="info-link">Vise o balonu</a>
-        <span style="float: right;"><a href="${place.linkUrl2}" target="_blank">${place.linkText2}</a></span>
+        <img src="${place.img_url}" alt="${place.name}" style="width:200px;max-width:200px;"><br>
+        <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: space-between;">
+          <button class="info-link popup-btn info-btn">Više o terenu</button>
+          <button onclick="window.open('/termin', '_blank')" class="popup-btn schedule-btn">Zakaži termin</button>
+        </div>
       `;
-      const marker = L.marker([place.coordinatesX,place.coordinatesY])
+      const xCoord = Number(place.coordinates_x);
+      const yCoord = Number(place.coordinates_y);
+      
+      // console.log('Parsed coordinates:', xCoord, yCoord);
+      
+      // Check if coordinates are valid
+      if (isNaN(xCoord) || isNaN(yCoord)) {
+        console.error('Invalid coordinates for', place.name, '- skipping marker');
+        return;
+      }
+      
+      // Select appropriate icon based on sport type
+      let markerIcon;
+      switch(place.type) {
+        case 1: // Football
+          markerIcon = footballIcon;
+          break;
+        case 2: // Basketball
+          markerIcon = basketballIcon;
+          break;
+        case 3: // Tennis
+          markerIcon = tennisIcon;
+          break;
+        default:
+          markerIcon = footballIcon; // Default to football
+      }
+      
+      // console.log('Creating marker with icon for type:', place.type);
+      
+      const marker = L.marker([xCoord, yCoord], { icon: markerIcon })
         .bindPopup(popupContent)
         .addTo(this.map!);
+      
+      // console.log('Marker created successfully for:', place.name);
       
         marker.on('popupopen', () => {
           const link: HTMLElement | null = document.querySelector('.info-link');
           if (link) {
             link.addEventListener('click', (e) => {
               e.preventDefault();
-              this.openInfo = !this.openInfo
+              this.openInfo = true;
               this.showSidebar(place);
+              // Close the popup after opening sidebar
+              marker.closePopup();
+              
             });
           }
         });
     })
   }
 
-  public showSidebar(balon: Balon) {
-    this.selectedBalon = balon;
+  public showSidebar(teren: Teren) {
+    this.selectedTeren = teren;
+
+    setTimeout(() => {
+      const sidebar = document.querySelector('.info-sidebar');
+      if (sidebar) {
+        sidebar.addEventListener('wheel', (e) => {
+          e.stopPropagation();
+        });
+      }
+    }, 0);
   }
 
   public closeSidebar() {
-    this.selectedBalon = null;
+    this.openInfo = false;
+    this.selectedTeren = null;
+  }
+
+  public zakaziTermin() {
+    window.open('/termin', '_blank');
   }
 
 }
