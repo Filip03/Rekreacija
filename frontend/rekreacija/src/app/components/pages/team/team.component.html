@@ -1,0 +1,147 @@
+<!-- src/app/pages/tim/tim.component.html -->
+
+<div class="page-container">
+  <!-- Prikaz dok se podaci učitavaju -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Učitavanje...</span>
+    </div>
+  </div>
+
+  <!-- Prikaz ako korisnik IMA tim -->
+  <div *ngIf="!isLoading && ekipa; else nemaEkipe" class="content-wrapper">
+    
+    <!-- Kartica sa osnovnim informacijama o timu -->
+    <div class="main-card tim-info-card">
+      <div class="tim-header">
+        <!-- Prikaz naziva ili forma za izmenu -->
+        <h1 *ngIf="!isEditingName">{{ ekipa?.name }}</h1>
+        <div *ngIf="isEditingName && jeKreator" class="edit-name-form">
+          <input type="text" [(ngModel)]="noviNazivEkipe" placeholder="Novi naziv ekipe" class="form-control">
+          <button class="btn btn-primary" (click)="onSacuvajIzmeneNaziva()">Sačuvaj</button>
+        </div>
+        
+        <!-- Akcije za kreatora -->
+        <div class="tim-actions" *ngIf="jeKreator">
+          <!-- POCETAK IZMENE -->
+          <button class="btn" 
+                  [class.btn-success]="!isEditingName" 
+                  [class.btn-danger]="isEditingName"
+                  (click)="isEditingName = !isEditingName">
+            {{ isEditingName ? 'Otkaži' : 'Uredi naziv' }}
+          </button>
+          <!-- KRAJ IZMENE -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid za detalje: Članovi i Termini -->
+    <div class="details-grid">
+      <!-- Kartica sa članovima -->
+      <div class="main-card clanovi-card">
+        <h2>Članovi Ekipe</h2>
+        <ul class="lista-clanova">
+          <li *ngFor="let clan of ekipa.clanovi">
+            <div class="clan-info">
+              <span>{{ clan.name }} {{ clan.surname }}</span>
+              <span *ngIf="clan.id === ekipa.creator_id" class="creator-tag">(Kreator)</span>
+            </div>
+            <button *ngIf="jeKreator && clan.id !== ulogovaniKorisnik?.id" 
+                    class="btn-remove" 
+                    (click)="onUkloniClana(clan)">
+              <i class="fas fa-user-minus"></i> Ukloni
+            </button>
+          </li>
+        </ul>
+        <div class="clanovi-actions">
+          <button *ngIf="jeKreator && !isAddingMembers" class="btn btn-primary" (click)="pokreniDodavanjeClanova()">Dodaj nove članove</button>
+          <button class="btn btn-danger" (click)="onNapustiTim()">Napusti Ekipu</button>
+        </div>
+      </div>
+
+      <!-- Kartica sa terminima -->
+      <div class="main-card termini-card">
+        <h2>Termini</h2>
+        <div class="termini-section">
+          <h3>Zakazani</h3>
+          <ul *ngIf="terminiEkipe.zakazani.length > 0; else nemaZakazanih" class="termini-lista">
+            <li *ngFor="let termin of terminiEkipe.zakazani">
+              <i class="far fa-calendar-alt"></i> {{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h
+            </li>
+          </ul>
+          <ng-template #nemaZakazanih><p class="nema-termina">Nema zakazanih termina.</p></ng-template>
+        </div>
+        <div class="termini-section">
+          <h3>Odigrani</h3>
+          <ul *ngIf="terminiEkipe.odigrani.length > 0; else nemaOdigranih" class="termini-lista">
+             <li *ngFor="let termin of terminiEkipe.odigrani">
+               <i class="fas fa-history"></i> {{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h
+             </li>
+          </ul>
+          <ng-template #nemaOdigranih><p class="nema-termina">Nema odigranih termina.</p></ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forma za dodavanje članova (prikazuje se ispod svega) -->
+    <div *ngIf="isAddingMembers && jeKreator" class="main-card add-members-form">
+        <h2>Dodaj članove u ekipu</h2>
+        <p>Selektujte korisnike koje želite da dodate:</p>
+        <div class="user-selection-list">
+            <div *ngFor="let korisnik of slobodniKorisnici" class="user-item form-check">
+                <input class="form-check-input" type="checkbox" [id]="'user-check-' + korisnik.id" (change)="toggleUserSelection(korisnik.id)">
+                <label class="form-check-label" [for]="'user-check-' + korisnik.id">{{ korisnik.name }} {{ korisnik.surname }}</label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary" [disabled]="selektovaniKorisniciZaDodavanje.length === 0" (click)="onDodajClanove()">Dodaj Selektovane</button>
+            <button class="btn btn-danger" (click)="isAddingMembers = false">Otkaži</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- Prikaz ako korisnik NEMA tim -->
+  <ng-template #nemaEkipe>
+    <div *ngIf="!isLoading" class="content-wrapper no-team-view">
+      <!-- Poruka i dugme za kreiranje tima -->
+      <div class="main-card no-team-card" *ngIf="!isCreatingTeam">
+        <h2>Niste član nijedne ekipe</h2>
+        <p>Možete kreirati svoju ekipu ili se pridružiti nekoj od postojećih (kontaktirajte kreatora).</p>
+        <button class="btn btn-primary main-action-btn" (click)="pokreniKreiranjeTima()">Kreiraj svoju ekipu!</button>
+      </div>
+
+      <!-- Forma za kreiranje tima -->
+      <div *ngIf="isCreatingTeam" class="main-card create-team-form">
+          <h2>Kreiranje nove ekipe</h2>
+          <div class="form-group">
+            <label for="teamName">Naziv ekipe</label>
+            <input type="text" id="teamName" class="form-control" [(ngModel)]="noviNazivEkipe" placeholder="Unesite naziv ekipe">
+          </div>
+          <div class="form-group" *ngIf="slobodniKorisnici.length > 0">
+            <label>Opciono: Odmah dodajte članove</label>
+            <div class="user-selection-list">
+              <div *ngFor="let korisnik of slobodniKorisnici" class="user-item form-check">
+                  <input class="form-check-input" type="checkbox" [id]="'create-user-check-' + korisnik.id" (change)="toggleUserSelection(korisnik.id)">
+                  <label class="form-check-label" [for]="'create-user-check-' + korisnik.id">{{ korisnik.name }} {{ korisnik.surname }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+              <button class="btn btn-primary" [disabled]="noviNazivEkipe.trim() === ''" (click)="onKreirajTim()">Kreiraj</button>
+              <button class="btn btn-danger" (click)="isCreatingTeam = false">Otkaži</button>
+          </div>
+      </div>
+
+      <!-- Lista svih postojećih timova -->
+      <div class="main-card all-teams-list">
+        <h2>Postojeće Ekipe</h2>
+        <div class="tim-grid">
+          <div *ngFor="let tim of sveEkipe" class="team-list-item">
+            <h3>{{ tim.name }}</h3>
+            <p><i class="fas fa-users"></i> Broj članova: {{ tim.clanovi?.length || 0 }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div> 

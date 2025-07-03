@@ -213,8 +213,13 @@ public class KorisnikRepository {
             ps.setString(5, k.password);
             ps.setString(6, k.phone_number);
             ps.setDate(7, k.date_of_registration);
-            ps.setInt(8, k.team_id);
+            if (k.team_id != null) {
+                ps.setInt(8, k.team_id);
+            } else {
+                ps.setNull(8, java.sql.Types.INTEGER);
+            }
             ps.setInt(9, k.type_id);
+            ps.setInt(10, korisnik_id);
 
             int affectedRows = ps.executeUpdate();
             if (affectedRows == 0) {
