@@ -9,6 +9,7 @@ import { AdminComponent } from './components/pages/admin/admin.component';
 import { NotificationsComponent } from './components/pages/notifications/notifications.component';
 import { authGuard } from "./guards/auth.guard";
 import { warnGuard } from "./guards/warn.guard";
+import { RezervacijaComponent } from './components/pages/rezervacija/rezervacija.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'about', component: AboutComponent},
   {path: 'teren', component: TerenComponent, canActivate:[authGuard]},
   {path: 'admin/:id', component: AdminComponent, canActivate:[authGuard]},
-  {path: 'notifications', component: NotificationsComponent}
+  {path: 'notifications', component: NotificationsComponent},
+  {path: 'rezervacija/:id', component: RezervacijaComponent}
 ];
 
 @NgModule({
