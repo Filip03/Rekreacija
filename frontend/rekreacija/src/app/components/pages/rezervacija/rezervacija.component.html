@@ -1,1 +1,18 @@
-<p>rezervacija works!</p>
+<div id="page-div">
+    <div id="reservation-div">
+        <div style="display: contents;">
+            <ngb-datepicker [(ngModel)]="pickedDate"></ngb-datepicker>
+            <div style="height: 100%; width: 40%; display: flex; flex-direction: column; align-items: center;">
+                <input type="time" [(ngModel)]="startTime" class="time-picker" id="start-time-picker"/>
+                <input type="time" [(ngModel)]="endTime" class="time-picker" id="end-time-picker"/>
+                <button id="reserve-btn">Zakaži</button>
+            </div>
+        </div>
+    </div>
+    <div id="info-div">
+
+    </div>
+</div>
+
+
+

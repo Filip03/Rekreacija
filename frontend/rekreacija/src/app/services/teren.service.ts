@@ -15,4 +15,9 @@ export class TerenService {
   getTereni(): Observable<Teren[]> {
     return this.http.get<Teren[]>(this.apiUrl);
   }
+
+  getTerenById(id: number): Observable<Teren> {
+    const url = `${this.apiUrl}/${id}`; // backend endpoint is /api/teren/{id}
+    return this.http.get<Teren>(url);
+  }
 }

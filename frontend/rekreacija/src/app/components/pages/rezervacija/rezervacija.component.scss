@@ -1,0 +1,114 @@
+#page-div {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#reservation-div {
+    height: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.football {
+    background-image: url('/assets/football-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.basketball {
+    background-image: url('/assets/basketball-bg.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.tennis {
+    background-image: url('/assets/tennis-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#info-div {
+    background-color: blue;
+    height: 100%;
+    width: 30%;
+}
+
+ngb-datepicker {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
+    border: none;
+}
+
+ngb-datepicker:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+:host ::ng-deep .ngb-dp-header,
+:host ::ng-deep .ngb-dp-weekdays {
+    background-color: #308c26;
+}
+
+:host ::ng-deep .ngb-dp-arrow-btn,
+:host ::ng-deep .ngb-dp-weekday {
+    color: white;
+}
+
+:host ::ng-deep .ngb-dp-arrow-btn:hover {
+    color: rgb(206, 206, 206);
+}
+
+.time-picker {
+    margin: 5%;
+    // margin-left: 25%;
+    width: 10rem;
+    border-color: rgb(230, 230, 230);
+    border-radius: 12px;
+    // padding-left: -1rem;
+    text-align: center;
+    font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+.time-picker:hover {
+    background-color: rgb(224, 224, 224);
+}
+
+#start-time-picker {
+    margin-top: 35%;
+}
+
+#end-time-picker {
+    margin-top: 5%;
+    margin-bottom: 20%;
+}
+
+#reserve-btn {
+    display: inline-block;
+    background: #308c26;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+    // width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 1rem;
+    transform: scale(1);
+
+    &:hover {
+        background: #25692b;
+        transform: scale(1.05);
+    }
+}
+

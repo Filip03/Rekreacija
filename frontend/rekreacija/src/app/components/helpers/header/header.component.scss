@@ -61,3 +61,73 @@ button{
   transform: scale(1.15);
   cursor: pointer;
 }
+
+/* Mobile and tablet responsive design - center right side elements below navigation */
+@media (max-width: 1024px) {
+  /* Override Bootstrap's flex behavior completely */
+  .container-fluid .d-flex {
+    display: block !important;
+    text-align: center;
+  }
+
+  /* Logo aligned to left */
+  .fw-bold {
+    display: block !important;
+    margin-bottom: 1rem;
+    text-align: left !important;
+    width: 100%;
+  }
+
+  .fw-bold a {
+    justify-content: flex-start !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Navigation menu in the middle */
+  .nav {
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Right side elements - create inline container */
+  .admin-panel,
+  .notification-wrapper,
+  .dropdown {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+  }
+
+  /* Fix notification wrapper to not stack */
+  .notification-wrapper {
+    flex-direction: row !important;
+  }
+
+  /* Mobile dropdown positioning - right edge beneath header */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown .dropdown-menu {
+    position: fixed !important;
+    top: auto !important;
+    right: 0 !important;
+    left: auto !important;
+    margin-top: 0.5rem !important;
+    transform: none !important;
+    min-width: 200px;
+    max-width: 250px;
+  }
+
+  /* Ensure dropdown appears below header */
+  .dropdown.show .dropdown-menu {
+    display: block !important;
+    position: fixed !important;
+    top: 100px !important; /* Adjust based on your header height */
+    right: 1rem !important;
+    left: auto !important;
+  }
+}

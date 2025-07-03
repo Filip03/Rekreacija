@@ -15,6 +15,7 @@ import {AuthModalComponent} from "./modals/auth-modal/auth-modal.component";
 import { TerenComponent } from './components/pages/teren/teren.component';
 import { LinkifyPipe } from './pipes/linkify.pipe';
 import { RezervacijaComponent } from './components/pages/rezervacija/rezervacija.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RezervacijaComponent } from './components/pages/rezervacija/rezervacija
     CommonModule, AuthModalComponent,
     HttpClientModule,
     LinkifyPipe,
+    NgbModule,
   ],
   providers: [provideHttpClient(withInterceptors([
               authInterceptor

@@ -32,15 +32,6 @@ const tennisIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-interface Balon {
-  name: string;
-  coordinatesX: number;
-  coordinatesY: number;
-  imageUrl: string;
-  linkUrl2: string;
-  linkText2: string;
-}
-
 @Component({
   selector: 'app-teren',
   templateUrl: './teren.component.html',
