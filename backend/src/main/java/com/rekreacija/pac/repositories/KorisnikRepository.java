@@ -280,4 +280,37 @@ public class KorisnikRepository {
         }
         return result;
     }
+
+    public int updateProfile(int korisnik_id, String new_username, String new_phone_number){
+        Connection con = null;
+        int result = -1;
+        PreparedStatement ps = null;
+
+        try{
+            con = DBUtil.openConnection();
+            String commandText = "UPDATE korisnik SET username = ?, phone_number = ? WHERE id = ?";
+            ps = con.prepareStatement(commandText);
+            ps.setString(1, new_username);
+            ps.setString(2, new_phone_number);
+            ps.setInt(3, korisnik_id);
+
+            result = ps.executeUpdate();
+            ps.close();
+            con.close();
+        }
+        catch (Exception e){
+            result = -1;
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                if(ps!=null) ps.close();
+                if(con!=null) con.close();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

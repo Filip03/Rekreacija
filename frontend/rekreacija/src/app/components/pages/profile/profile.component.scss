@@ -1,0 +1,173 @@
+/* Definicija boja */
+$primary-green: #28a745;
+$main-white: #ffffff;
+$text-color: #333;
+$shadow-color: rgba(0, 0, 0, 0.3);
+$light-gray: #f8f9fa;
+$border-color: #dee2e6;
+$disabled-bg-color: #e9ecef;
+$disabled-text-color: #6c757d;
+$secondary-blue: #007bff;
+
+/* Omotač koji centira sve */
+.profile-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 85vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: $light-gray;
+}
+
+/* Glavni kontejner forme - VAŽNA PROMENA: padding: 0 */
+.profile-container {
+  background-color: $main-white;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px $shadow-color;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden; // Da bi border-radius radio sa slikom
+  padding: 0; // Uklanjamo padding da bi slika išla od ivice do ivice
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================================= */
+/* ==       STILOVI ZA NOVI BANNER I AVATAR               == */
+/* ========================================================= */
+.profile-header {
+  position: relative;
+  height: 180px;
+  // OBAVEZNO STAVI ISPRAVNU PUTANJU DO SVOJE SLIKE!
+  // Slika treba da bude u src/assets/images/
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 60px; // Pravi prostor za avatar koji viri
+}
+
+.profile-avatar {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: $main-white;
+  border: 5px solid $main-white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+/* ========================================================= */
+/* OSTATAK STILOVA                                           */
+/* ========================================================= */
+
+/* Sadržaj forme sada ima svoj padding */
+.profile-body {
+  padding: 2rem 2.5rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 3rem 0;
+  font-size: 1.2rem;
+  color: $primary-green;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid $border-color;
+  margin: 1.5rem 0;
+}
+
+.info-group,
+.form-group {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: $disabled-text-color;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+
+    &[readonly] {
+      background-color: $disabled-bg-color;
+      color: $disabled-text-color;
+      cursor: not-allowed;
+    }
+
+    &:not([readonly]):focus {
+      outline: none;
+      border-color: $secondary-blue;
+      box-shadow: 0 0 0 3px rgba($secondary-blue, 0.2);
+    }
+  }
+}
+
+form h3 {
+  font-size: 1.2rem;
+  color: $primary-green;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background-color: $primary-green;
+  color: $main-white;
+  border-color: $primary-green;
+
+  &:hover:not(:disabled) {
+    background-color: $main-white;
+    color: $primary-green;
+  }
+}

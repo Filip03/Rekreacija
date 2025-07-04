@@ -10,6 +10,7 @@ import { TeamComponent } from './components/pages/team/team.component';
 import { NotificationsComponent } from './components/pages/notifications/notifications.component';
 import { authGuard } from "./guards/auth.guard";
 import { warnGuard } from "./guards/warn.guard";
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'teren', component: TerenComponent, canActivate:[authGuard]},
   {path: 'admin/:id', component: AdminComponent, canActivate:[authGuard]},
   {path: 'notifications', component: NotificationsComponent},
-  {path: 'ekipa', component: TeamComponent, canActivate:[authGuard]}
+  {path: 'ekipa', component: TeamComponent, canActivate:[authGuard]},
+  {path: 'profil', component: ProfileComponent, canActivate:[authGuard]}
 ];
 
 @NgModule({
