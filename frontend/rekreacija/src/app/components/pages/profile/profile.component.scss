@@ -19,6 +19,10 @@ $secondary-blue: #007bff;
   padding: 2rem;
   box-sizing: border-box;
   background-color: $light-gray;
+  background-image: url('/assets/sport.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Glavni kontejner forme - VAŽNA PROMENA: padding: 0 */
@@ -52,7 +56,7 @@ $secondary-blue: #007bff;
   height: 180px;
   // OBAVEZNO STAVI ISPRAVNU PUTANJU DO SVOJE SLIKE!
   // Slika treba da bude u src/assets/images/
-  background-image: url('/assets/background.jpg');
+  background-image: url('/assets/sport-quote.png');
   background-size: cover;
   background-position: center;
   margin-bottom: 60px; // Pravi prostor za avatar koji viri

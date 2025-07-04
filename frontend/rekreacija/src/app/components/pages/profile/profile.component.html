@@ -32,7 +32,7 @@
 
         <!-- Forma za izmenu -->
         <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-          <h3>Izmenite podatke</h3>
+          <h3>Izmijenite podatke</h3>
           <div class="form-group">
             <label for="username">Korisničko ime:</label>
             <input id="username" type="text" formControlName="username">
@@ -44,7 +44,7 @@
 
           <!-- Glavno dugme stranice -->
           <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid || !profileForm.dirty">
-            Sačuvaj izmene
+            Sačuvaj izmjene
           </button>
         </form>
       </div>
