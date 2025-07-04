@@ -43,4 +43,8 @@ public class KorisnikService {
         int result = this.korisnikRepository.deleteKorisnik(id);
         return result;
     }
+
+    public int updateProfile(int korisnik_id, String new_username, String new_phone_number){
+        return this.korisnikRepository.updateProfile(korisnik_id, new_username, new_phone_number);
+    }
 }

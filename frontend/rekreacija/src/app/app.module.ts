@@ -7,7 +7,7 @@ import { FooterComponent } from './components/helpers/footer/footer.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { NgOptimizedImage, CommonModule} from "@angular/common";
-import { FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi, HttpClientModule, HttpClient} from "@angular/common/http";
 import { authInterceptor} from "./interceptors/auth.interceptor";
@@ -30,6 +30,7 @@ import { LinkifyPipe } from './pipes/linkify.pipe';
     AppRoutingModule,
     NgOptimizedImage,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule, AuthModalComponent,
     HttpClientModule,

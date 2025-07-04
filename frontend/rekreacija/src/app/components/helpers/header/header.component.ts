@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showAdminIcon: boolean = false;
   private tokenSub!: Subscription;
 
-  constructor(private router: Router, private tokenService: TokenService) {}
+  constructor(private router: Router, public tokenService: TokenService) {}
 
   ngOnInit(): void {
     this.tokenSub = this.tokenService.tokenChange$.subscribe(token => {

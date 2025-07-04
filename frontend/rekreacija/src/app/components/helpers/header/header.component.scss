@@ -2,6 +2,19 @@ header{
   background-color: #308c26;
 }
 
+.profile-icon-link {
+  color: white; // Boja ikonice
+  font-size: 28px; // Veličina ikonice, slično kao admin ikonica
+  margin: 0 15px; // Razmak od drugih elemenata
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    color: #ffc107; // Sekundarna žuta boja na hover
+  }
+}
+
 button{
   background-color: transparent;
   color: black;
