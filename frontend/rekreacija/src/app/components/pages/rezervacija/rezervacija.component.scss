@@ -8,15 +8,16 @@
     height: 100%;
     width: 70%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 4%;
 }
 
 .football {
     background-image: url('/assets/football-bg.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
 }
 
@@ -35,12 +36,34 @@
 }
 
 #info-div {
-    background-color: blue;
     height: 100%;
     width: 30%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 72.8vh;
+    overflow-y: auto;
+    font-size: 1rem;
+}
+
+.separator-line {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.738);
+    margin: 0;
+    width: 100%;
+  }
+
+h1 {
+    margin: 1rem;
+    color: white;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 ngb-datepicker {
+    margin-left: 45%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.233);
     border: none;
@@ -66,13 +89,19 @@ ngb-datepicker:hover {
     color: rgb(206, 206, 206);
 }
 
+h3 {
+    color: white; 
+    font-family: "Special Gothic Expanded One", sans-serif; 
+    font-size: 1.2rem; 
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
 .time-picker {
     margin: 5%;
-    // margin-left: 25%;
     width: 10rem;
     border-color: rgb(230, 230, 230);
     border-radius: 12px;
-    // padding-left: -1rem;
     text-align: center;
     font-family: "Special Gothic Expanded One", sans-serif;
 }
@@ -82,7 +111,7 @@ ngb-datepicker:hover {
 }
 
 #start-time-picker {
-    margin-top: 35%;
+    margin-top: 20%;
 }
 
 #end-time-picker {
@@ -91,6 +120,7 @@ ngb-datepicker:hover {
 }
 
 #reserve-btn {
+    margin-top: 20%;
     display: inline-block;
     background: #308c26;
     color: white;
@@ -100,7 +130,6 @@ ngb-datepicker:hover {
     font-weight: bold;
     text-align: center;
     transition: all 0.3s ease;
-    // width: 100%;
     box-sizing: border-box;
     cursor: pointer;
     font-size: 1rem;
@@ -110,5 +139,39 @@ ngb-datepicker:hover {
         background: #25692b;
         transform: scale(1.05);
     }
+}
+
+ng-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.star-rating {
+    display: flex;
+    font-size: 2rem;
+    cursor: pointer;
+}
+  
+.star-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.3em;
+}
+
+.star-wrapper .fa-star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #f8d64e;
+    overflow: hidden;
+    display: block;
+}
+
+.star-wrapper .far.fa-star {
+    color: #ccc;
+    display: block;
 }
 

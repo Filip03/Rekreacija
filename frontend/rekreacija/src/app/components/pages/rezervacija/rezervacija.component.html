@@ -1,16 +1,48 @@
 <div id="page-div">
-    <div id="reservation-div">
-        <div style="display: contents;">
+    <div id="reservation-div" [class.open]="teren">
+        <h1>{{teren?.name}}</h1>
+        <div style="display: flex; flex-direction: row; gap: 2rem; width: 50%;">
             <ngb-datepicker [(ngModel)]="pickedDate"></ngb-datepicker>
-            <div style="height: 100%; width: 40%; display: flex; flex-direction: column; align-items: center;">
+            <div style="height: 100%; width: 60%; display: flex; flex-direction: column; align-items: center;">
+                <h3>Izaberite vrijeme:</h3>
                 <input type="time" [(ngModel)]="startTime" class="time-picker" id="start-time-picker"/>
                 <input type="time" [(ngModel)]="endTime" class="time-picker" id="end-time-picker"/>
-                <button id="reserve-btn">Zakaži</button>
+                <button id="reserve-btn" (click)="rezervisi()">Zakaži</button>
+                <!-- <p *ngIf="zauzet" style="color: red; ">Termin je već zauzet. Molimo izaberite drugi.</p> -->
             </div>
         </div>
     </div>
-    <div id="info-div">
+    <div id="info-div" [class.open]="teren" [class.open]="owner">
+        <h2 style="color: #308c26; font-family: 'Special Gothic Expanded One', sans-serif; font-weight: bold;">Podaci o vlasniku</h2>
+        <p style="margin: 0;"><b>Ime: </b>{{owner?.name}} {{owner?.surname}}</p>
+        <p style="margin: 0;"><b>E-mail: </b>{{owner?.email}}</p>
+        <!-- <p style="margin: 0;"><b>Broj telefona: </b>{{owner.phone_number}}</p> -->
 
+        <hr class="separator-line">
+
+        <h2 style="color: #308c26; font-family: 'Special Gothic Expanded One', sans-serif; font-weight: bold;">Teren info</h2>
+        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <img src="{{teren?.img_url}}" alt="{{teren?.name}}" style="width: 100%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.712);">
+        </div>
+        <p style="margin: 0;">{{teren?.description}}</p>
+        <b style="margin: 0;">Ocjena:</b>
+        <div class="star-rating">
+            <ng-container *ngFor="let star of stars; let i = index">
+                <div class="star-wrapper"
+                    (click)="setRating(i + 1)"
+                    (mouseenter)="hoverRating = i + 1"
+                    (mouseleave)="hoverRating = 0">
+                <i class="far fa-star"></i>
+                <i class="fas fa-star"
+                    [ngStyle]="{'width': getStarFill(i)}">
+                </i>
+                </div>
+            </ng-container>
+        </div>
+        <p style="margin: 0;"><b>Kontakt: </b>{{teren?.contact}}</p>
+        <p style="margin: 0;"><b>Adresa: </b>{{teren?.adress}}</p>
+        <p style="margin: 0;"><b>Kvart: </b>{{teren?.area}}</p>
+        
     </div>
 </div>
 
