@@ -11,6 +11,7 @@ import { NotificationsComponent } from './components/pages/notifications/notific
 import { authGuard } from "./guards/auth.guard";
 import { warnGuard } from "./guards/warn.guard";
 import { ProfileComponent } from './components/pages/profile/profile.component';
+import { RezervacijaComponent } from './components/pages/rezervacija/rezervacija.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'notifications', component: NotificationsComponent},
   {path: 'ekipa', component: TeamComponent, canActivate:[authGuard]},
   {path: 'profil', component: ProfileComponent, canActivate:[authGuard]}
+  {path: 'rezervacija/:id', component: RezervacijaComponent}
 ];
 
 @NgModule({
