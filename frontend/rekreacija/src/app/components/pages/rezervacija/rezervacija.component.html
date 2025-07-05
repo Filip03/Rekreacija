@@ -1,9 +1,10 @@
 <div id="page-div">
     <div id="reservation-div" [class.open]="teren">
         <h1>{{teren?.name}}</h1>
-        <div style="display: flex; flex-direction: row; gap: 2rem; width: 50%;">
+        <!-- Responsive: wrap only for mobile, keep row for desktop -->
+        <div class="calendar-time-container">
             <ngb-datepicker [(ngModel)]="pickedDate"></ngb-datepicker>
-            <div style="height: 100%; width: 60%; display: flex; flex-direction: column; align-items: center;">
+            <div class="time-picker-container">
                 <h3>Izaberite vrijeme:</h3>
                 <input type="time" [(ngModel)]="startTime" class="time-picker" id="start-time-picker"/>
                 <input type="time" [(ngModel)]="endTime" class="time-picker" id="end-time-picker"/>
