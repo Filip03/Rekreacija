@@ -1,5 +1,5 @@
 export interface Rezervacija {
-  id: number;
+  id?: number;
   status: string; // 'potvrdjena', 'na cekanju', 'otkazana' itd.
   start_date: string; // LocalDateTime će doći kao ISO string
   end_date: string;

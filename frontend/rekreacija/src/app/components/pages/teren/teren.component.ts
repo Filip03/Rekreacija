@@ -32,15 +32,6 @@ const tennisIcon = L.icon({
   shadowSize: [41, 41]
 });
 
-interface Balon {
-  name: string;
-  coordinatesX: number;
-  coordinatesY: number;
-  imageUrl: string;
-  linkUrl2: string;
-  linkText2: string;
-}
-
 @Component({
   selector: 'app-teren',
   templateUrl: './teren.component.html',
@@ -54,6 +45,7 @@ export class TerenComponent implements OnInit {
   public selectedTeren: Teren | null = null;
   public openInfo: Boolean = false;
   public tereni: Teren[] = [];
+  public clickCommand: String = '';
 
   constructor(private terenService: TerenService) { }
 
@@ -88,7 +80,7 @@ export class TerenComponent implements OnInit {
         <img src="${place.img_url}" alt="${place.name}" style="width:200px;max-width:200px;"><br>
         <div style="margin-top: 10px; display: flex; gap: 8px; justify-content: space-between;">
           <button class="info-link popup-btn info-btn">Više o terenu</button>
-          <button onclick="window.open('/termin', '_blank')" class="popup-btn schedule-btn">Zakaži termin</button>
+          <button onclick="window.location.href='/rezervacija/${place.id}'" class="popup-btn schedule-btn">Zakaži termin</button>
         </div>
       `;
       const xCoord = Number(place.coordinates_x);
@@ -160,8 +152,10 @@ export class TerenComponent implements OnInit {
     this.selectedTeren = null;
   }
 
-  public zakaziTermin() {
-    window.open('/termin', '_blank');
+  public goToRezervacija(id: number | undefined | null) {
+    if (id != null) {
+      window.location.href = `/rezervacija/${id}`;
+    }
   }
 
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/rezerviacija")
+@RequestMapping("/api/rezervacija")
 @CrossOrigin("*")
 public class RezervacijaController {
 

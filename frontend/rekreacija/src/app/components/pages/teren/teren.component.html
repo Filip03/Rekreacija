@@ -6,7 +6,9 @@
         <p><strong>Adresa: </strong> {{ selectedTeren?.adress }}</p>
         <p><strong>Kontakt: </strong> {{ selectedTeren?.contact }} </p>
         <p>{{selectedTeren?.description}}</p>
-        <button class="action-btn" (click)="zakaziTermin()">Zakaži termin</button>
+        <button (click)="goToRezervacija(selectedTeren?.id)" class="action-btn">
+            Zakaži termin
+        </button>
     </div>
 </div>
 
