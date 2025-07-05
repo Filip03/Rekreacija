@@ -12,7 +12,7 @@ import { Rezervacija } from '../models/rezervacija';
 export class EkipaService {
   private ekipaApiUrl = `${environment.API_URL}/api/ekipa`;
   private korisnikApiUrl = `${environment.API_URL}/api/korisnik`;
-  private rezervacijaApiUrl = `${environment.API_URL}/api/rezerviacija`;
+  private rezervacijaApiUrl = `${environment.API_URL}/api/rezervacija`;
 
   constructor(private http: HttpClient) { }
 

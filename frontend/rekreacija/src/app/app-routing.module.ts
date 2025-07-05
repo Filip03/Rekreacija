@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'admin/:id', component: AdminComponent, canActivate:[authGuard]},
   {path: 'notifications', component: NotificationsComponent},
   {path: 'ekipa', component: TeamComponent, canActivate:[authGuard]},
-  {path: 'profil', component: ProfileComponent, canActivate:[authGuard]}
+  {path: 'profil', component: ProfileComponent, canActivate:[authGuard]},
   {path: 'rezervacija/:id', component: RezervacijaComponent}
 ];
 
