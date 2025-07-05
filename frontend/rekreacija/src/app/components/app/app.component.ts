@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/services/token.service';
 import { environment } from 'src/app/environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -30,7 +31,8 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,18 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     this.authService.modalCallback = (resolve: (result: boolean) => void) => {
       this.authModal.openModal(resolve);
     };
+
+    // Intercept chatbot links for Angular routing
+    if (this.chatbotBox) {
+      this.chatbotBox.nativeElement.addEventListener('click', (event: Event) => {
+        const target = event.target as HTMLElement;
+        if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('/')) {
+          event.preventDefault();
+          this.router.navigateByUrl(target.getAttribute('href')!);
+          this.isChatbotVisible = false;
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {
