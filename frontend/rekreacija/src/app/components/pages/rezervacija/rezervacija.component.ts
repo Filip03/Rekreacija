@@ -17,8 +17,8 @@ import { TokenService } from 'src/app/services/token.service';
 export class RezervacijaComponent implements OnInit {
   terenId: number | null = null;
   public pickedDate: any = undefined;
-  public startTime: string | null = null;
-  public endTime: string | null = null;
+  public startTime: string = "";
+  public endTime: string = "";
   public teren : Teren | null = null;
   public owner: any = null;
   public uid: number | undefined = undefined;
@@ -67,8 +67,20 @@ export class RezervacijaComponent implements OnInit {
   }
 
   rezervisi() {
-    const formatedStartDate = this.formatDateTime(this.pickedDate, this.startTime!);
-    const formatedEndDate = this.formatDateTime(this.pickedDate, this.endTime!);
+    // Validation: Check if all fields are selected
+    if (!this.pickedDate || this.startTime === "" || this.endTime === "") {
+      alert('Molimo izaberite datum i oba vremena.');
+      return;
+    }
+
+    // Validation: Check if end time is after start time
+    if (this.startTime >= this.endTime) {
+      alert('Završno vrijeme mora biti nakon početnog vremena.');
+      return;
+    }
+
+    const formatedStartDate = this.formatDateTime(this.pickedDate, this.startTime);
+    const formatedEndDate = this.formatDateTime(this.pickedDate, this.endTime);
     const newReservation: Rezervacija = {
       status: "zauzeto",
       // start_date: `${this.pickedDate}T${this.startTime}`,
@@ -85,7 +97,7 @@ export class RezervacijaComponent implements OnInit {
 
     this.rezervacijaService.insertRezervacija(newReservation).subscribe({
       next: response => {
-        this.pickedDate = '';
+        this.pickedDate = undefined;
         this.startTime = '';
         this.endTime = '';
         this.zauzet = false;

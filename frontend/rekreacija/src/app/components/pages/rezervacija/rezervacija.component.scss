@@ -119,10 +119,26 @@ h3 {
     border-radius: 12px;
     text-align: center;
     font-family: "Special Gothic Expanded One", sans-serif;
+    padding: 8px 12px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23999" d="M6 9L1.5 4.5h9z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
 }
 
 .time-picker:hover {
     background-color: rgb(224, 224, 224);
+    border-color: #308c26;
+}
+
+.time-picker:focus {
+    outline: none;
+    border-color: #308c26;
+    box-shadow: 0 0 5px rgba(48, 140, 38, 0.3);
 }
 
 #start-time-picker {
@@ -256,6 +272,7 @@ ng-container {
     font-size: 1rem;
     box-sizing: border-box;
     position: static !important;
+    padding: 12px;
   }
 
   #reserve-btn {
