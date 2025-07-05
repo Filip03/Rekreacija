@@ -34,6 +34,3 @@ build/
 
 /src/main/resources/application.properties
 
-/src/main/java/com/rekreacija/pac/controllers/ChatbotController.java
-/src/main/java/com/rekreacija/pac/services/ChatGptService.java
-/src/main/java/com/rekreacija/pac/DBUtil.java
