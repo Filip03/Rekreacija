@@ -34,9 +34,10 @@ public class ChatbotController {
                 Ako korisnik nije naveo tip terena (kosarka, tenis, fudbal) gledaj da nadjes po 1 najblizi teren za sva tri sporta. Za svaki teren navedi koji je tip (fudbal, tenis, kosarka).
                 Ako je naveo tip terena, onda vrati maksimalno 3 najbliza terena (ako navedena lokacija nije blizu nijednog terena, vrati 1 najblizi)
                 Tipovi terena oznaceni su kolonom type: 1-fudbal; 2-kosarka; 3-tenis.
-                Kada vracas podatke vrati name, description, adress, contact.
+                Kada vracas podatke vrati name, adress, contact.
                 Za svaki teren na kraju dodaj i Link: /rezervacija/id, pri cemu je id zapravo id iz json fajla za taj teren.
-                Ako pitanje nije o lokaciji, već o sajtu, koristi opis sajta (descrption.txt).
+                Ako pitanje nije o lokaciji, već o sajtu, koristi opis sajta (descrption.txt). Nemoj uvijek da odgovaras sa potpunim opisom.
+                Ako korisnika interesuje samo dio, npr. kako se termini zakazuju, onda samo odgovori kako se termini zakazuju.
 
                 PODACI O TERENIMA:
                 %s

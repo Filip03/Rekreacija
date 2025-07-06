@@ -5,6 +5,7 @@ import { environment } from '../environments/environment';
 import { Ekipa } from '../models/ekipa';
 import { Korisnik } from '../models/korisnik';
 import { Rezervacija } from '../models/rezervacija';
+import { Teren } from '../models/teren.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class EkipaService {
   private ekipaApiUrl = `${environment.API_URL}/api/ekipa`;
   private korisnikApiUrl = `${environment.API_URL}/api/korisnik`;
   private rezervacijaApiUrl = `${environment.API_URL}/api/rezervacija`;
+  private terenApiUrl = `${environment.API_URL}/api/teren`
 
   constructor(private http: HttpClient) { }
 
@@ -84,5 +86,13 @@ export class EkipaService {
 
   kreirajEkipuSaClanovima(request: { name: string, creator_id: number, clanoviIds: number[] }): Observable<Ekipa> {
     return this.http.post<Ekipa>(`${this.ekipaApiUrl}/sveobuhvatno`, request);
+  }
+
+  obrisiEkipu(id: number) {
+    return this.http.delete(`${this.ekipaApiUrl}/${id}`);
+  }
+
+  getTerenById(id: number): Observable<Teren>{
+    return this.http.get<Teren>(`${this.terenApiUrl}/${id}`);
   }
 }

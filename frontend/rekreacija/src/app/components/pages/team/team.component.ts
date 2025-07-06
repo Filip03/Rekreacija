@@ -3,6 +3,7 @@ import { EkipaService } from 'src/app/services/team.service';
 import { Ekipa } from 'src/app/models/ekipa';
 import { Korisnik } from 'src/app/models/korisnik';
 import { Rezervacija } from 'src/app/models/rezervacija';
+import { Teren } from 'src/app/models/teren.model';
 import { finalize, forkJoin, switchMap, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -25,6 +26,7 @@ export class TeamComponent implements OnInit {
   ekipa: Ekipa | null = null;
   sveEkipe: Ekipa[] = [];
   terminiEkipe: { odigrani: Rezervacija[], zakazani: Rezervacija[] } = { odigrani: [], zakazani: [] };
+  tereniMap: Map<number, Teren> = new Map(); // Map za čuvanje terena po ID-u
   
   isLoading = true;
   isEditingName = false;
@@ -102,6 +104,43 @@ ngOnInit(): void {
   ucitajPodatkeEkipe(ekipaId: number): void {
     this.isLoading = true;
     this.ekipaService.getPodaciZaEkipu(ekipaId).pipe(
+      switchMap(data => {
+        if (!data) return of(null);
+        
+        this.ekipa = data.ekipa;
+        this.noviNazivEkipe = data.ekipa.name;
+        
+        const sada = new Date();
+        // Razdvaja termine na odigrane (u prošlosti) i zakazane (u budućnosti)
+        this.terminiEkipe.odigrani = data.termini
+          .filter(t => new Date(t.start_date) < sada)
+          .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
+        
+        this.terminiEkipe.zakazani = data.termini
+          .filter(t => new Date(t.start_date) >= sada)
+          .sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
+
+        // Dohvati jedinstvene pitch_id-jeve iz svih termina
+        const sviTermini = [...this.terminiEkipe.odigrani, ...this.terminiEkipe.zakazani];
+        const jedinstveniPitchIds = [...new Set(sviTermini.map(t => t.pitch_id))];
+        
+        // Ako nema termina, nema potrebe za dohvatanjem terena
+        if (jedinstveniPitchIds.length === 0) {
+          return of(null);
+        }
+
+        // Kreiraj observables za dohvatanje informacija o terenima
+        const terenObservables = jedinstveniPitchIds.map(pitchId => 
+          this.ekipaService.getTerenById(pitchId).pipe(
+            catchError(error => {
+              console.error(`Greška pri dohvatanju terena sa ID ${pitchId}:`, error);
+              return of(null); // Vraća null ako se dogodi greška
+            })
+          )
+        );
+
+        return forkJoin(terenObservables);
+      }),
       finalize(() => this.isLoading = false),
       catchError(error => {
         console.error('Greška pri učitavanju podataka ekipe:', error);
@@ -109,15 +148,14 @@ ngOnInit(): void {
         this.resetToNoTeamView();
         return of(null);
       })
-    ).subscribe(data => {
-      if (data) {
-        this.ekipa = data.ekipa;
-        this.noviNazivEkipe = data.ekipa.name;
-        
-        const sada = new Date();
-        // Razdvaja termine na odigrane (u prošlosti) i zakazane (u budućnosti)
-        this.terminiEkipe.odigrani = data.termini.filter(t => new Date(t.start_date) < sada);
-        this.terminiEkipe.zakazani = data.termini.filter(t => new Date(t.start_date) >= sada);
+    ).subscribe(tereni => {
+      if (tereni) {
+        // Popuni mapu terena
+        tereni.forEach((teren: Teren | null) => {
+          if (teren) {
+            this.tereniMap.set(teren.id, teren);
+          }
+        });
       }
     });
   }
@@ -175,6 +213,55 @@ ngOnInit(): void {
         this.resetToNoTeamView();
       });
     }
+  }
+
+  obrisiEkipu(): void {
+    if (!this.ekipa) return;
+    
+    if (confirm('Da li ste sigurni da želite da obrišete ekipu? Ova akcija je nepovratna.')) {
+      const clanovi = this.ekipa.clanovi || [];
+      
+      if (clanovi.length === 0) {
+        // Ako nema članova, direktno briši ekipu
+        this.izbrisiEkipuSaBackenda();
+        return;
+      }
+
+      // Kreiraj observables za ažuriranje svih članova
+      const updateObservables = clanovi.map(clan => {
+        const azuriraniClan = { ...clan, team_id: null };
+        return this.ekipaService.updateKorisnik(clan.id, azuriraniClan);
+      });
+
+      // Izvršava sve update operacije paralelno
+      forkJoin(updateObservables).subscribe({
+        next: () => {
+          // Svi članovi su uspešno ažurirani, sada briši ekipu
+          this.izbrisiEkipuSaBackenda();
+        },
+        error: (error: any) => {
+          console.error('Greška pri ažuriranju članova:', error);
+          alert('Došlo je do greške pri uklanjanju članova iz ekipe.');
+        }
+      });
+    }
+  }
+
+  private izbrisiEkipuSaBackenda(): void {
+    if (!this.ekipa) return;
+    
+    this.ekipaService.obrisiEkipu(this.ekipa.id).subscribe({
+      next: () => {
+        alert('Ekipa je uspješno obrisana.');
+        // Ažuriraj lokalnog korisnika ako je bio član obrisane ekipe
+        this.azurirajKorisnikaULocalStorage({ team_id: null });
+        this.resetToNoTeamView();
+      },
+      error: (error: any) => {
+        console.error('Greška pri brisanju ekipe:', error);
+        alert('Došlo je do greške pri brisanju ekipe.');
+      }
+    });
   }
 
   //Logika za dodavanje i kreiranje
@@ -264,5 +351,11 @@ onKreirajTim(): void {
     } else {
       this.selektovaniKorisniciZaDodavanje.push(userId);
     }
+  }
+
+  // Pomoćna metoda za dobijanje naziva terena
+  getTerenNaziv(pitchId: number): string {
+    const teren = this.tereniMap.get(pitchId);
+    return teren ? teren.name : 'Učitavanje...';
   }
 }

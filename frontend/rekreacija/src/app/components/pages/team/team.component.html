@@ -19,7 +19,9 @@
         <div *ngIf="isEditingName && jeKreator" class="edit-name-form">
           <input type="text" [(ngModel)]="noviNazivEkipe" placeholder="Novi naziv ekipe" class="form-control">
           <button class="btn btn-primary" (click)="onSacuvajIzmeneNaziva()">Sačuvaj</button>
+          <button class="btn btn-danger" (click)="obrisiEkipu()">Obriši ekipu</button>
         </div>
+        
         
         <!-- Akcije za kreatora -->
         <div class="tim-actions" *ngIf="jeKreator">
@@ -28,7 +30,7 @@
                   [class.btn-success]="!isEditingName" 
                   [class.btn-danger]="isEditingName"
                   (click)="isEditingName = !isEditingName">
-            {{ isEditingName ? 'Otkaži' : 'Uredi naziv' }}
+            {{ isEditingName ? 'Otkaži' : 'Uredi ekipu' }}
           </button>
           <!-- KRAJ IZMENE -->
         </div>
@@ -66,7 +68,11 @@
           <h3>Zakazani</h3>
           <ul *ngIf="terminiEkipe.zakazani.length > 0; else nemaZakazanih" class="termini-lista">
             <li *ngFor="let termin of terminiEkipe.zakazani">
-              <i class="far fa-calendar-alt"></i> {{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h
+              <div class="termin-info">
+                <i class="far fa-calendar-alt"></i> 
+                <span class="termin-datum">{{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h</span>
+                <span class="termin-teren">{{ getTerenNaziv(termin.pitch_id) }}</span>
+              </div>
             </li>
           </ul>
           <ng-template #nemaZakazanih><p class="nema-termina">Nema zakazanih termina.</p></ng-template>
@@ -75,7 +81,11 @@
           <h3>Odigrani</h3>
           <ul *ngIf="terminiEkipe.odigrani.length > 0; else nemaOdigranih" class="termini-lista">
              <li *ngFor="let termin of terminiEkipe.odigrani">
-               <i class="fas fa-history"></i> {{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h
+               <div class="termin-info">
+                 <i class="fas fa-history"></i> 
+                 <span class="termin-datum">{{ termin.start_date | date:'dd.MM.yyyy' }} u {{ termin.start_date | date:'HH:mm' }}h</span>
+                 <span class="termin-teren">{{ getTerenNaziv(termin.pitch_id) }}</span>
+               </div>
              </li>
           </ul>
           <ng-template #nemaOdigranih><p class="nema-termina">Nema odigranih termina.</p></ng-template>
