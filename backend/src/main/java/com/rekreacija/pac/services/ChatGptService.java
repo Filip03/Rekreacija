@@ -25,7 +25,7 @@ public class ChatGptService {
 
     public Mono<String> askChatGpt(String prompt) {
         Map<String, Object> requestBody = Map.of(
-                "model", "gpt-3.5-turbo",
+                "model", "gpt-4o",
                 "messages", new Object[]{
                         Map.of("role", "user", "content", prompt)
                 },
