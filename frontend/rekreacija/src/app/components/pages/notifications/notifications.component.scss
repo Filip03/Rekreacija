@@ -5,6 +5,7 @@
     justify-content: flex-start;
     width: 100%;
     height: 100dvh;
+    overflow-y: auto;
 }
 
 .notifications-header {
@@ -39,6 +40,29 @@
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   min-width: 300px;
+  max-height: 60vh; /* Limit height to prevent going behind footer */
+  overflow-y: auto; /* Make entire column scrollable */
+  scrollbar-width: thin;
+  scrollbar-color: #308c26 #f9f9f9;
+}
+
+/* Custom scrollbar for webkit browsers - for entire column */
+.notifications-column::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notifications-column::-webkit-scrollbar-track {
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+
+.notifications-column::-webkit-scrollbar-thumb {
+  background: #308c26;
+  border-radius: 4px;
+}
+
+.notifications-column::-webkit-scrollbar-thumb:hover {
+  background: #267a1e;
 }
 
 .notifications-column h2 {
@@ -60,7 +84,10 @@
 .notifications-column ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
+
+/* Remove the custom scrollbar styling for ul since column handles scrolling now */
 
 .notifications-column li {
   margin-bottom: 1.2rem;
@@ -186,6 +213,8 @@
     width: 100%;
     padding: 1rem;
     margin: 0;
+    max-height: none; /* Remove height constraint on mobile */
+    overflow-y: visible; /* Remove scroll on mobile */
   }
 
   .notifications-column-header {
@@ -284,6 +313,8 @@
 
   .notifications-column {
     padding: 0.8rem;
+    max-height: none; /* Remove height constraint on small mobile */
+    overflow-y: visible; /* Remove scroll on small mobile */
   }
 
   .notifications-column-header h2 {
